@@ -2,7 +2,7 @@ package com.mysport.sportapp.model
 
 import java.util.*
 
-data class Article(
+data class News(
     val source: Source,
     val author: String,
     val title: String,
@@ -13,7 +13,3 @@ data class Article(
     val content: String
 )
 
-data class Source(
-    val id: String,
-    val name: String
-)

@@ -1,7 +1,9 @@
 package com.mysport.sportapp.model
 
+import com.google.gson.annotations.SerializedName
+
 data class NewsResponse(
     val status: String,
     val totalResults: Int,
-    val articles: List<Article>
+    @SerializedName("articles") val news: List<News>
 )
