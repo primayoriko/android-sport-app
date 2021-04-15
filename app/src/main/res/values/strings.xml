@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="base_url">https://newsapi.org/v2/top-headlines</string>
+    <string name="query_category">sports</string>
+    <string name="query_country">id</string>
+    <string name="query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
 </resources>
