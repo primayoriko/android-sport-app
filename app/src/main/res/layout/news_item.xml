@@ -3,15 +3,18 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingRight="3dp"
+    android:paddingLeft="3dp"
     android:paddingBottom="8dp"
     android:paddingTop="4dp">
 
-<ImageView
+    <ImageView
         android:id="@+id/newsImage"
         android:layout_width="0dp"
         android:layout_weight="0.3"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/news_image_desc"/>
 
     <LinearLayout
         android:orientation="vertical"
