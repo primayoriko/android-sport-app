@@ -10,7 +10,7 @@ import com.mysport.sportapp.R
 import com.mysport.sportapp.databinding.NewsItemBinding
 import com.mysport.sportapp.model.News
 
-class NewsAdapter (val newsList: ArrayList<News>):
+class NewsAdapter (private val newsList: List<News>):
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     override fun getItemCount(): Int = newsList.size
 
