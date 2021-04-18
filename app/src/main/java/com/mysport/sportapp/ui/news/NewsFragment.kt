@@ -1,75 +1,84 @@
 package com.mysport.sportapp.ui.news
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.inflate
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
-import com.mysport.sportapp.api.NewsApiClient
-import com.mysport.sportapp.api.NewsApiInterface
+import com.mysport.sportapp.network.NewsApi
 import com.mysport.sportapp.model.News
 import com.mysport.sportapp.model.NewsResponse
+import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.zip.Inflater
 
 class NewsFragment: Fragment() {
-    private val TAG: String = NewsFragment::class.java.canonicalName
+//    private val TAG: String = NewsFragment::class.java.canonicalName
 
     private lateinit var newsViewModel: NewsViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var newsList: List<News>
+
+    companion object {
+        fun newInstance() = NewsFragment()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?){
+        super.onActivityCreated(savedInstanceState)
+
+        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+
+        refreshLayoutNews.setOnRefreshListener {
+            fetchNews()
+
+        }
+
+        fetchNews()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        val view: View = inflater.inflate(R.layout.fragment_news, container, false)
+        return inflater.inflate(R.layout.fragment_news, container, false)
 
-        val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
+    }
 
+    private fun fetchNews(){
         val apiKey: String = resources.getString(R.string.query_api_key)
         val country: String = resources.getString(R.string.query_country)
         val category: String = resources.getString(R.string.query_category)
 
-        val apiInterface: NewsApiInterface =
-            NewsApiClient.getClient().create(NewsApiInterface::class.java)
-
-
-        recyclerView = view.findViewById(R.id.recyclerview)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(view.context, gridColumnCount);
-//        recyclerView.adapter = NewsAdapter();
-        val newsList: List<News> =  getNewsFromApi(apiInterface, country, category, apiKey)
-
-        return view
-    }
-
-    private fun getNewsFromApi(apiInterface: NewsApiInterface,
-              country: String, category: String, apiKey: String): List<News> {
-        val call: Call<NewsResponse> = apiInterface.getNews(country, category, apiKey)
-
-        call.enqueue(object: Callback<NewsResponse> {
+        NewsApi().getNews(country, category, apiKey).enqueue(object : Callback<NewsResponse> {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Log.d("$TAG", "Gagal fetch")
+                refreshLayoutNews.isRefreshing = false
+                Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                newsList = response!!.body()!!.news
+                refreshLayoutNews.isRefreshing = false
+
+                val newsList: List<News> = response.body()!!.news
+
+                showNews(newsList)
 
             }
 
         })
+    }
 
-        return ArrayList<News>()
+    private fun showNews(news: List<News>) {
+        val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
+
+        recyclerViewNews.layoutManager = GridLayoutManager(this.context, gridColumnCount)
+        recyclerViewNews.adapter = NewsAdapter(news)
+//        recyclerViewNews.setHasFixedSize(true)
     }
 }
