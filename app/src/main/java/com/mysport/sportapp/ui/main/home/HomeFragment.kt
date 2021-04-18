@@ -1,4 +1,4 @@
-package com.mysport.sportapp.ui.home
+package com.mysport.sportapp.ui.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
