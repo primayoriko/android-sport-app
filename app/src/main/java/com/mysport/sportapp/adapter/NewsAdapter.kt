@@ -1,14 +1,15 @@
 package com.mysport.sportapp.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.databinding.NewsItemBinding
 import com.mysport.sportapp.model.News
+import com.mysport.sportapp.ui.webnews.WebNewsActivity
 
 class NewsAdapter (private val newsList: List<News>):
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
@@ -22,20 +23,23 @@ class NewsAdapter (private val newsList: List<News>):
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(newsList[position])
+
     }
 
     class NewsViewHolder(itemView: View):
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        RecyclerView.ViewHolder(itemView) {
+
         private var view: View = itemView
-        private var news: News? = null
+        private lateinit var news: News
 
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            TODO("Not yet implemented")
-        }
+//        init {
+//            itemView.setOnClickListener(this)
+//        }
+//        override fun onClick(v: View?) {
+//            val intent = Intent(context, WebNewsActivity::class.java)
+//            intent.putExtra("url", news.url)
+//            context.startActivity(intent)
+//        }
 
         fun bind(news: News){
             this.news = news
@@ -53,6 +57,13 @@ class NewsAdapter (private val newsList: List<News>):
             newsItemBinding.newsTitle.text = news.title
             newsItemBinding.newsAuthor.text = news.author
             Glide.with(view.context).load(imageUrl.toString()).into(newsItemBinding.newsImage)
+
+            view.setOnClickListener(View.OnClickListener {
+                val intent = Intent(view.context, WebNewsActivity::class.java)
+                intent.putExtra("url", news.url)
+
+                view.context.startActivity(intent)
+            })
 
         }
     }

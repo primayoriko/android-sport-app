@@ -1,4 +1,4 @@
-package com.mysport.sportapp.ui.news
+package com.mysport.sportapp.ui.main.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,7 +1,6 @@
-package com.mysport.sportapp.ui.news
+package com.mysport.sportapp.ui.main.news
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
 import com.mysport.sportapp.network.NewsApi
