@@ -9,7 +9,7 @@
     <string name="query_category">sports</string>
     <string name="query_country">id</string>
     <string name="query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
-    <string name="title_activity_web_news">FullscreenActivity</string>
+    <string name="title_activity_web_news">Web News</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- Strings used for fragments for navigation -->
