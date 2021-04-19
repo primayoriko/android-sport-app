@@ -13,11 +13,13 @@ import com.mysport.sportapp.adapter.NewsAdapter
 import com.mysport.sportapp.network.NewsApi
 import com.mysport.sportapp.model.News
 import com.mysport.sportapp.model.NewsResponse
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@AndroidEntryPoint
 class NewsFragment: Fragment() {
 //    private val TAG: String = NewsFragment::class.java.canonicalName
 
