@@ -5,4 +5,7 @@ object Constant {
 
     const val NEWS_BASE_URL = "https://newsapi.org/"
     const val NEWS_BASE_URL_PATH = "v2/top-headlines/"
+
+    const val SHARED_PREFERENCES_NAME = "sharedPref"
+
 }
