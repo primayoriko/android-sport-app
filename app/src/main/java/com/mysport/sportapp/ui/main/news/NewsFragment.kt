@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
-import com.mysport.sportapp.network.NewsApi
-import com.mysport.sportapp.model.News
-import com.mysport.sportapp.model.NewsResponse
+import com.mysport.sportapp.api.NewsApi
+import com.mysport.sportapp.data.News
+import com.mysport.sportapp.data.NewsResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
