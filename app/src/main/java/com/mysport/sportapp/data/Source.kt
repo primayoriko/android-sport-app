@@ -1,4 +1,4 @@
-package com.mysport.sportapp.model
+package com.mysport.sportapp.data
 
 data class Source(
     val id: String,

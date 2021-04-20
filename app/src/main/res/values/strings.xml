@@ -1,23 +1,29 @@
 <resources>
     <string name="app_name">SportApp</string>
     <string name="title_news">News</string>
-    <string name="news_image_desc">News Image</string>
+    <string name="title_tracker">Tracker</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="title_activity_web_news">Web News</string>
+    <string name="news_image_desc">News Image</string>
+
     <string name="base_url">https://newsapi.org/v2/top-headlines</string>
     <string name="query_category">sports</string>
     <string name="query_country">id</string>
     <string name="query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
-    <string name="title_activity_web_news">Web News</string>
+
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name="track_type">
+        <item>Cycling</item>
+        <item>Run</item>
+    </string-array>
+
 </resources>

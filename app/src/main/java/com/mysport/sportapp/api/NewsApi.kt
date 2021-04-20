@@ -1,6 +1,6 @@
-package com.mysport.sportapp.network
+package com.mysport.sportapp.api
 
-import com.mysport.sportapp.model.NewsResponse
+import com.mysport.sportapp.data.NewsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

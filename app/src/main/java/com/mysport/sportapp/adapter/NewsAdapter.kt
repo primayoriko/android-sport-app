@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.databinding.NewsItemBinding
-import com.mysport.sportapp.model.News
+import com.mysport.sportapp.data.News
 import com.mysport.sportapp.ui.webnews.WebNewsActivity
 
 class NewsAdapter (private val newsList: List<News>):

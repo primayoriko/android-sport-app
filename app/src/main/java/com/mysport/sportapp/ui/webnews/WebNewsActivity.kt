@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.mysport.sportapp.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_web_news.*
 import kotlinx.android.synthetic.main.content_web_news.*
 
+@AndroidEntryPoint
 class WebNewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
