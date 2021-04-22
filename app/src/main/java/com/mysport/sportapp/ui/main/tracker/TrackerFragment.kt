@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
+import com.mysport.sportapp.databinding.FragmentTrackerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracker.*
 
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_tracker.*
 @AndroidEntryPoint
 //class TrackerFragment : Fragment(), View.OnClickListener {
 class TrackerFragment : Fragment() {
+
+//    private val binding: FragmentTrackerBinding
 
     companion object {
         fun newInstance() = TrackerFragment()
