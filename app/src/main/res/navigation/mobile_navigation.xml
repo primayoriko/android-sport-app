@@ -15,12 +15,37 @@
         android:id="@+id/navigation_tracker"
         android:name="com.mysport.sportapp.ui.main.tracker.TrackerFragment"
         android:label="@string/title_tracker"
-        tools:layout="@layout/fragment_tracker" />
+        tools:layout="@layout/fragment_tracker" >
+        <action
+            android:id="@+id/action_navigation_tracker_to_cyclingFragment"
+            app:destination="@id/cyclingFragment" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_runningFragment"
+            app:destination="@id/runningFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.mysport.sportapp.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/cyclingFragment"
+        android:name="com.mysport.sportapp.ui.main.tracker.CyclingFragment"
+        android:label="fragment_cycling"
+        tools:layout="@layout/fragment_cycling" >
+        <action
+            android:id="@+id/action_cyclingFragment_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
+    <fragment
+        android:id="@+id/runningFragment"
+        android:name="com.mysport.sportapp.ui.main.tracker.RunningFragment"
+        android:label="fragment_running"
+        tools:layout="@layout/fragment_running" >
+        <action
+            android:id="@+id/action_runningFragment_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
 </navigation>
