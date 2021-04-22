@@ -14,8 +14,11 @@
     <string name="query_country">id</string>
     <string name="query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="text_track_selection">Select Training Tracker</string>
+    <string name="button_select_cycling">Cycling</string>
+    <string name="button_select_running">Running</string>
+    <!--    <string name="dummy_button">Dummy Button</string>-->
+    <!--    <string name="dummy_content">DUMMY\nCONTENT</string>-->
 
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
@@ -25,5 +28,7 @@
         <item>Cycling</item>
         <item>Run</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

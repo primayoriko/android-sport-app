@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.mysport.sportapp.R
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -16,18 +17,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        val navController = findNavController(R.id.mainNavHostFragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_news,
-                R.id.navigation_tracker,
-                R.id.navigation_home
-            ))
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
+            R.id.navigation_news,
+            R.id.navigation_tracker,
+            R.id.navigation_home
+        ))
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        mainBottomNavView.setupWithNavController(navController)
     }
 }

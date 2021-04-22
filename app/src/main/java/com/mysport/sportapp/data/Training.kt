@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "training")
 data class Training(
-    var type: TrainType = TrainType.CYCLING,
+    var type: TrainingType = TrainingType.CYCLING,
     var timestamp: Long = 0L,
     var duration: Float = 0F,
     var distance: Float? = null,
@@ -16,7 +16,7 @@ data class Training(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 
-    enum class TrainType {
+    enum class TrainingType {
         CYCLING, RUNNING
     }
 }

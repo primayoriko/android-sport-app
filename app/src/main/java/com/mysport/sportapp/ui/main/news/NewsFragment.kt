@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
@@ -29,10 +29,23 @@ class NewsFragment: Fragment() {
         fun newInstance() = NewsFragment()
     }
 
+//    override fun onCreate(savedInstanceState: Bundle?){
+//        super.onCreate(savedInstanceState)
+//
+//        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+//
+//        refreshLayoutNews.setOnRefreshListener {
+//            fetchNews()
+//
+//        }
+//
+//        fetchNews()
+//    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?){
         super.onActivityCreated(savedInstanceState)
 
-        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
         refreshLayoutNews.setOnRefreshListener {
             fetchNews()
@@ -58,12 +71,12 @@ class NewsFragment: Fragment() {
 
         NewsApi().getNews(country, category, apiKey).enqueue(object : Callback<NewsResponse> {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                refreshLayoutNews.isRefreshing = false
+                refreshLayoutNews?.isRefreshing = false
                 Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                refreshLayoutNews.isRefreshing = false
+                refreshLayoutNews?.isRefreshing = false
 
                 val newsList: List<News> = response.body()!!.news
 
@@ -77,8 +90,8 @@ class NewsFragment: Fragment() {
     private fun showNews(news: List<News>) {
         val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
 
-        recyclerViewNews.layoutManager = GridLayoutManager(this.context, gridColumnCount)
-        recyclerViewNews.adapter = NewsAdapter(news)
+        recyclerViewNews?.layoutManager = GridLayoutManager(this.context, gridColumnCount)
+        recyclerViewNews?.adapter = NewsAdapter(news)
 //        recyclerViewNews.setHasFixedSize(true)
     }
 }

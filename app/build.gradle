@@ -17,7 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName '1.0'
-
+        multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -55,6 +55,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Android Lifecycle
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
