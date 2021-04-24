@@ -65,9 +65,9 @@ class NewsFragment: Fragment() {
     }
 
     private fun fetchNews(){
-        val apiKey: String = resources.getString(R.string.query_api_key)
-        val country: String = resources.getString(R.string.query_country)
-        val category: String = resources.getString(R.string.query_category)
+        val apiKey: String = resources.getString(R.string.news_api_query_api_key)
+        val country: String = resources.getString(R.string.news_api_query_country)
+        val category: String = resources.getString(R.string.news_api_query_category)
 
         NewsApi().getNews(country, category, apiKey).enqueue(object : Callback<NewsResponse> {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
