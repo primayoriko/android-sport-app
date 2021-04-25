@@ -32,8 +32,8 @@
             </intent-filter>
         </activity>
 
-<!--        <service android:name=".services.TrackingService"-->
-<!--            android:foregroundServiceType="location" />-->
+        <service android:name=".service.CyclingService"
+            android:foregroundServiceType="location" />
 
         <meta-data
             android:name="com.google.android.gms.version"
