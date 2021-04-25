@@ -68,8 +68,8 @@ class CyclingFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(false)
 
-        return super.onCreateView(inflater, container, savedInstanceState)
-//        return inflater.inflate(R.layout.fragment_cycling, container, false)
+//        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_cycling, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
