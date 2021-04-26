@@ -29,33 +29,33 @@
         android:textColor="@color/white"
         android:textSize="50sp"
         android:text="@string/initial_timer_display_text"
-        app:layout_constraintBottom_toTopOf="@+id/btnToggleRun"
+        app:layout_constraintBottom_toTopOf="@+id/btnToggleTrack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvTotalStep" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnToggleRun"
+        android:id="@+id/btnToggleTrack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnFinishRun"
+        app:layout_constraintEnd_toStartOf="@+id/btnFinishTrack"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnFinishRun"
+        android:id="@+id/btnFinishTrack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finish Run"
+        android:text="Finish"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnToggleRun"
+        app:layout_constraintStart_toEndOf="@+id/btnToggleTrack"
         app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->

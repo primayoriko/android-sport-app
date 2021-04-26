@@ -76,11 +76,11 @@ class CyclingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapView.onCreate(savedInstanceState)
-        btnToggleRun.setOnClickListener {
+        btnToggleTrack.setOnClickListener {
             toggleRun()
         }
 
-        btnFinishRun.setOnClickListener {
+        btnFinishTrack.setOnClickListener {
             zoomToSeeWholeTrack()
             endRunAndSaveToDb()
         }
@@ -173,12 +173,12 @@ class CyclingFragment : Fragment() {
     private fun updateTracking(isTracking: Boolean) {
         this.isTracking = isTracking
         if(!isTracking) {
-            btnToggleRun.text = "Start"
-            btnFinishRun.visibility = View.VISIBLE
+            btnToggleTrack.text = "Start"
+            btnFinishTrack.visibility = View.VISIBLE
         } else {
-            btnToggleRun.text = "Stop"
+            btnToggleTrack.text = "Stop"
             menu?.getItem(0)?.isVisible = true
-            btnFinishRun.visibility = View.GONE
+            btnFinishTrack.visibility = View.GONE
         }
     }
 

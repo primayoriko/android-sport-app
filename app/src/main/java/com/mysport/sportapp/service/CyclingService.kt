@@ -28,7 +28,7 @@ import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Constant.NOTIFICATION_CHANNEL_ID
 import com.mysport.sportapp.data.Constant.NOTIFICATION_CHANNEL_NAME
 import com.mysport.sportapp.data.Constant.NOTIFICATION_ID
-import com.mysport.sportapp.data.Constant.TIMER_UPDATE_INTERVAL
+import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Polylines
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +56,7 @@ class CyclingService : LifecycleService() {
     private val timeRunInSeconds = MutableLiveData<Long>()
 //    private val distanceInMetres = MutableLiveData<Float>()
 
-    private var isTimerEnabled = false
+    private var isTrackerEnabled = false
 
     private var timeStarted = 0L
     private var lapTime = 0L
@@ -100,7 +100,7 @@ class CyclingService : LifecycleService() {
                         isFirstRun = false
                     } else {
                         Timber.d("Resuming service...")
-                        startTimer()
+                        startTracker()
                     }
                 }
                 ACTION_PAUSE_SERVICE -> {
@@ -116,11 +116,11 @@ class CyclingService : LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun startTimer() {
+    private fun startTracker() {
         addEmptyPolyline()
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
-        isTimerEnabled = true
+        isTrackerEnabled = true
         CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
                 // time difference between now and timeStarted
@@ -131,7 +131,7 @@ class CyclingService : LifecycleService() {
                     timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }
-                delay(TIMER_UPDATE_INTERVAL)
+                delay(TRACKER_UPDATE_INTERVAL)
             }
             timeRun += lapTime
         }
@@ -143,13 +143,13 @@ class CyclingService : LifecycleService() {
                     val deltaDistance = TrackerUtility.calculatePolylineLength(path.last())
                     distanceInMeters.postValue(distanceInMeters.value!! + deltaDistance)
                 }
-                delay(TIMER_UPDATE_INTERVAL)
+                delay(TRACKER_UPDATE_INTERVAL * 15)
             }
         }
     }
 
     private fun startForegroundService() {
-        startTimer()
+        startTracker()
         isTracking.postValue(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
@@ -175,7 +175,7 @@ class CyclingService : LifecycleService() {
 
     private fun pauseService() {
         isTracking.postValue(false)
-        isTimerEnabled = false
+        isTrackerEnabled = false
     }
 
     private fun killService() {
