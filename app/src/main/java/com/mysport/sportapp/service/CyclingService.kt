@@ -112,6 +112,9 @@ class CyclingService : LifecycleService() {
                     Timber.d("Stopped service")
                     killService()
                 }
+                else -> {
+                    Timber.d("Unknown command")
+                }
             }
         }
         return super.onStartCommand(intent, flags, startId)

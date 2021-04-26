@@ -24,6 +24,7 @@ import com.mysport.sportapp.service.CyclingService
 import com.mysport.sportapp.util.TrackerUtility
 import com.mysport.sportapp.data.Polyline
 import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cycling.*
 import timber.log.Timber
@@ -42,9 +43,10 @@ import kotlin.math.round
  */
 @AndroidEntryPoint
 class CyclingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private val viewModel: TrackerViewModel by viewModels<TrackerViewModel>()
 
+//    private var isInitialized = false
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
 
@@ -71,22 +73,23 @@ class CyclingFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(false)
-
-//        return super.onCreateView(inflater, container, savedInstanceState)
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_cycling, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapView.onCreate(savedInstanceState)
+
+        btnFinishTrack.visibility = View.GONE
+
         btnToggleTrack.setOnClickListener {
             toggleRun()
         }
 
         btnFinishTrack.setOnClickListener {
-            zoomToSeeWholeTrack()
-            endRun()
+//            endRun()
+            showFinishTrackingDialog()
         }
 
         mapView.getMapAsync {
@@ -138,6 +141,8 @@ class CyclingFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         if(curTimeInMillis > 0L) {
             this.menu?.getItem(0)?.isVisible = true
+            menu?.getItem(0)?.isVisible = true
+
         }
     }
 
@@ -152,7 +157,7 @@ class CyclingFragment : Fragment() {
 
     private fun subscribeToObservers() {
         CyclingService.isTracking.observe(viewLifecycleOwner, Observer {
-            updateTracking(it)
+            updateButton(it)
         })
 
         CyclingService.pathPoints.observe(viewLifecycleOwner, Observer {
@@ -161,18 +166,18 @@ class CyclingFragment : Fragment() {
             moveCameraToUser()
         })
 
-        CyclingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
-            curTimeInMillis = it
-            val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
-            tvTimer.text = formattedTime
-        })
-
         CyclingService.distanceInMeters.observe(viewLifecycleOwner, Observer {
             curDistanceInMeters = it
             val formattedDistance = TrackerUtility.getFormattedDistance(curDistanceInMeters)
 
             val displayedDistance = "$formattedDistance m"
             tvDistance.text = displayedDistance
+        })
+
+        CyclingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
+            curTimeInMillis = it
+            val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
+            tvTimer.text = formattedTime
         })
     }
 
@@ -185,26 +190,24 @@ class CyclingFragment : Fragment() {
     private fun toggleRun() {
         if(isTracking) {
             menu?.getItem(0)?.isVisible = true
+
             sendCommandToService(ACTION_PAUSE_SERVICE)
+
         } else {
             sendCommandToService(ACTION_START_OR_RESUME_SERVICE)
+
         }
     }
 
-    private fun stopRun() {
-        sendCommandToService(ACTION_STOP_SERVICE)
-        findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
-    }
-
     private fun endRun() {
+        zoomToSeeWholeTrack()
+
         map?.snapshot { bmp ->
             val dateTimestamp = Calendar.getInstance().timeInMillis
             var distanceInMeters = 0F
             for(polyline in pathPoints) {
                 distanceInMeters += TrackerUtility.calculatePolylineLength(polyline)
             }
-
-            val avgSpeed = round((distanceInMeters / 1000f) / (curTimeInMillis / 1000f / 60 / 60) * 10) / 10f
             val trainingEntry = Training(
                     Training.TrainingType.CYCLING,
                     dateTimestamp,
@@ -222,16 +225,39 @@ class CyclingFragment : Fragment() {
                     "Training data saved successfully",
                     Snackbar.LENGTH_LONG
             ).show()
-
-//            stopRun()
         }
+
         stopRun()
+    }
+
+    private fun stopRun() {
+        sendCommandToService(ACTION_STOP_SERVICE)
+
+        findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
+    }
+
+    private fun updateButton(isTracking: Boolean) {
+        this.isTracking = isTracking
+
+        if(!isTracking) {
+            btnToggleTrack.text = "Start"
+            btnFinishTrack.visibility = View.VISIBLE
+
+//            Timber.d("2 $isInitialized $isTracking sadsa")
+
+        } else {
+            btnToggleTrack.text = "Stop"
+            menu?.getItem(0)?.isVisible = true
+            btnFinishTrack.visibility = View.GONE
+
+//            Timber.d("3 $isInitialized $isTracking sadsa")
+        }
     }
 
     private fun showCancelTrackingDialog() {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
                 .setTitle("Cancel")
-                .setMessage("Are you sure to cancel the current track?")
+                .setMessage("Are you sure to cancel the current tracking?")
                 .setIcon(R.drawable.ic_white_delete_24)
                 .setPositiveButton("Yes") { _, _ ->
                     stopRun()
@@ -243,17 +269,19 @@ class CyclingFragment : Fragment() {
         dialog.show()
     }
 
-
-    private fun updateTracking(isTracking: Boolean) {
-        this.isTracking = isTracking
-        if(!isTracking) {
-            btnToggleTrack.text = "Start"
-            btnFinishTrack.visibility = View.VISIBLE
-        } else {
-            btnToggleTrack.text = "Stop"
-            menu?.getItem(0)?.isVisible = true
-            btnFinishTrack.visibility = View.GONE
-        }
+    private fun showFinishTrackingDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                .setTitle("End")
+                .setMessage("Are you sure to end the current tracking?")
+                .setIcon(R.drawable.ic_white_delete_24)
+                .setPositiveButton("Yes") { _, _ ->
+                    endRun()
+                }
+                .setNegativeButton("No") { dialogInterface, _ ->
+                    dialogInterface.cancel()
+                }
+                .create()
+        dialog.show()
     }
 
     private fun moveCameraToUser() {
@@ -307,8 +335,8 @@ class CyclingFragment : Fragment() {
             val preLastLatLng = pathPoints.last()[pathPoints.last().size - 2]
             val lastLatLng = pathPoints.last().last()
             val polylineOptions = PolylineOptions()
-                    .color(POLYLINE_COLOR)
                     .width(POLYLINE_WIDTH)
+                    .color(POLYLINE_COLOR)
                     .add(preLastLatLng)
                     .add(lastLatLng)
             map?.addPolyline(polylineOptions)
