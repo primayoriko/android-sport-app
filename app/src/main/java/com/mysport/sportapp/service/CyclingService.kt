@@ -38,6 +38,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.math.sqrt
 
 @AndroidEntryPoint
 class CyclingService : LifecycleService() {
@@ -137,13 +138,24 @@ class CyclingService : LifecycleService() {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val path = pathPoints.value!!
+            val paths = pathPoints.value!!
             while(isTracking.value!!){
-                if(path.isNotEmpty() && path.last().size > 1){
-                    val deltaDistance = TrackerUtility.calculatePolylineLength(path.last())
-                    distanceInMeters.postValue(distanceInMeters.value!! + deltaDistance)
+                if(paths.isNotEmpty() && paths.last().size > 1){
+                    val path = paths.last()
+                    val pos2: LatLng = path.last()
+                    val pos1: LatLng = path[path.size - 2]
+                    var distances = FloatArray(1)
+                    Location.distanceBetween(
+                            pos1.latitude,
+                            pos1.longitude,
+                            pos2.latitude,
+                            pos2.longitude,
+                            distances
+                    )
+
+                    distanceInMeters.postValue(distanceInMeters.value!! + distances[0]/5)
                 }
-                delay(TRACKER_UPDATE_INTERVAL * 15)
+                delay(TRACKER_UPDATE_INTERVAL * 8)
             }
         }
     }

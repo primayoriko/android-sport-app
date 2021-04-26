@@ -5,18 +5,24 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.db.dao.TrainingDao
 import com.mysport.sportapp.repository.TrainingRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class TrackerViewModel @Inject constructor(): ViewModel() {
+class TrackerViewModel @ViewModelInject constructor(
+    val trainingRepository: TrainingRepository
+): ViewModel() {
 
-    @Inject
-    lateinit var trainingRepository: TrainingRepository
+//    @Inject
+//    lateinit var trainingRepository: TrainingRepository
+
 
     fun insertTraining(training: Training) = viewModelScope.launch {
+//        if(trainingRepository == null){
+//            trainingRepository = TrainingRepository(trainingDao)
+//        }
+
         trainingRepository.insertTraining(training)
 
     }

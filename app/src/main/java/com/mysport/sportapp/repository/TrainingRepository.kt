@@ -6,7 +6,7 @@ import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.db.dao.TrainingDao
 
 class TrainingRepository @Inject constructor(
-    private val trainingDao: TrainingDao
+    val trainingDao: TrainingDao
 ) {
     suspend fun insertTraining(training: Training) = trainingDao.insertTraining(training)
 

@@ -10,24 +10,22 @@ import com.mysport.sportapp.repository.TrainingRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import dagger.assisted.Assisted
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ApplicationComponent::class)
 object AppModule {
-
-    @Singleton
-    @Provides
-    fun provideTrainingRepository(
-            trainingDao: TrainingDao
-    ): TrainingRepository {
-        return TrainingRepository(trainingDao)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideTrainingRepository(
+//            trainingDao: TrainingDao
+//    ): TrainingRepository {
+//        return TrainingRepository(trainingDao)
+//    }
 
     @Singleton
     @Provides
