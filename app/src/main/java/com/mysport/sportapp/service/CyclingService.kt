@@ -50,34 +50,25 @@ class CyclingService : LifecycleService() {
 
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
-    private val timeRunInSeconds = MutableLiveData<Long>()
-    private var isTimerEnabled = false
-    private var lapTime = 0L
-    private var timeRun = 0L
-    private var timeStarted = 0L
-    private var lastSecondTimestamp = 0L
-
     var isFirstRun = true
     var serviceKilled = false
 
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(result: LocationResult?) {
-            super.onLocationResult(result)
-            if (isTracking.value!!) {
-                result?.locations?.let { locations ->
-                    for (location in locations) {
-                        addPathPoint(location)
-                        Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
-                    }
-                }
-            }
-        }
-    }
+    private val timeRunInSeconds = MutableLiveData<Long>()
+//    private val distanceInMetres = MutableLiveData<Float>()
 
+    private var isTimerEnabled = false
+
+    private var timeStarted = 0L
+    private var lapTime = 0L
+    private var lastSecondTimestamp = 0L
+    private var timeRun = 0L
+
+//    private var is
     companion object {
         val timeRunInMillis = MutableLiveData<Long>()
         val isTracking = MutableLiveData<Boolean>()
         val pathPoints = MutableLiveData<Polylines>()
+        val distanceInMeters = MutableLiveData<Float>()
     }
 
     private fun postInitialValues() {
@@ -85,6 +76,7 @@ class CyclingService : LifecycleService() {
         pathPoints.postValue(mutableListOf())
         timeRunInSeconds.postValue(0L)
         timeRunInMillis.postValue(0L)
+        distanceInMeters.postValue(0F)
     }
 
     override fun onCreate() {
@@ -97,15 +89,6 @@ class CyclingService : LifecycleService() {
             updateLocationTracking(it)
             updateNotificationTrackingState(it)
         })
-    }
-
-    private fun killService() {
-        serviceKilled = true
-        isFirstRun = true
-        pauseService()
-        postInitialValues()
-        stopForeground(true)
-        stopSelf()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -152,11 +135,61 @@ class CyclingService : LifecycleService() {
             }
             timeRun += lapTime
         }
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            while(isTracking.value!!){
+//                if(pathPoints)
+//            }
+//        }
+    }
+
+    private fun startForegroundService() {
+        startTimer()
+        isTracking.postValue(true)
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
+                as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(notificationManager)
+        }
+
+        // TODO: Customize notification
+        startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
+
+        timeRunInSeconds.observe(this, Observer {
+            if(!serviceKilled) {
+                val notification = curNotificationBuilder
+                        .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
+                notificationManager.notify(NOTIFICATION_ID, notification.build())
+            }
+        })
+
+        // TODO: Observe running
     }
 
     private fun pauseService() {
         isTracking.postValue(false)
         isTimerEnabled = false
+    }
+
+    private fun killService() {
+        serviceKilled = true
+        isFirstRun = true
+        pauseService()
+        postInitialValues()
+        stopForeground(true)
+        stopSelf()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(notificationManager: NotificationManager) {
+        val channel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                NOTIFICATION_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_LOW
+        )
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun updateNotificationTrackingState(isTracking: Boolean) {
@@ -186,6 +219,20 @@ class CyclingService : LifecycleService() {
         }
     }
 
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult?) {
+            super.onLocationResult(result)
+            if (isTracking.value!!) {
+                result?.locations?.let { locations ->
+                    for (location in locations) {
+                        addPathPoint(location)
+                        Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
+                    }
+                }
+            }
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private fun updateLocationTracking(isTracking: Boolean) {
         if (isTracking) {
@@ -206,6 +253,11 @@ class CyclingService : LifecycleService() {
         }
     }
 
+    private fun addEmptyPolyline() = pathPoints.value?.apply {
+        add(mutableListOf())
+        pathPoints.postValue(this)
+    } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
+
     private fun addPathPoint(location: Location?) {
         location?.let {
             val pos = LatLng(location.latitude, location.longitude)
@@ -216,40 +268,4 @@ class CyclingService : LifecycleService() {
         }
     }
 
-    private fun addEmptyPolyline() = pathPoints.value?.apply {
-        add(mutableListOf())
-        pathPoints.postValue(this)
-    } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
-
-    private fun startForegroundService() {
-        startTimer()
-        isTracking.postValue(true)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-                as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(notificationManager)
-        }
-
-        startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
-
-        timeRunInSeconds.observe(this, Observer {
-            if(!serviceKilled) {
-                val notification = curNotificationBuilder
-                        .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
-                notificationManager.notify(NOTIFICATION_ID, notification.build())
-            }
-        })
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(notificationManager: NotificationManager) {
-        val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                NOTIFICATION_CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_LOW
-        )
-        notificationManager.createNotificationChannel(channel)
-    }
 }

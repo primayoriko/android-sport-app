@@ -108,6 +108,10 @@ class CyclingFragment : Fragment() {
             val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
             tvTimer.text = formattedTime
         })
+
+        CyclingService.distanceInMeters.observe(viewLifecycleOwner, Observer {
+
+        })
     }
 
     private fun toggleRun() {
