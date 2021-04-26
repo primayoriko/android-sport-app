@@ -136,11 +136,16 @@ class CyclingService : LifecycleService() {
             timeRun += lapTime
         }
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//            while(isTracking.value!!){
-//                if(pathPoints)
-//            }
-//        }
+        CoroutineScope(Dispatchers.Main).launch {
+            val path = pathPoints.value!!
+            while(isTracking.value!!){
+                if(path.isNotEmpty() && path.last().size > 1){
+                    val deltaDistance = TrackerUtility.calculatePolylineLength(path.last())
+                    distanceInMeters.postValue(distanceInMeters.value!! + deltaDistance)
+                }
+                delay(TIMER_UPDATE_INTERVAL)
+            }
+        }
     }
 
     private fun startForegroundService() {

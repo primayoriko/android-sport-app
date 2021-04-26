@@ -47,6 +47,7 @@ class CyclingFragment : Fragment() {
     private var map: GoogleMap? = null
 
     private var curTimeInMillis = 0L
+    private var curDistanceInMeters = 0F
 
     private var menu: Menu? = null
 
@@ -110,7 +111,11 @@ class CyclingFragment : Fragment() {
         })
 
         CyclingService.distanceInMeters.observe(viewLifecycleOwner, Observer {
+            curDistanceInMeters = it
+            val formattedDistance = TrackerUtility.getFormattedDistance(curDistanceInMeters)
 
+            val displayedDistance = "$formattedDistance m"
+            tvDistance.text = displayedDistance
         })
     }
 

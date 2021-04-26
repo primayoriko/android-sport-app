@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Location
 import android.os.Build
 import com.mysport.sportapp.data.Polyline
+import okhttp3.internal.format
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.concurrent.TimeUnit
 
@@ -64,5 +65,9 @@ object TrackerUtility {
                 "${if(minutes < 10) "0" else ""}$minutes:" +
                 "${if(seconds < 10) "0" else ""}$seconds:" +
                 "${if(milliseconds < 10) "0" else ""}$milliseconds"
+    }
+
+    fun getFormattedDistance(distance: Float): String{
+        return format("%.2f", distance)
     }
 }
