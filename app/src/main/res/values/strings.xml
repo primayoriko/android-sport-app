@@ -3,6 +3,7 @@
     <string name="title_news">News</string>
     <string name="title_tracker">Tracker</string>
     <string name="title_home">Home</string>
+    <string name="title_history">History</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
@@ -36,4 +37,5 @@
     <string name="initial_distance_display_text">0.00 m</string>
     <string name="initial_step_display_text">0</string>
     <string name="history">History</string>
+    <string name="title_sceduler">Scheduler</string>
 </resources>
