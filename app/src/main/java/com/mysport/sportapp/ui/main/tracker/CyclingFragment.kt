@@ -23,7 +23,9 @@ import com.mysport.sportapp.data.Constant.POLYLINE_WIDTH
 import com.mysport.sportapp.service.CyclingService
 import com.mysport.sportapp.util.TrackerUtility
 import com.mysport.sportapp.data.Polyline
+import com.mysport.sportapp.data.Training
 import kotlinx.android.synthetic.main.fragment_cycling.*
+import timber.log.Timber
 import java.util.*
 import kotlin.math.round
 
@@ -167,7 +169,7 @@ class CyclingFragment : Fragment() {
 
     private fun stopRun() {
         sendCommandToService(ACTION_STOP_SERVICE)
-//        findNavController().navigate(R.id.action_trackingFragment_to_runFragment)
+        findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
     }
 
     private fun updateTracking(isTracking: Boolean) {
@@ -212,23 +214,34 @@ class CyclingFragment : Fragment() {
     }
 
     private fun endRunAndSaveToDb() {
-//        map?.snapshot { bmp ->
-//            var distanceInMeters = 0
-//            for(polyline in pathPoints) {
-//                distanceInMeters += TrackerUtility.calculatePolylineLength(polyline).toInt()
-//            }
-//            val avgSpeed = round((distanceInMeters / 1000f) / (curTimeInMillis / 1000f / 60 / 60) * 10) / 10f
-//            val dateTimestamp = Calendar.getInstance().timeInMillis
-//            val caloriesBurned = ((distanceInMeters / 1000f) * weight).toInt()
-//            val run = Run(bmp, dateTimestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
-//            viewModel.insertRun(run)
-//            Snackbar.make(
-//                    requireActivity().findViewById(R.id.rootView),
-//                    "Run saved successfully",
-//                    Snackbar.LENGTH_LONG
-//            ).show()
-//            stopRun()
-//        }
+        map?.snapshot { bmp ->
+            val dateTimestamp = Calendar.getInstance().timeInMillis
+            var distanceInMeters = 0F
+            for(polyline in pathPoints) {
+                distanceInMeters += TrackerUtility.calculatePolylineLength(polyline)
+            }
+
+            val avgSpeed = round((distanceInMeters / 1000f) / (curTimeInMillis / 1000f / 60 / 60) * 10) / 10f
+            val trainingEntry = Training(
+                    Training.TrainingType.CYCLING,
+                    dateTimestamp,
+                    curTimeInMillis,
+                    distanceInMeters,
+                    bmp,
+                    null
+            )
+
+            Timber.d(trainingEntry.toString())
+
+            viewModel.insertTraining(trainingEntry)
+            Snackbar.make(
+                    requireActivity().findViewById(R.id.activity_main),
+                    "Training data saved successfully",
+                    Snackbar.LENGTH_LONG
+            ).show()
+
+            stopRun()
+        }
         stopRun()
     }
 
