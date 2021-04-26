@@ -1,6 +1,7 @@
 package com.mysport.sportapp.ui.main
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -30,5 +31,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         mainBottomNavView.setupWithNavController(navController)
+
+        navController
+            .addOnDestinationChangedListener { _, destination, _ ->
+                when(destination.id) {
+                    R.id.navigation_news, R.id.navigation_tracker, R.id.navigation_home ->
+                        mainBottomNavView.visibility = View.VISIBLE
+                    else -> mainBottomNavView.visibility = View.GONE
+                }
+            }
     }
 }
