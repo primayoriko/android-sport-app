@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Training(
     var type: TrainingType = TrainingType.CYCLING,
     var timestamp: Long = 0L,
-    var duration: Float = 0F,
+    var duration: Long = 0L,
     var distance: Float? = null,
     var img: Bitmap? = null,
     var step: Int? = null,
