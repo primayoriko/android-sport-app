@@ -8,23 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.tracker.TrackerFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:text="@string/text_track_selection"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonSelectRunning"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <Spinner-->
+    <!--    <Spinner-->
 <!--        android:id="@+id/dropdownTracker"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -38,30 +22,63 @@
 
 <!--    </Spinner>-->
 
+    <TextView
+        android:id="@+id/tvTitleTracker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/text_track_selection"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageCompass"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageCompass"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginVertical="25dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:src="@drawable/compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonSelectRunning"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTracker" />
+
     <Button
         android:id="@+id/buttonSelectRunning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="25dp"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
         android:text="@string/button_select_running"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/buttonSelectCycling"
+        app:layout_constraintTop_toBottomOf="@+id/imageCompass" />
 
     <Button
         android:id="@+id/buttonSelectCycling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
+        android:paddingVertical="15dp"
+        android:layout_marginVertical="10dp"
         android:text="@string/button_select_cycling"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonSelectRunning" />
-
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectRunning"  />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
