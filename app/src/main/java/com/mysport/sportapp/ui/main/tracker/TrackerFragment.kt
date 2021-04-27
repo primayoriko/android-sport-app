@@ -23,9 +23,7 @@ import pub.devrel.easypermissions.EasyPermissions
 
 
 @AndroidEntryPoint
-//class TrackerFragment : Fragment(), View.OnClickListener {
 class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
-
 //    private val binding: FragmentTrackerBinding
 
     companion object {
@@ -38,17 +36,7 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View =  inflater.inflate(R.layout.fragment_tracker, container, false)
 
-        val runningButton: Button? =  view.findViewById(R.id.buttonSelectRunning)
-        val cyclingButton: Button? =  view.findViewById(R.id.buttonSelectCycling)
-
-        runningButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_tracker_to_runningFragment)
-        }
-        cyclingButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_tracker_to_cyclingFragment)
-        }
 //        val spinner: Spinner? =  view.findViewById(R.id.dropdownTracker)
 //
 //        val values = resources.getStringArray(R.array.track_type)
@@ -67,15 +55,34 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 //            }
 //
 //            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                // TODO Auto-generated method stub
 //            }
 //        }
 
-        return view
+        return inflater.inflate(R.layout.fragment_tracker, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        val runningButton: Button? =  view.findViewById(R.id.buttonSelectRunning)
+//        val cyclingButton: Button? =  view.findViewById(R.id.buttonSelectCycling)
+//
+//        runningButton?.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_tracker_to_runningFragment)
+//        }
+//
+//        cyclingButton?.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_tracker_to_cyclingFragment)
+//        }
+
+        buttonSelectRunning.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_tracker_to_runningFragment)
+        }
+
+        buttonSelectCycling.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_tracker_to_cyclingFragment)
+        }
+
         requestPermissions()
     }
 
@@ -84,30 +91,6 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         viewModel = ViewModelProvider(this).get(TrackerViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
-//    override fun onClick(view: View) {
-//        var fragment: Fragment? = null
-//        Log.v(view.id.toString(), "clicked")
-//        when (view.id) {
-//            R.id.buttonSelectCycling -> {
-//                fragment = CyclingFragment()
-//                replaceFragment(fragment)
-//            }
-//            R.id.buttonSelectRunning -> {
-//                fragment = RunningFragment()
-//                replaceFragment(fragment)
-//            }
-//        }
-//    }
-//
-//    private fun replaceFragment(someFragment: Fragment?) {
-//        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-//        if (someFragment != null) {
-//            transaction.replace(R.id.fragment_container_tracker, someFragment)
-//        }
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
 
     private fun requestPermissions() {
         if(TrackerUtility.hasLocationPermissions(requireContext())) {
@@ -151,5 +134,29 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
+
+//    override fun onClick(view: View) {
+//        var fragment: Fragment? = null
+//        Log.v(view.id.toString(), "clicked")
+//        when (view.id) {
+//            R.id.buttonSelectCycling -> {
+//                fragment = CyclingFragment()
+//                replaceFragment(fragment)
+//            }
+//            R.id.buttonSelectRunning -> {
+//                fragment = RunningFragment()
+//                replaceFragment(fragment)
+//            }
+//        }
+//    }
+//
+//    private fun replaceFragment(someFragment: Fragment?) {
+//        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+//        if (someFragment != null) {
+//            transaction.replace(R.id.fragment_container_tracker, someFragment)
+//        }
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+//    }
 
 }

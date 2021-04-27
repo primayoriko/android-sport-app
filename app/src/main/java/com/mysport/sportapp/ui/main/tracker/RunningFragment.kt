@@ -13,6 +13,7 @@ import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.service.RunningService
+import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cycling.*
@@ -31,7 +32,6 @@ class RunningFragment : Fragment() {
     private var curTimeInMillis = 0L
 
     private var menu: Menu? = null
-
 //    private var param1: String? = null
 //    private var param2: String? = null
 
@@ -48,13 +48,17 @@ class RunningFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val act = requireActivity() as MainActivity
+
+        act.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        act.supportActionBar?.setHomeButtonEnabled(false)
         setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_running, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mapView.onCreate(savedInstanceState)
 
         btnFinishTrack.visibility = View.GONE
 
@@ -207,7 +211,7 @@ class RunningFragment : Fragment() {
         findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
     }
 
-    //    override fun onResume() {
+//    override fun onResume() {
 //        super.onResume()
 //    }
 //

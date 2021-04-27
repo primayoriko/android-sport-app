@@ -67,7 +67,12 @@ class CyclingFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val act = requireActivity() as MainActivity
+
+        act.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        act.supportActionBar?.setHomeButtonEnabled(false)
         setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_cycling, container, false)
     }
 
