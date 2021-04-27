@@ -55,7 +55,6 @@ class CyclingService : LifecycleService() {
     var serviceKilled = false
 
     private val timeRunInSeconds = MutableLiveData<Long>()
-//    private val distanceInMetres = MutableLiveData<Float>()
 
     private var isTrackerEnabled = false
 
@@ -63,6 +62,8 @@ class CyclingService : LifecycleService() {
     private var lapTime = 0L
     private var lastSecondTimestamp = 0L
     private var timeRun = 0L
+
+    private var lastLocation: LatLng? = null
 
 //    private var is
     companion object {
@@ -82,6 +83,7 @@ class CyclingService : LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
+
         curNotificationBuilder = baseNotificationBuilder
         postInitialValues()
         fusedLocationProviderClient = FusedLocationProviderClient(this)
@@ -125,41 +127,57 @@ class CyclingService : LifecycleService() {
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
         isTrackerEnabled = true
-        CoroutineScope(Dispatchers.Main).launch {
-            while (isTracking.value!!) {
-                // time difference between now and timeStarted
-                lapTime = System.currentTimeMillis() - timeStarted
-                // post the new lapTime
-                timeRunInMillis.postValue(timeRun + lapTime)
-                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
-                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
-                    lastSecondTimestamp += 1000L
-                }
-                delay(TRACKER_UPDATE_INTERVAL)
-            }
-            timeRun += lapTime
-        }
 
         CoroutineScope(Dispatchers.Main).launch {
             val paths = pathPoints.value!!
             while(isTracking.value!!){
-                if(paths.isNotEmpty() && paths.last().size > 1){
+                if(paths.isNotEmpty()){
                     val path = paths.last()
-                    val pos2: LatLng = path.last()
-                    val pos1: LatLng = path[path.size - 2]
-                    var distances = FloatArray(1)
-                    Location.distanceBetween(
-                            pos1.latitude,
-                            pos1.longitude,
-                            pos2.latitude,
-                            pos2.longitude,
-                            distances
-                    )
 
-                    distanceInMeters.postValue(distanceInMeters.value!! + distances[0]/5)
+                    if(paths.last().size > 1 && lastLocation != null){
+                        val curLoc: LatLng = path.last()
+                        val distances = FloatArray(1)
+
+                        Timber.d("Last Loc: longi ${lastLocation!!.longitude} lati ${lastLocation!!.latitude}")
+                        Timber.d("Cur Loc: longi ${curLoc.longitude} lati ${curLoc.latitude}")
+
+                        Location.distanceBetween(
+                                lastLocation!!.latitude,
+                                lastLocation!!.longitude,
+                                curLoc.latitude,
+                                curLoc.longitude,
+                                distances
+                        )
+
+                        distanceInMeters.postValue(distanceInMeters.value!! + distances[0]/3)
+
+                        lastLocation = curLoc
+
+                    } else if(path.isNotEmpty()) {
+                        lastLocation = path.last()
+
+                    }
+
                 }
-                delay(TRACKER_UPDATE_INTERVAL * 8)
+
+                delay(TRACKER_UPDATE_INTERVAL * 15)
             }
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            while (isTracking.value!!) {
+                lapTime = System.currentTimeMillis() - timeStarted
+                timeRunInMillis.postValue(timeRun + lapTime)
+
+                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
+                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
+                    lastSecondTimestamp += 1000L
+                }
+
+                delay(TRACKER_UPDATE_INTERVAL)
+            }
+
+            timeRun += lapTime
         }
     }
 
@@ -232,6 +250,7 @@ class CyclingService : LifecycleService() {
             isAccessible = true
             set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
+
         if(!serviceKilled) {
             curNotificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
@@ -246,7 +265,8 @@ class CyclingService : LifecycleService() {
                 result?.locations?.let { locations ->
                     for (location in locations) {
                         addPathPoint(location)
-                        Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
+
+                        Timber.d("New Location: ${location.latitude}, ${location.longitude}")
                     }
                 }
             }
@@ -262,6 +282,7 @@ class CyclingService : LifecycleService() {
                     fastestInterval = FASTEST_LOCATION_INTERVAL
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
+
                 fusedLocationProviderClient.requestLocationUpdates(
                         request,
                         locationCallback,
