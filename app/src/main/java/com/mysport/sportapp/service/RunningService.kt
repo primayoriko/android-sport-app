@@ -177,24 +177,10 @@ class RunningService: LifecycleService(), SensorEventListener {
 
             timeTrack += lapTime
         }
-
-//        CoroutineScope(Dispatchers.Main).launch {
-//            while(isTracking.value!!){
-//
-//
-//                delay(Constant.TRACKER_UPDATE_INTERVAL * 15)
-//            }
-//        }
     }
 
     private fun startForegroundService() {
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-
-        sensorManager.registerListener(this, stepDetectorSensor, 0)
-//        sensorManager.registerListener(this, stepCounterSensor, 0)
-
+        activateSensors()
         startTracker()
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
@@ -229,6 +215,15 @@ class RunningService: LifecycleService(), SensorEventListener {
         postInitialValues()
         stopForeground(true)
         stopSelf()
+    }
+
+    private fun activateSensors(){
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        sensorManager.registerListener(this, stepDetectorSensor, 0)
+//        sensorManager.registerListener(this, stepCounterSensor, 0)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

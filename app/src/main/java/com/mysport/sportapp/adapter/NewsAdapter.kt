@@ -32,15 +32,6 @@ class NewsAdapter (private val newsList: List<News>):
         private var view: View = itemView
         private lateinit var news: News
 
-//        init {
-//            itemView.setOnClickListener(this)
-//        }
-//        override fun onClick(v: View?) {
-//            val intent = Intent(context, WebNewsActivity::class.java)
-//            intent.putExtra("url", news.url)
-//            context.startActivity(intent)
-//        }
-
         fun bind(news: News){
             this.news = news
 
@@ -48,12 +39,13 @@ class NewsAdapter (private val newsList: List<News>):
 
             imageUrl.append(news.urlToImage)
 
-            val newsItemBinding: NewsItemBinding = NewsItemBinding.bind(view)
 //                    NewsItemBinding.inflate(
 //                            LayoutInflater.from(view.context),
 //                            view.parent as ViewGroup?,
 //                            false
 //                    )
+            val newsItemBinding: NewsItemBinding = NewsItemBinding.bind(view)
+
             newsItemBinding.newsTitle.text = news.title
             newsItemBinding.newsAuthor.text = news.author
             Glide.with(view.context).load(imageUrl.toString()).into(newsItemBinding.newsImage)
