@@ -5,19 +5,17 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location
-import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.model.LatLng
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.util.TrackerUtility
@@ -50,7 +48,7 @@ class RunningService: LifecycleService() {
     private var timeRun = 0L
 
     companion object {
-        val timeRunInMillis = MutableLiveData<Long>()
+        val timeTrainInMillis = MutableLiveData<Long>()
         val isTracking = MutableLiveData<Boolean>()
         val stepCount = MutableLiveData<Int>()
     }
@@ -58,7 +56,7 @@ class RunningService: LifecycleService() {
     private fun postInitialValues() {
         isTracking.postValue(false)
         timeRunInSeconds.postValue(0L)
-        timeRunInMillis.postValue(0L)
+        timeTrainInMillis.postValue(0L)
         stepCount.postValue(0)
     }
 
@@ -117,9 +115,9 @@ class RunningService: LifecycleService() {
         CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
                 lapTime = System.currentTimeMillis() - timeStarted
-                timeRunInMillis.postValue(timeRun + lapTime)
+                timeTrainInMillis.postValue(timeRun + lapTime)
 
-                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
+                if (timeTrainInMillis.value!! >= lastSecondTimestamp + 1000L) {
                     timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }

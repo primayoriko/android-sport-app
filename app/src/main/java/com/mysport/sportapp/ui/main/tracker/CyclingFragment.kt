@@ -78,11 +78,11 @@ class CyclingFragment : Fragment() {
         btnFinishTrack.visibility = View.GONE
 
         btnToggleTrack.setOnClickListener {
-            toggleRun()
+            toggleTrack()
         }
 
         btnFinishTrack.setOnClickListener {
-//            endRun()
+//            endTrack()
             showFinishTrackingDialog()
         }
 
@@ -149,6 +149,12 @@ class CyclingFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun sendCommandToService(action: String) =
+            Intent(requireContext(), CyclingService::class.java).also {
+                it.action = action
+                requireContext().startService(it)
+            }
+
     private fun subscribeToObservers() {
         CyclingService.isTracking.observe(viewLifecycleOwner, Observer {
             updateButton(it)
@@ -163,25 +169,68 @@ class CyclingFragment : Fragment() {
         CyclingService.distanceInMeters.observe(viewLifecycleOwner, Observer {
             curDistanceInMeters = it
             val formattedDistance = TrackerUtility.getFormattedDistance(curDistanceInMeters)
-
             val displayedDistance = "$formattedDistance m"
+
             tvDistance.text = displayedDistance
         })
 
         CyclingService.timeTrainInMillis.observe(viewLifecycleOwner, Observer {
             curTimeInMillis = it
+
             val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
+
             tvTimer.text = formattedTime
         })
     }
 
-    private fun sendCommandToService(action: String) =
-            Intent(requireContext(), CyclingService::class.java).also {
-                it.action = action
-                requireContext().startService(it)
-            }
+    private fun updateButton(isTracking: Boolean) {
+        this.isTracking = isTracking
 
-    private fun toggleRun() {
+        if(!isTracking) {
+            btnToggleTrack.text = "Start"
+            btnFinishTrack.visibility = View.VISIBLE
+//            Timber.d("2 $isInitialized $isTracking sadsa")
+
+        } else {
+            btnToggleTrack.text = "Stop"
+            menu?.getItem(0)?.isVisible = true
+            btnFinishTrack.visibility = View.GONE
+//            Timber.d("3 $isInitialized $isTracking sadsa")
+
+        }
+    }
+
+    private fun showCancelTrackingDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                .setTitle("Cancel")
+                .setMessage("Are you sure to cancel the current tracking?")
+                .setIcon(R.drawable.ic_white_delete_24)
+                .setPositiveButton("Yes") { _, _ ->
+                    stopTrack()
+                }
+                .setNegativeButton("No") { dialogInterface, _ ->
+                    dialogInterface.cancel()
+                }
+                .create()
+        dialog.show()
+    }
+
+    private fun showFinishTrackingDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                .setTitle("End")
+                .setMessage("Are you sure to end the current tracking?")
+                .setIcon(R.drawable.ic_white_delete_24)
+                .setPositiveButton("Yes") { _, _ ->
+                    endTrack()
+                }
+                .setNegativeButton("No") { dialogInterface, _ ->
+                    dialogInterface.cancel()
+                }
+                .create()
+        dialog.show()
+    }
+
+    private fun toggleTrack() {
         if(isTracking) {
             menu?.getItem(0)?.isVisible = true
 
@@ -193,7 +242,7 @@ class CyclingFragment : Fragment() {
         }
     }
 
-    private fun endRun() {
+    private fun endTrack() {
         zoomToSeeWholeTrack()
 
         map?.snapshot { bmp ->
@@ -221,61 +270,13 @@ class CyclingFragment : Fragment() {
             ).show()
         }
 
-        stopRun()
+        stopTrack()
     }
 
-    private fun stopRun() {
+    private fun stopTrack() {
         sendCommandToService(ACTION_STOP_SERVICE)
 
         findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
-    }
-
-    private fun updateButton(isTracking: Boolean) {
-        this.isTracking = isTracking
-
-        if(!isTracking) {
-            btnToggleTrack.text = "Start"
-            btnFinishTrack.visibility = View.VISIBLE
-
-//            Timber.d("2 $isInitialized $isTracking sadsa")
-
-        } else {
-            btnToggleTrack.text = "Stop"
-            menu?.getItem(0)?.isVisible = true
-            btnFinishTrack.visibility = View.GONE
-
-//            Timber.d("3 $isInitialized $isTracking sadsa")
-        }
-    }
-
-    private fun showCancelTrackingDialog() {
-        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
-                .setTitle("Cancel")
-                .setMessage("Are you sure to cancel the current tracking?")
-                .setIcon(R.drawable.ic_white_delete_24)
-                .setPositiveButton("Yes") { _, _ ->
-                    stopRun()
-                }
-                .setNegativeButton("No") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
-                .create()
-        dialog.show()
-    }
-
-    private fun showFinishTrackingDialog() {
-        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
-                .setTitle("End")
-                .setMessage("Are you sure to end the current tracking?")
-                .setIcon(R.drawable.ic_white_delete_24)
-                .setPositiveButton("Yes") { _, _ ->
-                    endRun()
-                }
-                .setNegativeButton("No") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
-                .create()
-        dialog.show()
     }
 
     private fun moveCameraToUser() {
