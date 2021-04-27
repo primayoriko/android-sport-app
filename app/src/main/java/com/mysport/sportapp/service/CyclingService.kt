@@ -20,14 +20,16 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import com.mysport.sportapp.R
+import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
 import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
 import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
+import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_ID
+import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.FASTEST_LOCATION_INTERVAL
 import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
-import com.mysport.sportapp.data.Constant.NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.NOTIFICATION_CHANNEL_NAME
-import com.mysport.sportapp.data.Constant.NOTIFICATION_ID
 import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Polylines
 import com.mysport.sportapp.util.TrackerUtility
@@ -38,7 +40,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.sqrt
 
 @AndroidEntryPoint
 class CyclingService: LifecycleService() {
@@ -81,14 +82,19 @@ class CyclingService: LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-        postInitialValues()
 
         curNotificationBuilder = baseNotificationBuilder
+        curNotificationBuilder
+                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
+                .setChannelId(Constant.CYCLING_NOTIFICATION_CHANNEL_ID)
+
+        postInitialValues()
+
         fusedLocationProviderClient = FusedLocationProviderClient(this)
 
         isTracking.observe(this, Observer {
             updateLocationTracking(it)
-            updateNotificationTrackingState(it)
+            updateNotificationTrackerState(it)
         })
     }
 
@@ -191,13 +197,13 @@ class CyclingService: LifecycleService() {
         }
 
         // TODO: Customize notification
-        startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
+        startForeground(CYCLING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
         timeRunInSeconds.observe(this, Observer {
             if(!serviceKilled) {
                 val notification = curNotificationBuilder
                         .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
-                notificationManager.notify(NOTIFICATION_ID, notification.build())
+                notificationManager.notify(CYCLING_NOTIFICATION_ID, notification.build())
             }
         })
 
@@ -221,14 +227,14 @@ class CyclingService: LifecycleService() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                NOTIFICATION_CHANNEL_NAME,
+                CYCLING_NOTIFICATION_CHANNEL_ID,
+                CYCLING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun updateNotificationTrackingState(isTracking: Boolean) {
+    private fun updateNotificationTrackerState(isTracking: Boolean) {
         val notificationActionText = if(isTracking) "Pause" else "Resume"
         val pendingIntent = if(isTracking) {
             val pauseIntent = Intent(this, CyclingService::class.java).apply {
@@ -252,7 +258,7 @@ class CyclingService: LifecycleService() {
         if(!serviceKilled) {
             curNotificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-            notificationManager.notify(NOTIFICATION_ID, curNotificationBuilder.build())
+            notificationManager.notify(CYCLING_NOTIFICATION_ID, curNotificationBuilder.build())
         }
     }
 

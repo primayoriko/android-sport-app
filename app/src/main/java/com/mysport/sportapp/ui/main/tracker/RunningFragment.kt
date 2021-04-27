@@ -17,6 +17,10 @@ import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cycling.*
+import kotlinx.android.synthetic.main.fragment_cycling.btnFinishTrack
+import kotlinx.android.synthetic.main.fragment_cycling.btnToggleTrack
+import kotlinx.android.synthetic.main.fragment_cycling.tvTimer
+import kotlinx.android.synthetic.main.fragment_running.*
 import timber.log.Timber
 import java.util.*
 
@@ -111,9 +115,9 @@ class RunningFragment : Fragment() {
         RunningService.stepCount.observe(viewLifecycleOwner, Observer {
             curStepCount = it
 
-            val displayedDistance = "$curStepCount"
+            val displayedStepCount = "$curStepCount"
 
-            tvDistance.text = displayedDistance
+            tvTotalStep.text = displayedStepCount
         })
 
         RunningService.timeTrainInMillis.observe(viewLifecycleOwner, Observer {

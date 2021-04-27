@@ -5,19 +5,25 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.location.Location
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant
+import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
+import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
+import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_ID
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_TITLE
+import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -27,25 +33,32 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class RunningService: LifecycleService() {
+class RunningService: LifecycleService(), SensorEventListener {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
-    var isFirstRun = true
+    lateinit var sensorManager: SensorManager
+    lateinit var stepCounterSensor: Sensor
+    lateinit var stepDetectorSensor: Sensor
+
+    var isFirstTrack = true
     var serviceKilled = false
 
-    private val timeRunInSeconds = MutableLiveData<Long>()
+    private val timeTrackInSeconds = MutableLiveData<Long>()
 
     private var isTrackerEnabled = false
+
+    private var newStepCounter = 0
+    private var currentStepsDetected = 0
 
     private var timeStarted = 0L
     private var lapTime = 0L
     private var lastSecondTimestamp = 0L
-    private var timeRun = 0L
+    private var timeTrack = 0L
 
     companion object {
         val timeTrainInMillis = MutableLiveData<Long>()
@@ -55,39 +68,52 @@ class RunningService: LifecycleService() {
 
     private fun postInitialValues() {
         isTracking.postValue(false)
-        timeRunInSeconds.postValue(0L)
+        timeTrackInSeconds.postValue(0L)
         timeTrainInMillis.postValue(0L)
         stepCount.postValue(0)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate() {
         super.onCreate()
 
+//        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//
+//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+//        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+//
+//        sensorManager.registerListener(this, stepCounterSensor, 0)
+//        sensorManager.registerListener(this, stepDetectorSensor, 0)
+
         curNotificationBuilder = baseNotificationBuilder
+        curNotificationBuilder
+                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
+                .setChannelId(RUNNING_NOTIFICATION_CHANNEL_ID)
+
         postInitialValues()
 
         isTracking.observe(this, Observer {
-            updateNotificationTrackingState(it)
+            updateNotificationTrackerState(it)
         })
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
             when (it.action) {
-                Constant.ACTION_START_OR_RESUME_SERVICE -> {
-                    if (isFirstRun) {
+                ACTION_START_OR_RESUME_SERVICE -> {
+                    if (isFirstTrack) {
                         startForegroundService()
-                        isFirstRun = false
+                        isFirstTrack = false
                     } else {
                         Timber.d("Resuming service...")
                         startTracker()
                     }
                 }
-                Constant.ACTION_PAUSE_SERVICE -> {
+                ACTION_PAUSE_SERVICE -> {
                     Timber.d("Paused service")
                     pauseService()
                 }
-                Constant.ACTION_STOP_SERVICE -> {
+                ACTION_STOP_SERVICE -> {
                     Timber.d("Stopped service")
                     killService()
                 }
@@ -99,34 +125,90 @@ class RunningService: LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        serviceKilled = true
+        Timber.d("Service Stopped")
+
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        // STEP_DETECTOR Sensor.
+        // *** Step Detector: When a step event is detect - "event.values[0]" becomes 1. And stays at 1!
+        if (isTrackerEnabled && event.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
+            val detectSteps = event.values[0].toInt()
+            stepCount.postValue(stepCount.value!! + detectSteps)
+
+        }
+
+        // STEP_COUNTER Sensor.
+        // *** Step Counting does not restart until the device is restarted - therefore, an algorithm for restarting the counting must be implemented.
+//        if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
+//            val countSteps = event.values[0].toInt()
+//
+//            // -The long way of starting a new step counting sequence.-
+//            /**
+//             * int tempStepCount = countSteps;
+//             * int initialStepCount = countSteps - tempStepCount; // Nullify step count - so that the step cpuinting can restart.
+//             * currentStepCount += initialStepCount; // This variable will be initialised with (0), and will be incremented by itself for every Sensor step counted.
+//             * stepCountTxV.setText(String.valueOf(currentStepCount));
+//             * currentStepCount++; // Increment variable by 1 - so that the variable can increase for every Step_Counter event.
+//             */
+//
+//            // -The efficient way of starting a new step counting sequence.-
+//            if (stepCount.value!! == 0) { // If the stepCounter is in its initial value, then...
+//                stepCount.postValue(event.values[0].toInt()) // Assign the StepCounter Sensor event value to it.
+//            }
+//
+//            newStepCounter = countSteps - stepCounter // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
+//        }
+
+        Timber.d("Service Counter $newStepCounter")
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+
     private fun startTracker() {
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
         isTrackerEnabled = true
 
-        CoroutineScope(Dispatchers.Main).launch {
-            while(isTracking.value!!){
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
 
-                delay(Constant.TRACKER_UPDATE_INTERVAL * 15)
-            }
-        }
+        sensorManager.registerListener(this, stepCounterSensor, 0)
+        sensorManager.registerListener(this, stepDetectorSensor, 0)
 
         CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
                 lapTime = System.currentTimeMillis() - timeStarted
-                timeTrainInMillis.postValue(timeRun + lapTime)
+                timeTrainInMillis.postValue(timeTrack + lapTime)
 
                 if (timeTrainInMillis.value!! >= lastSecondTimestamp + 1000L) {
-                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
+                    timeTrackInSeconds.postValue(timeTrackInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }
 
-                delay(Constant.TRACKER_UPDATE_INTERVAL)
+                delay(TRACKER_UPDATE_INTERVAL)
             }
 
-            timeRun += lapTime
+            timeTrack += lapTime
         }
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            while(isTracking.value!!){
+//
+//
+//                delay(Constant.TRACKER_UPDATE_INTERVAL * 15)
+//            }
+//        }
     }
 
     private fun startForegroundService() {
@@ -141,13 +223,13 @@ class RunningService: LifecycleService() {
         }
 
         // TODO: Customize notification
-        startForeground(Constant.NOTIFICATION_ID, baseNotificationBuilder.build())
+        startForeground(RUNNING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
-        timeRunInSeconds.observe(this, Observer {
-            if(!serviceKilled) {
+        timeTrackInSeconds.observe(this, Observer {
+            if (!serviceKilled) {
                 val notification = curNotificationBuilder
                         .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
-                notificationManager.notify(Constant.NOTIFICATION_ID, notification.build())
+                notificationManager.notify(RUNNING_NOTIFICATION_ID, notification.build())
             }
         })
 
@@ -161,7 +243,7 @@ class RunningService: LifecycleService() {
 
     private fun killService() {
         serviceKilled = true
-        isFirstRun = true
+        isFirstTrack = true
         pauseService()
         postInitialValues()
         stopForeground(true)
@@ -171,23 +253,23 @@ class RunningService: LifecycleService() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         val channel = NotificationChannel(
-                Constant.NOTIFICATION_CHANNEL_ID,
-                Constant.NOTIFICATION_CHANNEL_NAME,
+                RUNNING_NOTIFICATION_CHANNEL_ID,
+                RUNNING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun updateNotificationTrackingState(isTracking: Boolean) {
+    private fun updateNotificationTrackerState(isTracking: Boolean) {
         val notificationActionText = if(isTracking) "Pause" else "Resume"
         val pendingIntent = if(isTracking) {
             val pauseIntent = Intent(this, CyclingService::class.java).apply {
-                action = Constant.ACTION_PAUSE_SERVICE
+                action = ACTION_PAUSE_SERVICE
             }
             PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         } else {
             val resumeIntent = Intent(this, CyclingService::class.java).apply {
-                action = Constant.ACTION_START_OR_RESUME_SERVICE
+                action = ACTION_START_OR_RESUME_SERVICE
             }
             PendingIntent.getService(this, 2, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
@@ -202,7 +284,7 @@ class RunningService: LifecycleService() {
         if(!serviceKilled) {
             curNotificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-            notificationManager.notify(Constant.NOTIFICATION_ID, curNotificationBuilder.build())
+            notificationManager.notify(RUNNING_NOTIFICATION_ID, curNotificationBuilder.build())
         }
     }
 }

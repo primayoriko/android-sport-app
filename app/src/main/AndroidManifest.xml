@@ -39,6 +39,11 @@
 <!--        <service android:name=".service.CyclingService"-->
 <!--            android:foregroundServiceType="location" />-->
         <service
+            android:name=".service.RunningService"
+            android:foregroundServiceType="location"
+            android:stopWithTask="true" />
+
+        <service
             android:name=".service.CyclingService"
             android:foregroundServiceType="location"
             android:stopWithTask="true" />
