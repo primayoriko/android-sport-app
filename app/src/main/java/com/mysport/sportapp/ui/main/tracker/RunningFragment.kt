@@ -1,6 +1,7 @@
 package com.mysport.sportapp.ui.main.tracker
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -193,7 +194,7 @@ class RunningFragment : Fragment() {
                 dateTimestamp,
                 curTimeInMillis,
                 null,
-                null,
+                Bitmap.createBitmap(50, 50, Bitmap.Config.ALPHA_8),
                 curStepCount
         )
 
@@ -212,7 +213,7 @@ class RunningFragment : Fragment() {
     private fun stopTrack() {
         sendCommandToService(Constant.ACTION_STOP_SERVICE)
 
-        findNavController().navigate(R.id.action_cyclingFragment_to_navigation_tracker)
+        findNavController().navigate(R.id.action_runningFragment_to_navigation_tracker)
     }
 
 //    override fun onResume() {
