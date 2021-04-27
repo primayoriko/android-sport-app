@@ -9,7 +9,7 @@
     <string name="title_activity_web_news">Web News</string>
     <string name="news_image_desc">News Image</string>
 
-<!--    <string name="base_url">https://newsapi.org/v2/top-headlines</string>-->
+    <!--    <string name="base_url">https://newsapi.org/v2/top-headlines</string>-->
     <string name="news_api_query_category">sports</string>
     <string name="news_api_query_country">id</string>
     <string name="news_api_query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>

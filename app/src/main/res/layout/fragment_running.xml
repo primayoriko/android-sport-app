@@ -58,35 +58,4 @@
         app:layout_constraintStart_toEndOf="@+id/btnToggleTrack"
         app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/clInnerLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tvLetsGo">-->
-
-<!--        -->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/tvLetsGo"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Let's go, USERNAME!"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="50sp"-->
-<!--        android:visibility="gone"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/clInnerLayout"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:gravity="center_horizontal" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

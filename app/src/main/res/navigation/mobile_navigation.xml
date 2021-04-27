@@ -29,6 +29,7 @@
         android:name="com.mysport.sportapp.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/cyclingFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.CyclingFragment"
@@ -38,6 +39,7 @@
             android:id="@+id/action_cyclingFragment_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
     </fragment>
+
     <fragment
         android:id="@+id/runningFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.RunningFragment"
@@ -47,5 +49,11 @@
             android:id="@+id/action_runningFragment_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
     </fragment>
+
+    <fragment
+        android:id="@+id/schedulerFragment"
+        android:name="com.mysport.sportapp.ui.main.scheduler.SchedulerFragment"
+        android:label="fragment_scheduler"
+        tools:layout="@layout/fragment_scheduler" />
 
 </navigation>
