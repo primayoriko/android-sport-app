@@ -21,12 +21,6 @@ object ServiceModule {
 
     @ServiceScoped
     @Provides
-    fun provideFusedLocationProviderClient(
-            @ApplicationContext app: Context
-    ) = FusedLocationProviderClient(app)
-
-    @ServiceScoped
-    @Provides
     fun provideMainActivityPendingIntent(
             @ApplicationContext app: Context
     ) = PendingIntent.getActivity(
@@ -47,7 +41,13 @@ object ServiceModule {
             .setAutoCancel(false)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
-            .setContentTitle("Running App")
+            .setContentTitle("MySport App")
             .setContentText("00:00:00")
             .setContentIntent(pendingIntent)
+
+    @ServiceScoped
+    @Provides
+    fun provideFusedLocationProviderClient(
+            @ApplicationContext app: Context
+    ) = FusedLocationProviderClient(app)
 }
