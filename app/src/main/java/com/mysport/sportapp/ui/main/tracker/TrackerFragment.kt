@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -64,17 +65,6 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val runningButton: Button? =  view.findViewById(R.id.buttonSelectRunning)
-//        val cyclingButton: Button? =  view.findViewById(R.id.buttonSelectCycling)
-//
-//        runningButton?.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_tracker_to_runningFragment)
-//        }
-//
-//        cyclingButton?.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_tracker_to_cyclingFragment)
-//        }
-
         buttonSelectRunning.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_tracker_to_runningFragment)
         }
@@ -93,27 +83,41 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun requestPermissions() {
-        if(TrackerUtility.hasLocationPermissions(requireContext())) {
-            return
+        if(!TrackerUtility.hasLocationPermissions(requireContext())) {
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                EasyPermissions.requestPermissions(
+                        this,
+                        "You need to accept location permissions to use this app.",
+                        REQUEST_CODE_LOCATION_PERMISSION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            } else {
+                EasyPermissions.requestPermissions(
+                        this,
+                        "You need to accept location permissions to use this app cycling tracker.",
+                        REQUEST_CODE_LOCATION_PERMISSION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                )
+            }
         }
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            EasyPermissions.requestPermissions(
-                    this,
-                    "You need to accept location permissions to use this app.",
-                    REQUEST_CODE_LOCATION_PERMISSION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        } else {
-            EasyPermissions.requestPermissions(
-                    this,
-                    "You need to accept location permissions to use this app.",
-                    REQUEST_CODE_LOCATION_PERMISSION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            )
+
+        if(!TrackerUtility.hasSensorPermissions(requireContext())) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                EasyPermissions.requestPermissions(
+                        this,
+                        "You need to accept location permissions to use this app running tracker.",
+                        REQUEST_CODE_LOCATION_PERMISSION,
+                        Manifest.permission.ACTIVITY_RECOGNITION
+                )
+
+            } else {
+                // TODO: Search permission needed
+            }
         }
+
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
@@ -134,29 +138,5 @@ class TrackerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
-
-//    override fun onClick(view: View) {
-//        var fragment: Fragment? = null
-//        Log.v(view.id.toString(), "clicked")
-//        when (view.id) {
-//            R.id.buttonSelectCycling -> {
-//                fragment = CyclingFragment()
-//                replaceFragment(fragment)
-//            }
-//            R.id.buttonSelectRunning -> {
-//                fragment = RunningFragment()
-//                replaceFragment(fragment)
-//            }
-//        }
-//    }
-//
-//    private fun replaceFragment(someFragment: Fragment?) {
-//        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-//        if (someFragment != null) {
-//            transaction.replace(R.id.fragment_container_tracker, someFragment)
-//        }
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
 
 }

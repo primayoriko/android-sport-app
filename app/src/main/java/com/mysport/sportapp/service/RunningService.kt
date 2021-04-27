@@ -42,18 +42,13 @@ class RunningService: LifecycleService(), SensorEventListener {
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
     lateinit var sensorManager: SensorManager
-    lateinit var stepCounterSensor: Sensor
     lateinit var stepDetectorSensor: Sensor
+//    lateinit var stepCounterSensor: Sensor
 
     var isFirstTrack = true
     var serviceKilled = false
 
     private val timeTrackInSeconds = MutableLiveData<Long>()
-
-    private var isTrackerEnabled = false
-
-    private var newStepCounter = 0
-    private var currentStepsDetected = 0
 
     private var timeStarted = 0L
     private var lapTime = 0L
@@ -76,14 +71,6 @@ class RunningService: LifecycleService(), SensorEventListener {
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate() {
         super.onCreate()
-
-//        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-//
-//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-//        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-//
-//        sensorManager.registerListener(this, stepCounterSensor, 0)
-//        sensorManager.registerListener(this, stepDetectorSensor, 0)
 
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
@@ -138,10 +125,10 @@ class RunningService: LifecycleService(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        // STEP_DETECTOR Sensor.
-        // *** Step Detector: When a step event is detect - "event.values[0]" becomes 1. And stays at 1!
-        if (isTrackerEnabled && event.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
-            val detectSteps = event.values[0].toInt()
+
+        if (isTracking.value!! && event.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
+            val detectSteps = if (event.values[0].toInt() > 0) 1 else 0
+
             stepCount.postValue(stepCount.value!! + detectSteps)
 
         }
@@ -167,8 +154,6 @@ class RunningService: LifecycleService(), SensorEventListener {
 //
 //            newStepCounter = countSteps - stepCounter // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
 //        }
-
-        Timber.d("Service Counter $newStepCounter")
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -176,15 +161,6 @@ class RunningService: LifecycleService(), SensorEventListener {
     private fun startTracker() {
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
-        isTrackerEnabled = true
-
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-
-        sensorManager.registerListener(this, stepCounterSensor, 0)
-        sensorManager.registerListener(this, stepDetectorSensor, 0)
 
         CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
@@ -212,8 +188,14 @@ class RunningService: LifecycleService(), SensorEventListener {
     }
 
     private fun startForegroundService() {
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        sensorManager.registerListener(this, stepDetectorSensor, 0)
+//        sensorManager.registerListener(this, stepCounterSensor, 0)
+
         startTracker()
-        isTracking.postValue(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
@@ -238,7 +220,6 @@ class RunningService: LifecycleService(), SensorEventListener {
 
     private fun pauseService() {
         isTracking.postValue(false)
-        isTrackerEnabled = false
     }
 
     private fun killService() {

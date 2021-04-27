@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.location.Location
 import android.os.Build
+import androidx.annotation.RequiresApi
 import com.mysport.sportapp.data.Polyline
 import okhttp3.internal.format
 import pub.devrel.easypermissions.EasyPermissions
@@ -74,4 +75,15 @@ object TrackerUtility {
                 )
             }
 
+    fun hasSensorPermissions(context: Context) =
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                EasyPermissions.hasPermissions(
+                        context,
+                        Manifest.permission.ACTIVITY_RECOGNITION
+                )
+
+            } else {
+                true
+
+            }
 }
