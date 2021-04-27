@@ -56,8 +56,6 @@ class CyclingService: LifecycleService() {
 
     private val timeRunInSeconds = MutableLiveData<Long>()
 
-    private var isTrackerEnabled = false
-
     private var timeStarted = 0L
     private var lapTime = 0L
     private var lastSecondTimestamp = 0L
@@ -130,7 +128,6 @@ class CyclingService: LifecycleService() {
         addEmptyPolyline()
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
-        isTrackerEnabled = true
 
         CoroutineScope(Dispatchers.Main).launch {
             val paths = pathPoints.value!!
@@ -212,7 +209,7 @@ class CyclingService: LifecycleService() {
 
     private fun pauseService() {
         isTracking.postValue(false)
-        isTrackerEnabled = false
+
     }
 
     private fun killService() {
