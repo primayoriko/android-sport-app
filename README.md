@@ -120,7 +120,7 @@ Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default
 
     ![]()
 
-## Separation of Tasks
+## Contributors
 ----------------
 
 1. Naufal Prima Yoriko (13518146)
@@ -137,6 +137,15 @@ Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default
    - NPC
    - Bugfixing
 
+## Credits
+----------------
+
+Here are some learning source that we're used to create this project
+
+- sds
+- sad
+- sd
+- sda
 
 <!-- 
 Kelengkapan README
