@@ -1,4 +1,4 @@
-package com.mysport.sportapp.ui.history
+package com.mysport.sportapp.ui.main.history
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
