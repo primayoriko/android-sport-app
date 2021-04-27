@@ -48,10 +48,9 @@ class CyclingService: LifecycleService() {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
-    var isFirstRun = true
+    var isFirstTrack = true
     var serviceKilled = false
 
     private val timeRunInSeconds = MutableLiveData<Long>()
@@ -66,7 +65,7 @@ class CyclingService: LifecycleService() {
     private var lastLocation: LatLng? = null
 
     companion object {
-        val timeRunInMillis = MutableLiveData<Long>()
+        val timeTrainInMillis = MutableLiveData<Long>()
         val isTracking = MutableLiveData<Boolean>()
         val pathPoints = MutableLiveData<Polylines>()
         val distanceInMeters = MutableLiveData<Float>()
@@ -76,15 +75,15 @@ class CyclingService: LifecycleService() {
         isTracking.postValue(false)
         pathPoints.postValue(mutableListOf())
         timeRunInSeconds.postValue(0L)
-        timeRunInMillis.postValue(0L)
+        timeTrainInMillis.postValue(0L)
         distanceInMeters.postValue(0F)
     }
 
     override fun onCreate() {
         super.onCreate()
+        postInitialValues()
 
         curNotificationBuilder = baseNotificationBuilder
-        postInitialValues()
         fusedLocationProviderClient = FusedLocationProviderClient(this)
 
         isTracking.observe(this, Observer {
@@ -97,9 +96,9 @@ class CyclingService: LifecycleService() {
         intent?.let {
             when (it.action) {
                 ACTION_START_OR_RESUME_SERVICE -> {
-                    if (isFirstRun) {
+                    if (isFirstTrack) {
                         startForegroundService()
-                        isFirstRun = false
+                        isFirstTrack = false
                     } else {
                         Timber.d("Resuming service...")
                         startTracker()
@@ -166,9 +165,9 @@ class CyclingService: LifecycleService() {
         CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
                 lapTime = System.currentTimeMillis() - timeStarted
-                timeRunInMillis.postValue(timeRun + lapTime)
+                timeTrainInMillis.postValue(timeRun + lapTime)
 
-                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
+                if (timeTrainInMillis.value!! >= lastSecondTimestamp + 1000L) {
                     timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }
@@ -212,7 +211,7 @@ class CyclingService: LifecycleService() {
 
     private fun killService() {
         serviceKilled = true
-        isFirstRun = true
+        isFirstTrack = true
         pauseService()
         postInitialValues()
         stopForeground(true)

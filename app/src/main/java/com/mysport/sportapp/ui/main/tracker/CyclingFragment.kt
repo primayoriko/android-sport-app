@@ -31,16 +31,10 @@ import timber.log.Timber
 import java.util.*
 import kotlin.math.round
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
 //private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CyclingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
 class CyclingFragment : Fragment() {
 
@@ -174,7 +168,7 @@ class CyclingFragment : Fragment() {
             tvDistance.text = displayedDistance
         })
 
-        CyclingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
+        CyclingService.timeTrainInMillis.observe(viewLifecycleOwner, Observer {
             curTimeInMillis = it
             val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
             tvTimer.text = formattedTime
@@ -352,7 +346,7 @@ class CyclingFragment : Fragment() {
 //         * @param param2 Parameter 2.
 //         * @return A new instance of fragment CyclingFragment.
 //         */
-//        // TODO: Rename and change types and number of parameters
+//
 //        @JvmStatic
 //        fun newInstance(param1: String, param2: String) =
 //                CyclingFragment().apply {
