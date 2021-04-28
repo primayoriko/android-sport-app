@@ -127,11 +127,11 @@ Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default
 
 Here are some learning source that we're used to create this project
 
-- [Android Developer](https://developer.android.com) 
+- [Android Developer Docs](https://developer.android.com)
+- [Kotlin Lang Docs](https://kotlinlang.org/docs/home.html)
+- [Raywenderlich Web](https://www.raywenderlich.com)
 - [Phillip Lackner Youtube Channel](https://www.youtube.com/playlist?list=PLQkwcJG4YTCQ6emtoqSZS2FVwZR9FT3BV)
 - [Simplified Programming Youtube Channel](https://www.youtube.com/watch?v=0aOn2mIRlCA)
-- [Raywenderlich Web](https://www.raywenderlich.com)
-- [Kotlin Lang Docs](https://kotlinlang.org/docs/home.html)
 - [Programmer World Youtube Channel](https://www.youtube.com/watch?v=Dqg1A4hy-jI)
 - Android Codelabs
 
