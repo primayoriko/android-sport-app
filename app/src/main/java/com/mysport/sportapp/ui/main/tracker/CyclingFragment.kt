@@ -140,8 +140,8 @@ class CyclingFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         if(curTimeInMillis > 0L) {
             this.menu?.getItem(0)?.isVisible = true
-            menu?.getItem(0)?.isVisible = true
 
+            menu.getItem(0)?.isVisible = true
         }
     }
 
@@ -194,14 +194,12 @@ class CyclingFragment : Fragment() {
         if(!isTracking) {
             btnToggleTrack.text = "Start"
             btnFinishTrack.visibility = View.VISIBLE
-//            Timber.d("2 $isInitialized $isTracking sadsa")
 
         } else {
             btnToggleTrack.text = "Stop"
-            menu?.getItem(0)?.isVisible = true
             btnFinishTrack.visibility = View.GONE
-//            Timber.d("3 $isInitialized $isTracking sadsa")
 
+            menu?.getItem(0)?.isVisible = true
         }
     }
 
@@ -248,31 +246,43 @@ class CyclingFragment : Fragment() {
     }
 
     private fun endTrack() {
-        zoomToSeeWholeTrack()
+        resizeImageToFitTrack()
 
-        map?.snapshot { bmp ->
-            val dateTimestamp = Calendar.getInstance().timeInMillis
-            var distanceInMeters = 0F
-            for(polyline in pathPoints) {
-                distanceInMeters += TrackerUtility.calculatePolylineLength(polyline)
-            }
-            val trainingEntry = Training(
-                    Training.TrainingType.CYCLING,
-                    dateTimestamp,
-                    curTimeInMillis,
-                    distanceInMeters,
-                    bmp,
-                    null
-            )
-
-            Timber.d(trainingEntry.toString())
-
-            viewModel.insertTraining(trainingEntry)
+        if(map == null){
+            Timber.d("ERROR: No Maps Image")
             Snackbar.make(
                     requireActivity().findViewById(R.id.activity_main),
-                    "Training data saved successfully",
+                    "ERROR SAVING: No Maps Image",
                     Snackbar.LENGTH_LONG
             ).show()
+
+        } else {
+            map!!.snapshot { bmp ->
+                val dateTimestamp = Calendar.getInstance().timeInMillis
+                var distanceInMeters = 0F
+
+                for(polyline in pathPoints) {
+                    distanceInMeters += TrackerUtility.calculatePolylineLength(polyline)
+                }
+
+                val trainingEntry = Training(
+                        Training.TrainingType.CYCLING,
+                        dateTimestamp,
+                        curTimeInMillis,
+                        distanceInMeters,
+                        bmp,
+                        null
+                )
+
+                Timber.d(trainingEntry.toString())
+
+                viewModel.insertTraining(trainingEntry)
+                Snackbar.make(
+                        requireActivity().findViewById(R.id.activity_main),
+                        "Training data saved successfully",
+                        Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
         stopTrack()
@@ -295,7 +305,7 @@ class CyclingFragment : Fragment() {
         }
     }
 
-    private fun zoomToSeeWholeTrack() {
+    private fun resizeImageToFitTrack() {
         val bounds = LatLngBounds.Builder()
 
         if(pathPoints.isEmpty()) return

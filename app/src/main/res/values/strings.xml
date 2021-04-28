@@ -5,35 +5,37 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_news">News</string>
 
-    <string name="title_activity_web_news">Web News</string>
-    <string name="news_image_desc">News Image</string>
+    <string name="tv_tracker_fragment_header_text">Select Training Tracker</string>
+    <string name="tv_timer_initial_text">00:00:00:00</string>
+    <string name="tv_distance_initial_text">0.00 m</string>
+    <string name="tv_step_initial_text">0</string>
 
-<!--    <string name="base_url">https://newsapi.org/v2/top-headlines</string>-->
+    <string name="iv_news_item_desc">News Image</string>
+    <string name="iv_compass_desc">compass_img</string>
+
+    <string name="button_select_cycling">Cycling</string>
+    <string name="button_select_running">Running</string>
+
+    <!--    <string name="base_url">https://newsapi.org/v2/top-headlines</string>-->
     <string name="news_api_query_category">sports</string>
     <string name="news_api_query_country">id</string>
     <string name="news_api_query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
 
     <string name="google_maps_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDon-mmL2p2wIpdq7-wDh2UG9BuDjIJWXs</string>
 
-    <string name="text_track_selection">Select Training Tracker</string>
-    <string name="button_select_cycling">Cycling</string>
-    <string name="button_select_running">Running</string>
-    <!--    <string name="dummy_button">Dummy Button</string>-->
-    <!--    <string name="dummy_content">DUMMY\nCONTENT</string>-->
-
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_scheduler">Scheduler</string>
+    <string name="title_running">Running Tracker</string>
+    <string name="title_cycling">Cycling Tracker</string>
 
     <string-array name="track_type">
         <item>Cycling</item>
         <item>Run</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="initial_timer_display_text">00:00:00:00</string>
-    <string name="initial_distance_display_text">0.00 m</string>
-    <string name="initial_step_display_text">0</string>
 
 </resources>

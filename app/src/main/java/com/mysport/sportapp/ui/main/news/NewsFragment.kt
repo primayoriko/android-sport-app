@@ -21,7 +21,6 @@ import retrofit2.Response
 
 @AndroidEntryPoint
 class NewsFragment: Fragment() {
-//    private val TAG: String = NewsFragment::class.java.canonicalName
 
     private lateinit var newsViewModel: NewsViewModel
 
@@ -29,30 +28,23 @@ class NewsFragment: Fragment() {
         fun newInstance() = NewsFragment()
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?){
-//        super.onCreate(savedInstanceState)
-//
-//        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-//
-//        refreshLayoutNews.setOnRefreshListener {
-//            fetchNews()
-//
-//        }
-//
-//        fetchNews()
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?){
         super.onActivityCreated(savedInstanceState)
 
-        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-
-        refreshLayoutNews.setOnRefreshListener {
-            fetchNews()
-
-        }
-
-        fetchNews()
+//        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+//
+//        refreshLayoutNews.setOnRefreshListener {
+//            fetchNews()
+//        }
+//
+//        fetchNews()
     }
 
     override fun onCreateView(
@@ -61,7 +53,17 @@ class NewsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View?{
         return inflater.inflate(R.layout.fragment_news, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        refreshLayoutNews.setOnRefreshListener {
+            fetchNews()
+
+        }
+
+        fetchNews()
     }
 
     private fun fetchNews(){

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="3dp"
+    android:paddingLeft="3dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="4dp">
+
+    <TextView
+        style="@style/item_schedule_title"
+        android:id="@+id/scheduleTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_orange_light" />
+
+    <TextView
+        style="@style/item_schedule_desc"
+        android:id="@+id/scheduleTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_orange_light" />
+
+    <TextView
+        style="@style/item_schedule_desc"
+        android:id="@+id/scheduleDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_orange_light" />
+
+</LinearLayout>

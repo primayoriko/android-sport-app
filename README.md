@@ -18,9 +18,11 @@ Cara kedua
 2. tekan Pilihan `Build And Run`
 3. Tunggu sampai program dibuat dan terbuka di folder berbeda
 
+
 ### Builded
 ----------------
 1. Langsung jalankan/eksekusi saja executable file yang dimiliki
+
 
 ## How To Use
 
@@ -31,11 +33,13 @@ Cara kedua
 2. Setting Audio yang diinginkan.
 3. Jika sudah dapat menekan kembali tombol `Back`.
 
+
 ### Credits
 ----------------
 
 1. Di main menu tekan button `Credits`.
 2. Jika sudah dapat menekan kembali tombol `Back`.
+
 
 ### Start to Playing
 ----------------
@@ -45,6 +49,8 @@ Cara kedua
 3. Jika sudah tekan tombol `Play`.
 4. Akan dihadapkan pada multiplayer setup page, pilih yang diinginkan dengan menekan salah satu button.
 5. Jika sudah, dan tidak ada masalah, permainan dapat segera dimulai.
+
+
 ## How To Play
 ----------------
 
@@ -56,6 +62,7 @@ Cara kedua
 6. Lakukan tujuan permainan sesuai mode game, 
    - Mode Last Stand (atau Battle Royale) kalah kan musuh-musuhmu yang lain!
    - Mode Collect Money kumpulkan uang hingga sejumlah yang dimint adan jadilah pemenang!
+
 
 ## Specification Progress
 ----------------
@@ -70,55 +77,31 @@ Cara kedua
 9. **[Selesai]** Terdapat lebih dari satu map yang dapat dipilih oleh pemain.
 10. **[Selesai]** Terdapat lebih dari satu game mode selain battle royale.
 
+
 ## Library and Asset Used
 ----------------
 Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default System dari C# dan UnityEngine dari UI 
 
 1. [Mirror](https://assetstore.unity.com/packages/tools/network/mirror-129321): Digunakan sebagai sarana untuk men-support pembuatan mutiplayer game.
+   
 2. [Tools Wooden Box](https://assetstore.unity.com/packages/3d/props/tools/tools-wooden-boxes-185738): Digunakan sebagai Asset (hanya model 3D tanpa script) untuk membuat crate pada game yang merupakan spawn object dan dapat dicollect untuk mendapatkan cash.
    
+
 ## Some Screenshot
 ----------------
 
 1. Main Menu
 
-    ![mm](Docs/menu.png)
+    ![]()
 
 2. Settings
 
-    ![s](Docs/settings.png)
+    ![]()
 
-3. Credits
-
-    ![c](Docs/credits.png)
-
-4. Game Options
-
-    ![go](Docs/game_options.png)
-
-5. MultiPlayer Lobby
+3. MultiPlayer Lobby
 
     ![]()
 
-6. Inital Condition Game
-
-    ![g](Docs/game.png)
-
-7. Crates In map
-
-    ![]()
-
-8. Shooting
-
-    ![]()
-
-9. Special Shooting
-
-    ![]()
-
-10. Winning Round
-
-    ![]()
 
 ## Contributors
 ----------------
@@ -131,21 +114,26 @@ Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default
    - Integration of Game
    - Bugfixing
   
+
   
 2. Yasyfiana
    - Multiplayer
    - NPC
    - Bugfixing
 
+
 ## Credits
 ----------------
 
 Here are some learning source that we're used to create this project
 
-- sds
-- sad
-- sd
-- sda
+- [Android Developer Docs](https://developer.android.com)
+- [Kotlin Lang Docs](https://kotlinlang.org/docs/home.html)
+- [Raywenderlich Web](https://www.raywenderlich.com)
+- [Phillip Lackner Youtube Channel](https://www.youtube.com/playlist?list=PLQkwcJG4YTCQ6emtoqSZS2FVwZR9FT3BV)
+- [Simplified Programming Youtube Channel](https://www.youtube.com/watch?v=0aOn2mIRlCA)
+- [Programmer World Youtube Channel](https://www.youtube.com/watch?v=Dqg1A4hy-jI)
+- Android Codelabs
 
 <!-- 
 Kelengkapan README

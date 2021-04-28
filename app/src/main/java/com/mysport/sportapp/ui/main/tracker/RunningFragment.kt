@@ -17,7 +17,6 @@ import com.mysport.sportapp.service.RunningService
 import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_cycling.*
 import kotlinx.android.synthetic.main.fragment_cycling.btnFinishTrack
 import kotlinx.android.synthetic.main.fragment_cycling.btnToggleTrack
 import kotlinx.android.synthetic.main.fragment_cycling.tvTimer
@@ -81,6 +80,7 @@ class RunningFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_tracker_menu, menu)
+
         this.menu = menu
     }
 
@@ -88,8 +88,8 @@ class RunningFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         if(curTimeInMillis > 0L) {
             this.menu?.getItem(0)?.isVisible = true
-            menu?.getItem(0)?.isVisible = true
 
+            menu.getItem(0)?.isVisible = true
         }
     }
 
@@ -139,9 +139,9 @@ class RunningFragment : Fragment() {
 
         } else {
             btnToggleTrack.text = "Stop"
-            menu?.getItem(0)?.isVisible = true
             btnFinishTrack.visibility = View.GONE
 
+            menu?.getItem(0)?.isVisible = true
         }
     }
 
