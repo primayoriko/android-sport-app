@@ -17,7 +17,6 @@ import com.mysport.sportapp.service.RunningService
 import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_cycling.*
 import kotlinx.android.synthetic.main.fragment_cycling.btnFinishTrack
 import kotlinx.android.synthetic.main.fragment_cycling.btnToggleTrack
 import kotlinx.android.synthetic.main.fragment_cycling.tvTimer
@@ -139,8 +138,8 @@ class RunningFragment : Fragment() {
 
         } else {
             btnToggleTrack.text = "Stop"
-            menu?.getItem(0)?.isVisible = true
             btnFinishTrack.visibility = View.GONE
+            menu?.getItem(0)?.isVisible = true
 
         }
     }

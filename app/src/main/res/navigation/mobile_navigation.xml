@@ -64,6 +64,10 @@
         android:id="@+id/scheduleMakerFragment"
         android:name="com.mysport.sportapp.ui.main.scheduler.ScheduleMakerFragment"
         android:label="fragment_schedule_maker"
-        tools:layout="@layout/fragment_schedule_maker" />
+        tools:layout="@layout/fragment_schedule_maker" >
+        <action
+            android:id="@+id/action_scheduleMakerFragment_to_navigation_scheduler"
+            app:destination="@id/navigation_scheduler" />
+    </fragment>
 
 </navigation>

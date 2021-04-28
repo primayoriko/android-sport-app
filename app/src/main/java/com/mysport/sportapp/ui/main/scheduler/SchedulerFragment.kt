@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,13 +32,10 @@ class SchedulerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//         fabScheduler.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
+         fabScheduler.setOnClickListener {
+             findNavController().navigate(R.id.action_navigation_scheduler_to_scheduleMakerFragment)
+        }
     }
-
-
 
 //    companion object {
 //        @JvmStatic
