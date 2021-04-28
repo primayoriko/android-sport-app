@@ -5,10 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.Toast
+import com.mysport.sportapp.data.Schedule.Companion.FRIDAY
+import com.mysport.sportapp.data.Schedule.Companion.MONDAY
+import com.mysport.sportapp.data.Schedule.Companion.RECURRING
+import com.mysport.sportapp.data.Schedule.Companion.SATURDAY
+import com.mysport.sportapp.data.Schedule.Companion.SUNDAY
+import com.mysport.sportapp.data.Schedule.Companion.THURSDAY
+import com.mysport.sportapp.data.Schedule.Companion.TUESDAY
+import com.mysport.sportapp.data.Schedule.Companion.WEDNESDAY
 import java.util.*
 
 
 class SchedulerBroadcastReceiver : BroadcastReceiver() {
+
     override fun onReceive(context: Context, intent: Intent) {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             val toastText = String.format("Alarm Reboot")
@@ -77,15 +86,5 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
 //        }
     }
 
-    companion object {
-        const val MONDAY = "MONDAY"
-        const val TUESDAY = "TUESDAY"
-        const val WEDNESDAY = "WEDNESDAY"
-        const val THURSDAY = "THURSDAY"
-        const val FRIDAY = "FRIDAY"
-        const val SATURDAY = "SATURDAY"
-        const val SUNDAY = "SUNDAY"
-        const val RECURRING = "RECURRING"
-        const val TITLE = "TITLE"
-    }
+
 }

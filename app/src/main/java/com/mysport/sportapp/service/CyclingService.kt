@@ -82,6 +82,7 @@ class CyclingService: LifecycleService() {
     override fun onCreate() {
         super.onCreate()
 
+        // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
                 .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
@@ -127,6 +128,7 @@ class CyclingService: LifecycleService() {
 
     private fun startTracker() {
         addEmptyPolyline()
+
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
 
@@ -185,16 +187,16 @@ class CyclingService: LifecycleService() {
 
     private fun startForegroundService() {
         startTracker()
-        isTracking.postValue(true)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-                as NotificationManager
+        val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
+        } else {
+            Timber.d(" ERROR: Can't create notification, need API version above 26.")
         }
 
-        // TODO: Customize notification
         startForeground(CYCLING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
         timeRunInSeconds.observe(this, Observer {
@@ -206,6 +208,7 @@ class CyclingService: LifecycleService() {
         })
 
         // TODO: Observe running
+
     }
 
     private fun pauseService() {
@@ -229,6 +232,7 @@ class CyclingService: LifecycleService() {
                 CYCLING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
+
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -238,11 +242,13 @@ class CyclingService: LifecycleService() {
             val pauseIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_PAUSE_SERVICE
             }
+
             PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         } else {
             val resumeIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_START_OR_RESUME_SERVICE
             }
+
             PendingIntent.getService(this, 2, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 

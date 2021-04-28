@@ -11,7 +11,6 @@ import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Schedule
 import com.mysport.sportapp.data.Schedule.ScheduleType
 import com.mysport.sportapp.data.Training.TrainingType
-import com.mysport.sportapp.ui.main.tracker.TrackerViewModel
 import com.mysport.sportapp.util.TimePickerUtility
 import kotlinx.android.synthetic.main.fragment_day_schedule_maker.*
 import timber.log.Timber
