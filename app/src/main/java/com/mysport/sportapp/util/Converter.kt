@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.ByteArrayOutputStream
 import androidx.room.TypeConverter
+import com.mysport.sportapp.data.Schedule
 import com.mysport.sportapp.data.Training
 
 class Converter {
@@ -24,4 +25,10 @@ class Converter {
 
     @TypeConverter
     fun fromTrainingType(value: Training.TrainingType) = value.name
+
+    @TypeConverter
+    fun toScheduleType(value: String) = enumValueOf<Schedule.ScheduleType>(value)
+
+    @TypeConverter
+    fun fromScheduleType(value: Schedule.ScheduleType) = value.name
 }

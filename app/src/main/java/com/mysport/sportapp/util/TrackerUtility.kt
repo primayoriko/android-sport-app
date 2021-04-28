@@ -15,17 +15,21 @@ object TrackerUtility {
     fun getFormattedStopWatchTime(ms: Long, includeMillis: Boolean = false): String {
         var milliseconds = ms
         val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
-        milliseconds -= TimeUnit.HOURS.toMillis(hours)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds)
-        milliseconds -= TimeUnit.MINUTES.toMillis(minutes)
         val seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds)
+
+        milliseconds -= TimeUnit.HOURS.toMillis(hours)
+        milliseconds -= TimeUnit.MINUTES.toMillis(minutes)
+
         if(!includeMillis) {
             return "${if(hours < 10) "0" else ""}$hours:" +
                     "${if(minutes < 10) "0" else ""}$minutes:" +
                     "${if(seconds < 10) "0" else ""}$seconds"
         }
+
         milliseconds -= TimeUnit.SECONDS.toMillis(seconds)
         milliseconds /= 10
+
         return "${if(hours < 10) "0" else ""}$hours:" +
                 "${if(minutes < 10) "0" else ""}$minutes:" +
                 "${if(seconds < 10) "0" else ""}$seconds:" +
@@ -37,9 +41,35 @@ object TrackerUtility {
     }
 
     // For Running
+    fun hasSensorPermissions(context: Context) =
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                EasyPermissions.hasPermissions(
+                        context,
+                        Manifest.permission.ACTIVITY_RECOGNITION
+                )
 
+            } else {
+                true
+
+            }
 
     // For Cycling
+    fun hasLocationPermissions(context: Context) =
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                EasyPermissions.hasPermissions(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            } else {
+                EasyPermissions.hasPermissions(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                )
+            }
+
     fun calculatePolylineLength(polyline: Polyline): Float {
         var distance = 0f
         for(i in 0..polyline.size - 2) {
@@ -59,31 +89,4 @@ object TrackerUtility {
         return distance
     }
 
-    fun hasLocationPermissions(context: Context) =
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            } else {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
-            }
-
-    fun hasSensorPermissions(context: Context) =
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACTIVITY_RECOGNITION
-                )
-
-            } else {
-                true
-
-            }
 }

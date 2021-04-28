@@ -2,13 +2,22 @@ package com.mysport.sportapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.Duration
 
 @Entity(tableName = "schedule")
 data class Schedule(
    var title: String,
-   var type: Training.TrainingType,
-   var timestamp: Long = 0L,
+   var trainType: Training.TrainingType,
+   var scheduleType: ScheduleType,
+   var durationInMinutes: Int = 0,
+   var target: Int = 0,
+   var isRecurring: Boolean = false,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
+
+    enum class ScheduleType {
+        EXACT,
+        DAY
+    }
 }

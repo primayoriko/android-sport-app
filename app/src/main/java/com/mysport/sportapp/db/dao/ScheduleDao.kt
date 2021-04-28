@@ -13,7 +13,8 @@ interface ScheduleDao {
     @Delete
     suspend fun deleteSchedule(schedule: Schedule)
 
-    @Query("SELECT * FROM schedule ORDER BY timestamp DESC")
+    // TODO: Order by time or type or keep by Id
+    @Query("SELECT * FROM schedule ORDER BY id DESC")
     fun getAllSchedulesSortedByDate(): LiveData<List<Schedule>>
 
     // Examples
