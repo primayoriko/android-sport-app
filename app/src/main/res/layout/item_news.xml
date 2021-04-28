@@ -11,41 +11,41 @@
     <ImageView
         android:id="@+id/newsImage"
         android:layout_width="0dp"
-        android:layout_weight="0.3"
         android:layout_height="match_parent"
+        android:layout_weight="0.3"
         android:scaleType="centerCrop"
         android:contentDescription="@string/iv_news_item_desc"/>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.7"
         android:background="@android:color/holo_orange_light"
-        android:layout_weight="0.7">
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/newsTitle"
             style="@style/item_news_title"
+            android:id="@+id/newsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
 
         <TextView
-            android:id="@+id/newsAuthor"
             style="@style/item_news_author"
+            android:id="@+id/newsAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
 
         <TextView
-            android:id="@+id/newsDesc"
             style="@style/item_news_desc"
+            android:id="@+id/newsDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
 
