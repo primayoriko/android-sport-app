@@ -33,7 +33,7 @@ class SchedulerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
          fabScheduler.setOnClickListener {
-             findNavController().navigate(R.id.action_navigation_scheduler_to_scheduleMakerFragment)
+             findNavController().navigate(R.id.action_navigation_scheduler_to_exactScheduleMakerFragment)
         }
     }
 

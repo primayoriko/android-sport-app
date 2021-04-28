@@ -56,17 +56,17 @@
         android:label="@string/title_scheduler"
         tools:layout="@layout/fragment_scheduler" >
         <action
-            android:id="@+id/action_navigation_scheduler_to_scheduleMakerFragment"
-            app:destination="@id/scheduleMakerFragment" />
+            android:id="@+id/action_navigation_scheduler_to_exactScheduleMakerFragment"
+            app:destination="@id/exactScheduleMakerFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/scheduleMakerFragment"
-        android:name="com.mysport.sportapp.ui.main.scheduler.ScheduleMakerFragment"
-        android:label="Schedule Maker"
-        tools:layout="@layout/fragment_schedule_maker" >
+        android:id="@+id/exactScheduleMakerFragment"
+        android:name="com.mysport.sportapp.ui.main.scheduler.ExactScheduleMakerFragment"
+        android:label="Exact Schedule Maker"
+        tools:layout="@layout/fragment_exact_schedule_maker" >
         <action
-            android:id="@+id/action_scheduleMakerFragment_to_navigation_scheduler"
+            android:id="@+id/action_exactScheduleMakerFragment_to_navigation_scheduler"
             app:destination="@id/navigation_scheduler" />
     </fragment>
 
