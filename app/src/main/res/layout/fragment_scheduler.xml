@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_container_tracker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.scheduler.SchedulerFragment">
+    tools:context=".ui.main.scheduler.SchedulerFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayoutScheduler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewScheduler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:listitem="@layout/item_schedule"
+            android:padding="@dimen/big_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabScheduler"
@@ -22,13 +34,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_white_add_alert_24"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        />
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintTop_toBottomOf="parent"-->
-
+        android:contentDescription="add_schedule_img" />
 
     <!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
     <!--    <Spinner-->
@@ -45,4 +51,4 @@
 
     <!--    </Spinner>-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

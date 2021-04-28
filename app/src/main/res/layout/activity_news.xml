@@ -21,6 +21,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_web_news" />
+    <include layout="@layout/content_news" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

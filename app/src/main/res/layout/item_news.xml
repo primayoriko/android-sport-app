@@ -22,27 +22,31 @@
         android:layout_height="wrap_content"
         android:background="@android:color/holo_orange_light"
         android:layout_weight="0.7">
+
         <TextView
             android:id="@+id/newsTitle"
-            style="@style/news_title"
+            style="@style/item_news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:background="@android:color/holo_orange_light" />
+
         <TextView
             android:id="@+id/newsAuthor"
-            style="@style/news_author"
+            style="@style/item_news_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:background="@android:color/holo_orange_light" />
+
         <TextView
             android:id="@+id/newsDesc"
-            style="@style/news_desc"
+            style="@style/item_news_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:background="@android:color/holo_orange_light" />
+
     </LinearLayout>
 
 </LinearLayout>
