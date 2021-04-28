@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.databinding.NewsItemBinding
 import com.mysport.sportapp.data.News
-import com.mysport.sportapp.ui.webnews.WebNewsActivity
+import com.mysport.sportapp.ui.news.NewsActivity
 
 class NewsAdapter (private val newsList: List<News>):
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
@@ -51,7 +51,7 @@ class NewsAdapter (private val newsList: List<News>):
             Glide.with(view.context).load(imageUrl.toString()).into(newsItemBinding.newsImage)
 
             view.setOnClickListener(View.OnClickListener {
-                val intent = Intent(view.context, WebNewsActivity::class.java)
+                val intent = Intent(view.context, NewsActivity::class.java)
                 intent.putExtra("url", news.url)
 
                 view.context.startActivity(intent)

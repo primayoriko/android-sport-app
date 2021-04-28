@@ -23,9 +23,16 @@ class SchedulerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+
+//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
+
         return inflater.inflate(R.layout.fragment_scheduler, container, false)
     }
+
+
 
 //    companion object {
 //        @JvmStatic
