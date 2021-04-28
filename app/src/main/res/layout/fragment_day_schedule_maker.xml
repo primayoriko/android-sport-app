@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container_exact_schedule_maker"
+    android:id="@+id/fragment_container_day_schedule_maker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="35dp"
@@ -115,7 +115,7 @@
             android:text="Create" />
 
         <Button
-            android:id="@+id/btnSchedulerSwitchToDay"
+            android:id="@+id/btnSchedulerSwitchToExact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -124,7 +124,7 @@
             android:gravity="center"
             android:textFontWeight="15"
             android:textSize="10sp"
-            android:text="Switch to Day" />
+            android:text="Switch to Exact" />
 
     </LinearLayout>
 

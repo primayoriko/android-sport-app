@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Training.TrainingType
-import kotlinx.android.synthetic.main.fragment_exact_schedule_maker.*
+import kotlinx.android.synthetic.main.fragment_day_schedule_maker.*
 
-class ExactScheduleMakerFragment : Fragment() {
+class DayScheduleMakerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class ExactScheduleMakerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exact_schedule_maker, container, false)
+        return inflater.inflate(R.layout.fragment_day_schedule_maker, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,9 +31,9 @@ class ExactScheduleMakerFragment : Fragment() {
 
         }
 
-        btnSchedulerSwitchToDay.setOnClickListener{
+        btnSchedulerSwitchToExact.setOnClickListener{
             findNavController()
-                    .navigate(R.id.action_exactScheduleMakerFragment_to_dayScheduleMakerFragment)
+                    .navigate(R.id.action_dayScheduleMakerFragment_to_exactScheduleMakerFragment)
         }
     }
 

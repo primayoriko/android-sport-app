@@ -68,6 +68,22 @@
         <action
             android:id="@+id/action_exactScheduleMakerFragment_to_navigation_scheduler"
             app:destination="@id/navigation_scheduler" />
+        <action
+            android:id="@+id/action_exactScheduleMakerFragment_to_dayScheduleMakerFragment"
+            app:destination="@id/dayScheduleMakerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dayScheduleMakerFragment"
+        android:name="com.mysport.sportapp.ui.main.scheduler.DayScheduleMakerFragment"
+        android:label="Day Schedule Maker"
+        tools:layout="@layout/fragment_day_schedule_maker" >
+        <action
+            android:id="@+id/action_dayScheduleMakerFragment_to_exactScheduleMakerFragment"
+            app:destination="@id/exactScheduleMakerFragment" />
+        <action
+            android:id="@+id/action_dayScheduleMakerFragment_to_navigation_scheduler"
+            app:destination="@id/navigation_scheduler" />
     </fragment>
 
 </navigation>
