@@ -32,6 +32,7 @@ import com.mysport.sportapp.data.Constant.FASTEST_LOCATION_INTERVAL
 import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Polylines
+import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -277,7 +278,7 @@ class CyclingService: LifecycleService() {
     @SuppressLint("MissingPermission")
     private fun updateLocationTracking(isTracking: Boolean) {
         if (isTracking) {
-            if (TrackerUtility.hasLocationPermissions(this)) {
+            if (PermissionUtility.hasLocationPermissions(this)) {
                 val request = LocationRequest().apply {
                     interval = LOCATION_UPDATE_INTERVAL
                     fastestInterval = FASTEST_LOCATION_INTERVAL

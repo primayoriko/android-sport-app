@@ -40,36 +40,6 @@ object TrackerUtility {
         return format("%.2f", distance)
     }
 
-    // For Running
-    fun hasSensorPermissions(context: Context) =
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACTIVITY_RECOGNITION
-                )
-
-            } else {
-                true
-
-            }
-
-    // For Cycling
-    fun hasLocationPermissions(context: Context) =
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            } else {
-                EasyPermissions.hasPermissions(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
-            }
-
     fun calculatePolylineLength(polyline: Polyline): Float {
         var distance = 0f
         for(i in 0..polyline.size - 2) {

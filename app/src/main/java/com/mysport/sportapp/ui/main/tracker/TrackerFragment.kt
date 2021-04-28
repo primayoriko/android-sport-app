@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Constant.REQUEST_CODE_LOCATION_PERMISSION
+import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracker.*
@@ -140,40 +141,11 @@ class TrackerFragment : Fragment(),
     }
 
     private fun requestPermissions() {
-        if(!TrackerUtility.hasLocationPermissions(requireContext())) {
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            } else {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app cycling tracker.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
-            }
-        }
+        if(!PermissionUtility.hasSensorPermissions(requireContext()))
+            PermissionUtility.requestSensorPermissions(this)
 
-        if(!TrackerUtility.hasSensorPermissions(requireContext())) {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app running tracker.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACTIVITY_RECOGNITION
-                )
-
-            } else {
-                // TODO: Search permission needed
-            }
-        }
+        if(!PermissionUtility.hasLocationPermissions(requireContext()))
+            PermissionUtility.requestLocationPermissions(this)
     }
 
     private fun activateSensors(){
