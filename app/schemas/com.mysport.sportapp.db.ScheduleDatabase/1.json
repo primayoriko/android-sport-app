@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cbac26781824c0cac480c971c2e4a160",
+    "identityHash": "fd808430aeb6fa552fd9c6ac7fc5336e",
     "entities": [
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -30,6 +30,18 @@
             "fieldPath": "scheduleType",
             "columnName": "scheduleType",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hour",
+            "columnName": "hour",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minute",
+            "columnName": "minute",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -64,7 +76,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cbac26781824c0cac480c971c2e4a160')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd808430aeb6fa552fd9c6ac7fc5336e')"
     ]
   }
 }

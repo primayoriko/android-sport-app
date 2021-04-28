@@ -36,9 +36,7 @@ object TrackerUtility {
                 "${if(milliseconds < 10) "0" else ""}$milliseconds"
     }
 
-    fun getFormattedDistance(distance: Float): String{
-        return format("%.2f", distance)
-    }
+    fun getFormattedDistance(distance: Float): String = format("%.2f", distance)
 
     fun calculatePolylineLength(polyline: Polyline): Float {
         var distance = 0f
