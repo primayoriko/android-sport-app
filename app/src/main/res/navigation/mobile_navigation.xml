@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/cyclingFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.CyclingFragment"
-        android:label="fragment_cycling"
+        android:label="@string/title_cycling"
         tools:layout="@layout/fragment_cycling" >
         <action
             android:id="@+id/action_cyclingFragment_to_navigation_tracker"
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/runningFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.RunningFragment"
-        android:label="fragment_running"
+        android:label="@string/title_running"
         tools:layout="@layout/fragment_running" >
         <action
             android:id="@+id/action_runningFragment_to_navigation_tracker"
@@ -51,9 +51,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/schedulerFragment"
+        android:id="@+id/navigation_scheduler"
         android:name="com.mysport.sportapp.ui.main.scheduler.SchedulerFragment"
-        android:label="fragment_scheduler"
+        android:label="@string/title_scheduler"
         tools:layout="@layout/fragment_scheduler" />
 
 </navigation>
