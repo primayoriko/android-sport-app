@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mysport.sportapp.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_news.*
-import kotlinx.android.synthetic.main.content_web_news.*
+import kotlinx.android.synthetic.main.content_news.*
 
 @AndroidEntryPoint
 class NewsActivity : AppCompatActivity() {

@@ -9,7 +9,6 @@
     tools:context=".ui.main.MainActivity">
 
 <!--    android:paddingTop="?attr/actionBarSize"-->
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainBottomNavView"
         android:layout_width="0dp"
