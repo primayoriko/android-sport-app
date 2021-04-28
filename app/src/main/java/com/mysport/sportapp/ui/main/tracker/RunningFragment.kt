@@ -80,6 +80,7 @@ class RunningFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_tracker_menu, menu)
+
         this.menu = menu
     }
 
@@ -87,8 +88,8 @@ class RunningFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         if(curTimeInMillis > 0L) {
             this.menu?.getItem(0)?.isVisible = true
-            menu.getItem(0)?.isVisible = true
 
+            menu.getItem(0)?.isVisible = true
         }
     }
 
@@ -139,8 +140,8 @@ class RunningFragment : Fragment() {
         } else {
             btnToggleTrack.text = "Stop"
             btnFinishTrack.visibility = View.GONE
-            menu?.getItem(0)?.isVisible = true
 
+            menu?.getItem(0)?.isVisible = true
         }
     }
 
