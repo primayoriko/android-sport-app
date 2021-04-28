@@ -88,7 +88,7 @@ class RunningFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         if(curTimeInMillis > 0L) {
             this.menu?.getItem(0)?.isVisible = true
-            menu?.getItem(0)?.isVisible = true
+            menu.getItem(0)?.isVisible = true
 
         }
     }
