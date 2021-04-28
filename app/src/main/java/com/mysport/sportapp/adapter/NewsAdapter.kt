@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
-import com.mysport.sportapp.databinding.NewsItemBinding
+import com.mysport.sportapp.databinding.ItemNewsBinding
 import com.mysport.sportapp.data.News
 import com.mysport.sportapp.ui.news.NewsActivity
 
@@ -16,7 +16,7 @@ class NewsAdapter (private val newsList: List<News>):
     override fun getItemCount(): Int = newsList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
 
         return NewsViewHolder(view)
     }
@@ -39,12 +39,12 @@ class NewsAdapter (private val newsList: List<News>):
 
             imageUrl.append(news.urlToImage)
 
-//                    NewsItemBinding.inflate(
+//                    ItemNewsBinding.inflate(
 //                            LayoutInflater.from(view.context),
 //                            view.parent as ViewGroup?,
 //                            false
 //                    )
-            val newsItemBinding: NewsItemBinding = NewsItemBinding.bind(view)
+            val newsItemBinding: ItemNewsBinding = ItemNewsBinding.bind(view)
 
             newsItemBinding.newsTitle.text = news.title
             newsItemBinding.newsAuthor.text = news.author
