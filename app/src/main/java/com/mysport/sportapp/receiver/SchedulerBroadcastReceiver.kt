@@ -15,6 +15,7 @@ import com.mysport.sportapp.data.Schedule.Companion.TITLE
 import com.mysport.sportapp.data.Schedule.Companion.TUESDAY
 import com.mysport.sportapp.data.Schedule.Companion.WEDNESDAY
 import com.mysport.sportapp.service.SchedulerService
+import timber.log.Timber
 import java.util.*
 
 
@@ -32,11 +33,14 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
             Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show()
 
             if (!intent.getBooleanExtra(RECURRING, false)) {
+                Timber.d("sadasd\nasdas\nasdsa")
                 startSchedulerService(context, intent)
             }
 
             run {
+                Timber.d("sad2asd\nas3das\nasd5sa")
                 if (isScheduledToday(intent)) {
+                    Timber.d("sad2a234sd\nas3da432s\nasd12135sa")
                     startSchedulerService(context, intent)
                 }
             }
@@ -82,6 +86,7 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Timber.d("wqewqe\naswqeqweasd12wqewq")
             context.startForegroundService(intentService)
         } else {
             context.startService(intentService)

@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
 import com.mysport.sportapp.data.Schedule.Companion.TITLE
@@ -82,8 +83,8 @@ class SchedulerService : Service() {
                 .setContentText("$alarmTitle: Ring Ring .. Ring Ring")
                 .setContentIntent(pendingIntent)
 
-        val pattern = longArrayOf(0, 100, 100)
-        vibrator.vibrate(pattern, 6)
+        val pattern = longArrayOf(0, 100, 1000)
+        vibrator.vibrate(pattern, 0)
 //        mediaPlayer.start()
 
         startForeground(SCHEDULER_NOTIFICATION_ID, notificationBuilder.build())
@@ -121,9 +122,9 @@ class SchedulerService : Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         val channel = NotificationChannel(
-                Constant.RUNNING_NOTIFICATION_CHANNEL_ID,
-                Constant.RUNNING_NOTIFICATION_CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_LOW
+                SCHEDULER_NOTIFICATION_CHANNEL_ID,
+                SCHEDULER_NOTIFICATION_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
         )
 
         notificationManager.createNotificationChannel(channel)
