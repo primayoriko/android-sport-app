@@ -52,8 +52,16 @@
         android:id="@+id/navigation_history"
         android:name="com.mysport.sportapp.ui.main.history.HistoryFragment"
         android:label="@string/history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_navigation_history_to_list_history"
+            app:destination="@id/list_history" />
+    </fragment>
 
-
+    <fragment
+        android:id="@+id/list_history"
+        android:name="com.mysport.sportapp.ui.main.history.ListHistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_listhistory" />
 
 </navigation>
