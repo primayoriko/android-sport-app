@@ -29,19 +29,21 @@
         android:name="com.mysport.sportapp.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/cyclingFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.CyclingFragment"
-        android:label="fragment_cycling"
+        android:label="@string/title_cycling"
         tools:layout="@layout/fragment_cycling" >
         <action
             android:id="@+id/action_cyclingFragment_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
     </fragment>
+
     <fragment
         android:id="@+id/runningFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.RunningFragment"
-        android:label="fragment_running"
+        android:label="@string/title_running"
         tools:layout="@layout/fragment_running" >
         <action
             android:id="@+id/action_runningFragment_to_navigation_tracker"
@@ -63,5 +65,41 @@
         android:name="com.mysport.sportapp.ui.main.history.ListHistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_listhistory" />
+    
+    <fragment
+        android:id="@+id/navigation_scheduler"
+        android:name="com.mysport.sportapp.ui.main.scheduler.SchedulerFragment"
+        android:label="@string/title_scheduler"
+        tools:layout="@layout/fragment_scheduler" >
+        <action
+            android:id="@+id/action_navigation_scheduler_to_exactScheduleMakerFragment"
+            app:destination="@id/exactScheduleMakerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exactScheduleMakerFragment"
+        android:name="com.mysport.sportapp.ui.main.scheduler.ExactScheduleMakerFragment"
+        android:label="Exact Schedule Maker"
+        tools:layout="@layout/fragment_exact_schedule_maker" >
+        <action
+            android:id="@+id/action_exactScheduleMakerFragment_to_navigation_scheduler"
+            app:destination="@id/navigation_scheduler" />
+        <action
+            android:id="@+id/action_exactScheduleMakerFragment_to_dayScheduleMakerFragment"
+            app:destination="@id/dayScheduleMakerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dayScheduleMakerFragment"
+        android:name="com.mysport.sportapp.ui.main.scheduler.DayScheduleMakerFragment"
+        android:label="Day Schedule Maker"
+        tools:layout="@layout/fragment_day_schedule_maker" >
+        <action
+            android:id="@+id/action_dayScheduleMakerFragment_to_exactScheduleMakerFragment"
+            app:destination="@id/exactScheduleMakerFragment" />
+        <action
+            android:id="@+id/action_dayScheduleMakerFragment_to_navigation_scheduler"
+            app:destination="@id/navigation_scheduler" />
+    </fragment>
 
 </navigation>

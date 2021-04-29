@@ -1,21 +1,21 @@
-package com.mysport.sportapp.ui.webnews
+package com.mysport.sportapp.ui.news
 
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.mysport.sportapp.R
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_web_news.*
-import kotlinx.android.synthetic.main.content_web_news.*
+import kotlinx.android.synthetic.main.activity_news.*
+import kotlinx.android.synthetic.main.content_news.*
 
 @AndroidEntryPoint
-class WebNewsActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_news)
+        setContentView(R.layout.activity_news)
 
-        setSupportActionBar(webNewsToolbar)
+        setSupportActionBar(newsToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
@@ -24,10 +24,6 @@ class WebNewsActivity : AppCompatActivity() {
         webViewNews.loadUrl(url!!)
         webViewNews.webViewClient = WebViewClient()
 
-//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

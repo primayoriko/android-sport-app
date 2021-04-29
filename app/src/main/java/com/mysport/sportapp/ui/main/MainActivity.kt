@@ -17,15 +17,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
+
         setContentView(R.layout.activity_main)
 
         val navController = findNavController(R.id.mainNavHostFragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
+            R.id.navigation_home,
             R.id.navigation_news,
             R.id.navigation_tracker,
-            R.id.navigation_home,
             R.id.navigation_history,
             R.id.navigation_scheduler
         ))

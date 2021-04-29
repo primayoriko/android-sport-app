@@ -26,8 +26,24 @@ object Constant {
     const val POLYLINE_WIDTH = 8f
     const val MAP_ZOOM = 15f
 
-    const val NOTIFICATION_CHANNEL_ID = "tracking_channel"
-    const val NOTIFICATION_CHANNEL_NAME = "Tracking"
-    const val NOTIFICATION_ID = 1
+    const val BASE_NOTIFICATION_CHANNEL_ID = "base"
+    const val BASE_NOTIFICATION_CHANNEL_NAME = "Base"
+    const val BASE_NOTIFICATION_CHANNEL_TITLE = "MySport App"
+    const val BASE_NOTIFICATION_ID = 0
+
+    const val RUNNING_NOTIFICATION_CHANNEL_ID = "running_tracker"
+    const val RUNNING_NOTIFICATION_CHANNEL_NAME = "RunningTracker"
+    const val RUNNING_NOTIFICATION_CHANNEL_TITLE = "MySport - Running Tracker"
+    const val RUNNING_NOTIFICATION_ID = 2
+
+    const val CYCLING_NOTIFICATION_CHANNEL_ID = "cycling_tracker"
+    const val CYCLING_NOTIFICATION_CHANNEL_NAME = "CyclingTracker"
+    const val CYCLING_NOTIFICATION_CHANNEL_TITLE = "MySport - Cycling Tracker"
+    const val CYCLING_NOTIFICATION_ID = 1
+
+    const val SCHEDULER_NOTIFICATION_CHANNEL_ID = "scheduler"
+    const val SCHEDULER_NOTIFICATION_CHANNEL_NAME = "Scheduler"
+    const val SCHEDULER_NOTIFICATION_CHANNEL_TITLE = "MySport - Scheduler"
+    const val SCHEDULER_NOTIFICATION_ID = 3
 
 }

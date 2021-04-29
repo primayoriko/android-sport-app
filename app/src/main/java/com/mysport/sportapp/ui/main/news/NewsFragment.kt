@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mysport.sportapp.R
@@ -21,38 +23,19 @@ import retrofit2.Response
 
 @AndroidEntryPoint
 class NewsFragment: Fragment() {
-//    private val TAG: String = NewsFragment::class.java.canonicalName
 
-    private lateinit var newsViewModel: NewsViewModel
+    private val viewModel: NewsViewModel by viewModels()
 
     companion object {
         fun newInstance() = NewsFragment()
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?){
-//        super.onCreate(savedInstanceState)
-//
-//        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-//
-//        refreshLayoutNews.setOnRefreshListener {
-//            fetchNews()
-//
-//        }
-//
-//        fetchNews()
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?){
         super.onActivityCreated(savedInstanceState)
-
-        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-
-        refreshLayoutNews.setOnRefreshListener {
-            fetchNews()
-
-        }
-
-        fetchNews()
     }
 
     override fun onCreateView(
@@ -61,7 +44,27 @@ class NewsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View?{
         return inflater.inflate(R.layout.fragment_news, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
+
+        recyclerViewNews.layoutManager = GridLayoutManager(context, gridColumnCount)
+        //        recyclerViewNews.setHasFixedSize(true)
+
+        viewModel.newsList.observe( viewLifecycleOwner,
+                Observer { news ->
+                    // TODO: implements if anything needs to be updated
+                    recyclerViewNews?.adapter = NewsAdapter(news)
+                })
+
+        refreshLayoutNews.setOnRefreshListener {
+            fetchNews()
+        }
+
+        fetchNews()
     }
 
     private fun fetchNews(){
@@ -70,28 +73,20 @@ class NewsFragment: Fragment() {
         val category: String = resources.getString(R.string.news_api_query_category)
 
         NewsApi().getNews(country, category, apiKey).enqueue(object : Callback<NewsResponse> {
+
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                 refreshLayoutNews?.isRefreshing = false
+
                 Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 refreshLayoutNews?.isRefreshing = false
 
-                val newsList: List<News> = response.body()!!.news
-
-                showNews(newsList)
-
+                viewModel.newsList.value = response.body()!!.news
             }
 
         })
     }
 
-    private fun showNews(news: List<News>) {
-        val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
-
-        recyclerViewNews?.layoutManager = GridLayoutManager(this.context, gridColumnCount)
-        recyclerViewNews?.adapter = NewsAdapter(news)
-//        recyclerViewNews.setHasFixedSize(true)
-    }
 }

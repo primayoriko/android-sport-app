@@ -3,10 +3,17 @@
     package="com.mysport.sportapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!--  Need To Requested Manually  -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!--    <uses-permission android:name="com.google.android.things.permission.MANAGE_SENSOR_DRIVERS" />-->
 
     <application
         android:name=".MainApplication"
@@ -30,17 +37,31 @@
         </activity>
 
         <activity
-            android:name=".ui.webnews.WebNewsActivity"
+            android:name=".ui.news.NewsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_web_news"
+            android:label="@string/title_activity_news"
             android:theme="@style/Theme.SportApp.NoActionBar">
         </activity>
 
-<!--        <service android:name=".service.CyclingService"-->
-<!--            android:foregroundServiceType="location" />-->
+        <receiver android:name=".receiver.SchedulerBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.RunningService"
+            android:foregroundServiceType="location"
+            android:stopWithTask="true" />
+
         <service
             android:name=".service.CyclingService"
             android:foregroundServiceType="location"
+            android:stopWithTask="true" />
+
+        <service
+            android:name=".service.SchedulerService"
+            android:foregroundServiceType="mediaPlayback"
             android:stopWithTask="true" />
 
         <meta-data

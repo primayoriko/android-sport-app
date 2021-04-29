@@ -6,7 +6,9 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant
+import com.mysport.sportapp.data.Constant.ACTION_SHOW_TRACKING_FRAGMENT
+import com.mysport.sportapp.data.Constant.BASE_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.BASE_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.ui.main.MainActivity
 import dagger.Module
 import dagger.Provides
@@ -21,19 +23,13 @@ object ServiceModule {
 
     @ServiceScoped
     @Provides
-    fun provideFusedLocationProviderClient(
-            @ApplicationContext app: Context
-    ) = FusedLocationProviderClient(app)
-
-    @ServiceScoped
-    @Provides
     fun provideMainActivityPendingIntent(
             @ApplicationContext app: Context
     ) = PendingIntent.getActivity(
             app,
             0,
             Intent(app, MainActivity::class.java).also {
-                it.action = Constant.ACTION_SHOW_TRACKING_FRAGMENT
+                it.action = ACTION_SHOW_TRACKING_FRAGMENT
             },
             PendingIntent.FLAG_UPDATE_CURRENT
     )
@@ -43,11 +39,17 @@ object ServiceModule {
     fun provideBaseNotificationBuilder(
             @ApplicationContext app: Context,
             pendingIntent: PendingIntent
-    ) = NotificationCompat.Builder(app, Constant.NOTIFICATION_CHANNEL_ID)
+    ) = NotificationCompat.Builder(app, BASE_NOTIFICATION_CHANNEL_ID)
             .setAutoCancel(false)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
-            .setContentTitle("Running App")
+            .setContentTitle(BASE_NOTIFICATION_CHANNEL_TITLE)
             .setContentText("00:00:00")
             .setContentIntent(pendingIntent)
+
+    @ServiceScoped
+    @Provides
+    fun provideFusedLocationProviderClient(
+            @ApplicationContext app: Context
+    ) = FusedLocationProviderClient(app)
 }

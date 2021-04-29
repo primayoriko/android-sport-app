@@ -1,38 +1,29 @@
 package com.mysport.sportapp.service
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.location.Location
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
-import android.os.Looper
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.maps.model.LatLng
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
 import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
 import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_NAME
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_ID
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE
-import com.mysport.sportapp.data.Constant.FASTEST_LOCATION_INTERVAL
-import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_ID
+import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
-import com.mysport.sportapp.data.Polylines
-import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -42,58 +33,54 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class CyclingService: LifecycleService() {
 
-    @Inject
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+@AndroidEntryPoint
+class RunningService: LifecycleService(), SensorEventListener {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
+    lateinit var sensorManager: SensorManager
+    lateinit var stepDetectorSensor: Sensor
+//    lateinit var stepCounterSensor: Sensor
+
     var isFirstTrack = true
     var serviceKilled = false
 
-    private val timeRunInSeconds = MutableLiveData<Long>()
+    private val timeTrackInSeconds = MutableLiveData<Long>()
 
     private var timeStarted = 0L
     private var lapTime = 0L
     private var lastSecondTimestamp = 0L
-    private var timeRun = 0L
-
-    private var lastLocation: LatLng? = null
+    private var timeTrack = 0L
 
     companion object {
         val timeTrainInMillis = MutableLiveData<Long>()
         val isTracking = MutableLiveData<Boolean>()
-        val pathPoints = MutableLiveData<Polylines>()
-        val distanceInMeters = MutableLiveData<Float>()
+        val stepCount = MutableLiveData<Int>()
     }
 
     private fun postInitialValues() {
         isTracking.postValue(false)
-        pathPoints.postValue(mutableListOf())
-        timeRunInSeconds.postValue(0L)
+        timeTrackInSeconds.postValue(0L)
         timeTrainInMillis.postValue(0L)
-        distanceInMeters.postValue(0F)
+        stepCount.postValue(0)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate() {
         super.onCreate()
 
         // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
-                .setChannelId(Constant.CYCLING_NOTIFICATION_CHANNEL_ID)
-                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
+                .setChannelId(RUNNING_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
 
         postInitialValues()
 
-        fusedLocationProviderClient = FusedLocationProviderClient(this)
-
         isTracking.observe(this, Observer {
-            updateLocationTracking(it)
             updateNotificationTrackerState(it)
         })
     }
@@ -126,66 +113,75 @@ class CyclingService: LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun startTracker() {
-        addEmptyPolyline()
+    override fun onDestroy() {
+        super.onDestroy()
 
+        serviceKilled = true
+        Timber.d("Service Stopped")
+
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+
+        if (isTracking.value!! && event.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
+            val detectSteps = if (event.values[0].toInt() > 0) 1 else 0
+
+            stepCount.postValue(stepCount.value!! + detectSteps)
+
+        }
+
+        // STEP_COUNTER Sensor.
+        // *** Step Counting does not restart until the device is restarted - therefore, an algorithm for restarting the counting must be implemented.
+//        if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
+//            val countSteps = event.values[0].toInt()
+//
+//            // -The long way of starting a new step counting sequence.-
+//            /**
+//             * int tempStepCount = countSteps;
+//             * int initialStepCount = countSteps - tempStepCount; // Nullify step count - so that the step cpuinting can restart.
+//             * currentStepCount += initialStepCount; // This variable will be initialised with (0), and will be incremented by itself for every Sensor step counted.
+//             * stepCountTxV.setText(String.valueOf(currentStepCount));
+//             * currentStepCount++; // Increment variable by 1 - so that the variable can increase for every Step_Counter event.
+//             */
+//
+//            // -The efficient way of starting a new step counting sequence.-
+//            if (stepCount.value!! == 0) { // If the stepCounter is in its initial value, then...
+//                stepCount.postValue(event.values[0].toInt()) // Assign the StepCounter Sensor event value to it.
+//            }
+//
+//            newStepCounter = countSteps - stepCounter // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
+//        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+
+    private fun startTracker() {
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
 
         CoroutineScope(Dispatchers.Main).launch {
-            val paths = pathPoints.value!!
-            while(isTracking.value!!){
-                if(paths.isNotEmpty()){
-                    val path = paths.last()
-
-                    if(paths.last().size > 1 && lastLocation != null){
-                        val curLoc: LatLng = path.last()
-                        val distances = FloatArray(1)
-
-                        Timber.d("Last Loc: longi ${lastLocation!!.longitude} lati ${lastLocation!!.latitude}")
-                        Timber.d("Cur Loc: longi ${curLoc.longitude} lati ${curLoc.latitude}")
-
-                        Location.distanceBetween(
-                                lastLocation!!.latitude,
-                                lastLocation!!.longitude,
-                                curLoc.latitude,
-                                curLoc.longitude,
-                                distances
-                        )
-
-                        distanceInMeters.postValue(distanceInMeters.value!! + distances[0]/3)
-
-                        lastLocation = curLoc
-
-                    } else if(path.isNotEmpty()) {
-                        lastLocation = path.last()
-
-                    }
-
-                }
-
-                delay(TRACKER_UPDATE_INTERVAL * 15)
-            }
-        }
-
-        CoroutineScope(Dispatchers.Main).launch {
             while (isTracking.value!!) {
                 lapTime = System.currentTimeMillis() - timeStarted
-                timeTrainInMillis.postValue(timeRun + lapTime)
+                timeTrainInMillis.postValue(timeTrack + lapTime)
 
                 if (timeTrainInMillis.value!! >= lastSecondTimestamp + 1000L) {
-                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
+                    timeTrackInSeconds.postValue(timeTrackInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }
 
                 delay(TRACKER_UPDATE_INTERVAL)
             }
 
-            timeRun += lapTime
+            timeTrack += lapTime
         }
     }
 
     private fun startForegroundService() {
+        activateSensors()
         startTracker()
 
         val notificationManager =
@@ -197,23 +193,22 @@ class CyclingService: LifecycleService() {
             Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
-        startForeground(CYCLING_NOTIFICATION_ID, baseNotificationBuilder.build())
+        // TODO: Customize notification
+        startForeground(RUNNING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
-        timeRunInSeconds.observe(this, Observer {
-            if(!serviceKilled) {
+        timeTrackInSeconds.observe(this, Observer {
+            if (!serviceKilled) {
                 val notification = curNotificationBuilder
                         .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
-                notificationManager.notify(CYCLING_NOTIFICATION_ID, notification.build())
+                notificationManager.notify(RUNNING_NOTIFICATION_ID, notification.build())
             }
         })
 
         // TODO: Observe running
-
     }
 
     private fun pauseService() {
         isTracking.postValue(false)
-
     }
 
     private fun killService() {
@@ -225,11 +220,20 @@ class CyclingService: LifecycleService() {
         stopSelf()
     }
 
+    private fun activateSensors(){
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        sensorManager.registerListener(this, stepDetectorSensor, 0)
+//        sensorManager.registerListener(this, stepCounterSensor, 0)
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         val channel = NotificationChannel(
-                CYCLING_NOTIFICATION_CHANNEL_ID,
-                CYCLING_NOTIFICATION_CHANNEL_NAME,
+                RUNNING_NOTIFICATION_CHANNEL_ID,
+                RUNNING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
 
@@ -262,58 +266,7 @@ class CyclingService: LifecycleService() {
         if(!serviceKilled) {
             curNotificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-            notificationManager.notify(CYCLING_NOTIFICATION_ID, curNotificationBuilder.build())
-        }
-    }
-
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(result: LocationResult?) {
-            super.onLocationResult(result!!)
-            if (isTracking.value!!) {
-                result.locations.let { locations ->
-                    for (location in locations) {
-                        addPathPoint(location)
-
-                        Timber.d("New Location: ${location.latitude}, ${location.longitude}")
-                    }
-                }
-            }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun updateLocationTracking(isTracking: Boolean) {
-        if (isTracking) {
-            if (PermissionUtility.hasLocationPermissions(this)) {
-                val request = LocationRequest().apply {
-                    interval = LOCATION_UPDATE_INTERVAL
-                    fastestInterval = FASTEST_LOCATION_INTERVAL
-                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                }
-
-                fusedLocationProviderClient.requestLocationUpdates(
-                        request,
-                        locationCallback,
-                        Looper.getMainLooper()
-                )
-            }
-        } else {
-            fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-        }
-    }
-
-    private fun addEmptyPolyline() = pathPoints.value?.apply {
-        add(mutableListOf())
-        pathPoints.postValue(this)
-    } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
-
-    private fun addPathPoint(location: Location?) {
-        location?.let {
-            val pos = LatLng(location.latitude, location.longitude)
-            pathPoints.value?.apply {
-                last().add(pos)
-                pathPoints.postValue(this)
-            }
+            notificationManager.notify(RUNNING_NOTIFICATION_ID, curNotificationBuilder.build())
         }
     }
 

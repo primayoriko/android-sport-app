@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingRight="3dp"
     android:paddingLeft="3dp"
     android:paddingBottom="8dp"
-    android:paddingTop="4dp">
+    android:paddingTop="4dp"
+    android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/newsImage"
         android:layout_width="0dp"
-        android:layout_weight="0.3"
         android:layout_height="match_parent"
+        android:layout_weight="0.3"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/news_image_desc"/>
+        android:contentDescription="@string/iv_news_item_desc"/>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.7"
         android:background="@android:color/holo_orange_light"
-        android:layout_weight="0.7">
+        android:orientation="vertical" >
+
         <TextView
+            style="@style/item_news_title"
             android:id="@+id/newsTitle"
-            style="@style/news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
+
         <TextView
+            style="@style/item_news_author"
             android:id="@+id/newsAuthor"
-            style="@style/news_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
+
         <TextView
+            style="@style/item_news_desc"
             android:id="@+id/newsDesc"
-            style="@style/news_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@android:color/holo_orange_light" />
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal" />
+
     </LinearLayout>
 
 </LinearLayout>

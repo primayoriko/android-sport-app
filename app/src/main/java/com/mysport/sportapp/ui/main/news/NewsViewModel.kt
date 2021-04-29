@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.mysport.sportapp.data.News
 
 class NewsViewModel: ViewModel() {
-    private val _newsList = MutableLiveData<List<News>>().apply {
-        value = ArrayList<News>()
+
+    val newsList: MutableLiveData<List<News>> by lazy {
+        MutableLiveData<List<News>>()
     }
 
-    val newsList: LiveData<List<News>> = _newsList
 }
