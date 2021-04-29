@@ -1,37 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:paddingRight="3dp"
     android:paddingLeft="3dp"
     android:paddingBottom="8dp"
-    android:paddingTop="4dp">
+    android:paddingTop="4dp"
+    android:orientation="horizontal" >
 
-    <TextView
-        style="@style/item_schedule_title"
-        android:id="@+id/scheduleTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal"
-        android:background="@android:color/holo_orange_light" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".2"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-    <TextView
-        style="@style/item_schedule_desc"
-        android:id="@+id/scheduleTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:background="@android:color/holo_orange_light" />
+        <TextView
+            style="@style/item_schedule_desc"
+            android:id="@+id/tvTrainingType"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".65"
+            android:gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/white" />
 
-    <TextView
-        style="@style/item_schedule_desc"
-        android:id="@+id/scheduleDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:gravity="center_horizontal"
-        android:background="@android:color/holo_orange_light" />
+        <TextView
+            style="@style/item_schedule_desc"
+            android:id="@+id/tvTrainingTarget"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".35"
+            android:gravity="center"
+            android:background="#54D8D7"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".65"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/item_schedule_title"
+            android:id="@+id/tvScheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="3dp"
+            android:gravity="center"
+            android:background="#634304"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:background="#9E6A04"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/white" />
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:background="#9E6A04"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:gravity="center"
+                android:background="#E3AA3C"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleDayDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:gravity="center"
+                android:background="@android:color/holo_orange_light"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".15"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/item_schedule_desc"
+            android:id="@+id/tvScheduleStatus"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".65"
+            android:gravity="center"
+            android:background="@color/black"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/item_schedule_desc"
+            android:id="@+id/tvAutomated"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".35"
+            android:gravity="center"
+            android:background="#FFEB3B"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
 </LinearLayout>

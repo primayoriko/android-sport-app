@@ -27,7 +27,7 @@ import java.util.*
 @AndroidEntryPoint
 class RunningFragment : Fragment() {
 
-    private val viewModel: TrackerViewModel by viewModels<TrackerViewModel>()
+    private val viewModel: TrackerViewModel by viewModels()
 
     //    private var isInitialized = false
     private var isTracking = false
@@ -200,7 +200,7 @@ class RunningFragment : Fragment() {
 
         Timber.d(trainingEntry.toString())
 
-        viewModel.insertTraining(trainingEntry)
+        viewModel.insert(trainingEntry)
         Snackbar.make(
                 requireActivity().findViewById(R.id.activity_main),
                 "Training data saved successfully",

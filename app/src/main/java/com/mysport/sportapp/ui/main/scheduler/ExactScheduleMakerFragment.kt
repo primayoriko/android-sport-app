@@ -40,9 +40,9 @@ class ExactScheduleMakerFragment : Fragment() {
     }
 
     private fun createSchedule() {
-        val trainTypeId = rgScheduleType.checkedRadioButtonId
-        val trainType =
-                if (trainTypeId == 1) TrainingType.RUNNING
+        val trainingTypeId = rgScheduleType.checkedRadioButtonId
+        val trainingType =
+                if (trainingTypeId == 1) TrainingType.RUNNING
                 else TrainingType.CYCLING
 
     }

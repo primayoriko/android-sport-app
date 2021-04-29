@@ -220,8 +220,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:scaleX=".9"
-            android:scaleY=".9">
+            android:scaleX=".8"
+            android:scaleY=".8">
 
             <TextView
                 android:layout_width="0dp"
@@ -236,7 +236,48 @@
                 android:id="@+id/rgRecurring"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
+                android:layout_weight="0.6"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="Yes" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="No" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:scaleX=".8"
+            android:scaleY=".8">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="Auto-start?"/>
+
+            <RadioGroup
+                android:id="@+id/rgAutomate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:orientation="horizontal"
                 android:gravity="center">

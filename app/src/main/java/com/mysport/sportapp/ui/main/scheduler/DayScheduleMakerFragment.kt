@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Schedule
 import com.mysport.sportapp.data.Schedule.ScheduleType
+import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.util.TimePickerUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +27,10 @@ class DayScheduleMakerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_day_schedule_maker, container, false)
     }
 
@@ -40,7 +39,6 @@ class DayScheduleMakerFragment : Fragment() {
 
         btnExactScheduleMaker.setOnClickListener {
             createSchedule()
-
         }
 
         btnSchedulerSwitchToExact.setOnClickListener{
@@ -53,27 +51,32 @@ class DayScheduleMakerFragment : Fragment() {
         val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
         val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
         val isRecurring = rgRecurring.checkedRadioButtonId == 0
-        val duration = etScheduleDuration.text.toString().toInt()
-        val target = etScheduleTarget.text.toString().toInt()
-        val trainType =
+        val trainingType =
                 if (rgScheduleType.checkedRadioButtonId == 1) TrainingType.RUNNING
                 else TrainingType.CYCLING
-
+//        val duration = etScheduleDuration.text.toString().toInt()
+//        val target = etScheduleTarget.text.toString().toInt()
+//        val isAutomated = rgAutomate.checkedRadioButtonId == 0
 
         val recurringText = if (isRecurring) "recurring" else "one-time"
         val toastText = "Scheduled successfully $recurringText at $hour:$minute"
         val toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG)
 
-        val randomInt = Random.nextInt(0, 100000)
         val schedule = Schedule(
                 etScheduleTitle.text.toString(),
-                trainType,
+                trainingType,
                 ScheduleType.DAY,
                 hour,
                 minute,
-                duration,
-                target,
+                etScheduleDuration.text.toString().toInt(),
+                etScheduleTarget.text.toString().toInt(),
                 isRecurring,
+                rgAutomate.checkedRadioButtonId == 0,
+                true,
+                Random.nextInt(1, 100000),
+                0,
+                0,
+                0,
                 cbMonday.isChecked,
                 cbTuesday.isChecked,
                 cbWednesday.isChecked,
@@ -81,12 +84,11 @@ class DayScheduleMakerFragment : Fragment() {
                 cbFriday.isChecked,
                 cbSaturday.isChecked,
                 cbSunday.isChecked,
-                randomInt,
         )
 
         Timber.d(schedule.toString())
 
-//        viewModel.insert(schedule)
+        viewModel.insert(schedule)
 
         schedule.invoke(requireContext())
 

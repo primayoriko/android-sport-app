@@ -16,13 +16,19 @@ import java.util.*
 @Entity(tableName = "schedule")
 data class Schedule(
         var title: String,
-        var trainType: Training.TrainingType,
+        var trainingType: Training.TrainingType,
         var scheduleType: ScheduleType = ScheduleType.DAY,
         var hour: Int = 0,
         var minute: Int = 0,
         var durationInMinutes: Int = 0,
         var target: Int = 0,
         var isRecurring: Boolean = false,
+        var isAutomated: Boolean = false,
+        var isActive: Boolean = true,
+        var notificationId: Int = 0,
+        var day: Int = 0,
+        var month: Int = 0,
+        var year: Int = 0,
         var isMonday: Boolean = false,
         var isTuesday: Boolean = false,
         var isWednesday: Boolean = false,
@@ -30,7 +36,6 @@ data class Schedule(
         var isFriday: Boolean = false,
         var isSaturday: Boolean = false,
         var isSunday: Boolean = false,
-        var notificationId: Int = 0,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

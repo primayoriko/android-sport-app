@@ -8,10 +8,10 @@ import com.mysport.sportapp.data.Training
 interface TrainingDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTraining(training: Training)
+    suspend fun insert(training: Training)
 
     @Delete
-    suspend fun deleteTraining(training: Training)
+    suspend fun delete(training: Training)
 
     // TODO: add fetch / querying method for spec no. 3
 
@@ -21,6 +21,5 @@ interface TrainingDao {
 //
 //    @Query("SELECT * FROM running_table ORDER BY timeInMillis DESC")
 //    fun getAllRunsSortedByTimeInMillis(): LiveData<List<Run>>
-//
 
 }

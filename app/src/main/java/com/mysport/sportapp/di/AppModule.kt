@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.mysport.sportapp.data.Constant.DATABASE_NAME
+import com.mysport.sportapp.db.ScheduleDatabase
 import com.mysport.sportapp.db.TrainingDatabase
 import com.mysport.sportapp.db.dao.TrainingDao
 import com.mysport.sportapp.repository.TrainingRepository
@@ -34,12 +35,18 @@ object AppModule {
     @Provides
     fun provideTrainingDao(db: TrainingDatabase) = db.getTrainingDao()
 
-//    @Singleton
-//    @Provides
-//    fun provideTrainingRepository(
-//            trainingDao: TrainingDao
-//    ): TrainingRepository {
-//        return TrainingRepository(trainingDao)
-//    }
+    @Singleton
+    @Provides
+    fun provideScheduleDatabase(
+            @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+            app,
+            ScheduleDatabase::class.java,
+            DATABASE_NAME
+    ).build()
+
+    @Singleton
+    @Provides
+    fun provideScheduleDao(db: ScheduleDatabase) = db.getScheduleDao()
 
 }

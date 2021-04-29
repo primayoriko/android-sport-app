@@ -8,9 +8,9 @@ import com.mysport.sportapp.db.dao.TrainingDao
 class TrainingRepository @Inject constructor(
     val trainingDao: TrainingDao
 ) {
-    suspend fun insertTraining(training: Training) = trainingDao.insertTraining(training)
+    suspend fun insert(training: Training) = trainingDao.insert(training)
 
-    suspend fun deleteTraining(training: Training) = trainingDao.deleteTraining(training)
+    suspend fun delete(training: Training) = trainingDao.delete(training)
 
     // TODO: Link with all method in DAO
 

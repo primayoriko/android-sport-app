@@ -22,13 +22,10 @@ import java.util.*
 class SchedulerBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
-            val toastText = String.format("Alarm Reboot")
-
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+        if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
+            Toast.makeText(context, "Alarm Reboot", Toast.LENGTH_SHORT).show()
 
 //            startRescheduleAlarmsService(context)
-
         } else {
             Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show()
 
