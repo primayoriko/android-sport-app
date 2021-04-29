@@ -14,9 +14,9 @@ class TrackerViewModel @ViewModelInject constructor(
 //    @Inject
 //    lateinit var trainingRepository: TrainingRepository
 
-    fun insertTraining(training: Training) =
+    fun insert(training: Training) =
             viewModelScope.launch {
-                trainingRepository.insertTraining(training)
+                trainingRepository.insert(training)
             }
 
 }
@@ -28,8 +28,8 @@ class TrackerViewModel @ViewModelInject constructor(
 //    @Inject
 //    lateinit var trainingRepository: TrainingRepository
 //
-//    fun insertTraining(training: Training) = viewModelScope.launch {
-//        trainingRepository.insertTraining(training)
+//    fun insert(training: Training) = viewModelScope.launch {
+//        trainingRepository.insert(training)
 //
 //    }
 //

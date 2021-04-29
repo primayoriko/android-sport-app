@@ -200,7 +200,7 @@ class RunningFragment : Fragment() {
 
         Timber.d(trainingEntry.toString())
 
-        viewModel.insertTraining(trainingEntry)
+        viewModel.insert(trainingEntry)
         Snackbar.make(
                 requireActivity().findViewById(R.id.activity_main),
                 "Training data saved successfully",
