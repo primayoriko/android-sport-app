@@ -11,8 +11,9 @@ import com.mysport.sportapp.databinding.ItemNewsBinding
 import com.mysport.sportapp.data.News
 import com.mysport.sportapp.ui.news.NewsActivity
 
-class NewsAdapter (private val newsList: List<News>):
+class NewsAdapter(private val newsList: List<News>):
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
     override fun getItemCount(): Int = newsList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {

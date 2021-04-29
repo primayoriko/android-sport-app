@@ -27,7 +27,7 @@ import java.util.*
 @AndroidEntryPoint
 class RunningFragment : Fragment() {
 
-    private val viewModel: TrackerViewModel by viewModels<TrackerViewModel>()
+    private val viewModel: TrackerViewModel by viewModels()
 
     //    private var isInitialized = false
     private var isTracking = false
