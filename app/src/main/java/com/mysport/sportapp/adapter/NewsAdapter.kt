@@ -24,22 +24,18 @@ class NewsAdapter(private val newsList: List<News>):
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(newsList[position])
-
     }
 
-    class NewsViewHolder(itemView: View):
-        RecyclerView.ViewHolder(itemView) {
+    class NewsViewHolder(private val view: View):
+        RecyclerView.ViewHolder(view) {
 
-        private var view: View = itemView
         private lateinit var news: News
 
         fun bind(news: News){
             this.news = news
 
             val imageUrl = StringBuilder()
-
             imageUrl.append(news.urlToImage)
-
 //                    ItemNewsBinding.inflate(
 //                            LayoutInflater.from(view.context),
 //                            view.parent as ViewGroup?,
@@ -49,6 +45,7 @@ class NewsAdapter(private val newsList: List<News>):
 
             newsItemBinding.newsTitle.text = news.title
             newsItemBinding.newsAuthor.text = news.author
+
             Glide.with(view.context).load(imageUrl.toString()).into(newsItemBinding.newsImage)
 
             view.setOnClickListener(View.OnClickListener {

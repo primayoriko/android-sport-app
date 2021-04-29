@@ -14,9 +14,12 @@ interface ScheduleDao {
     @Delete
     suspend fun delete(schedule: Schedule)
 
-    // TODO: Order by time or type or keep by Id
+    // TODO: Order by time or type
     @Query("SELECT * FROM schedule ORDER BY id DESC")
     fun getAllSortedByDate(): LiveData<List<Schedule>>
+
+    @Query("SELECT * FROM schedule ORDER BY id DESC")
+    fun getAllSortedByID(): LiveData<List<Schedule>>
 
     @Update
     fun update(schedule: Schedule)

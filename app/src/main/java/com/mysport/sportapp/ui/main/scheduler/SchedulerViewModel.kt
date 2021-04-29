@@ -2,6 +2,7 @@ package com.mysport.sportapp.ui.main.scheduler
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mysport.sportapp.data.Schedule
@@ -14,19 +15,20 @@ class SchedulerViewModel  @ViewModelInject constructor(
 
 //    @Inject
 //    lateinit var scheduleRepository: ScheduleRepository
-//    private var alarmsLiveData: LiveData<MutableList<Alarm?>?>? = null
+
+    val scheduleList: LiveData<List<Schedule>> =
+            scheduleRepository.getAllSortedByID()
 
     fun insert(schedule: Schedule) =
             viewModelScope.launch {
                 scheduleRepository.insert(schedule)
             }
 
-//    fun update(alarm: Alarm?) {
-//        alarmRepository.update(alarm)
-//    }
+    fun update(schedule: Schedule) =
+            viewModelScope.launch {
+                scheduleRepository.update(schedule)
+            }
 
-//    fun getAlarmsLiveData(): LiveData<List<Alarm?>?>? {
-//        return alarmsLiveData
-//    }
+//    fun getAllSortedByDate() = scheduleList
 
 }

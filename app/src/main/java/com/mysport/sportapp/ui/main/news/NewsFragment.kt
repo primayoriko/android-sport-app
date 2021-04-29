@@ -51,10 +51,10 @@ class NewsFragment: Fragment() {
 
         val gridColumnCount: Int = resources.getInteger(R.integer.grid_column_count)
 
-        recyclerViewNews.layoutManager = GridLayoutManager(this.context, gridColumnCount)
+        recyclerViewNews.layoutManager = GridLayoutManager(context, gridColumnCount)
         //        recyclerViewNews.setHasFixedSize(true)
 
-        viewModel.newsList.observe(viewLifecycleOwner,
+        viewModel.newsList.observe( viewLifecycleOwner,
                 Observer { news ->
                     // TODO: implements if anything needs to be updated
                     recyclerViewNews?.adapter = NewsAdapter(news)

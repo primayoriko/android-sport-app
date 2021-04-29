@@ -53,7 +53,7 @@ class DayScheduleMakerFragment : Fragment() {
         val isRecurring = rgRecurring.checkedRadioButtonId == 0
         val duration = etScheduleDuration.text.toString().toInt()
         val target = etScheduleTarget.text.toString().toInt()
-        val trainType =
+        val trainingType =
                 if (rgScheduleType.checkedRadioButtonId == 1) TrainingType.RUNNING
                 else TrainingType.CYCLING
 
@@ -65,7 +65,7 @@ class DayScheduleMakerFragment : Fragment() {
         val randomInt = Random.nextInt(0, 100000)
         val schedule = Schedule(
                 etScheduleTitle.text.toString(),
-                trainType,
+                trainingType,
                 ScheduleType.DAY,
                 hour,
                 minute,

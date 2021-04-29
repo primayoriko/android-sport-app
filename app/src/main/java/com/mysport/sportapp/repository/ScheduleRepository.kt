@@ -17,6 +17,8 @@ class ScheduleRepository @Inject constructor(
 
     fun getAllSortedByDate() = scheduleDao.getAllSortedByDate()
 
+    fun getAllSortedByID() = scheduleDao.getAllSortedByID()
+
     // TODO: Link with all method in DAO
 
 }

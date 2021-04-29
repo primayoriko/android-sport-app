@@ -16,7 +16,7 @@ import java.util.*
 @Entity(tableName = "schedule")
 data class Schedule(
         var title: String,
-        var trainType: Training.TrainingType,
+        var trainingType: Training.TrainingType,
         var scheduleType: ScheduleType = ScheduleType.DAY,
         var hour: Int = 0,
         var minute: Int = 0,

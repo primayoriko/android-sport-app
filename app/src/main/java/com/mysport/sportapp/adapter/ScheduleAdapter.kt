@@ -1,103 +1,95 @@
 package com.mysport.sportapp.adapter
 
-import android.R
-import android.app.Application
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
-import android.widget.TextView
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.String
+import com.mysport.sportapp.R
+import com.mysport.sportapp.data.Schedule
+import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.databinding.ItemScheduleBinding
 
 
-//class AlarmRecyclerViewAdapter(listener: OnToggleAlarmListener) : RecyclerView.Adapter<AlarmViewHolder>() {
-//    private var alarms: List<Alarm>
-//    private val listener: OnToggleAlarmListener
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
-//        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_alarm, parent, false)
-//        return AlarmViewHolder(itemView)
-//    }
-//
-//    override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
-//        val alarm: Alarm = alarms[position]
-//        holder.bind(alarm, listener)
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return alarms.size
-//    }
-//
-//    override fun onViewRecycled(holder: AlarmViewHolder) {
-//        super.onViewRecycled(holder)
-//        holder.alarmStarted.setOnCheckedChangeListener(null)
-//    }
-//
-//    fun setAlarms(alarms: List<Alarm>) {
-//        this.alarms = alarms
-//        notifyDataSetChanged()
-//    }
+//class ScheduleAdapter(listener: OnToggleScheduleListener):
+class ScheduleAdapter(private var scheduleList: List<Schedule>):
+        RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+//    private var scheduleList: List<Schedule>
+//    private val listener: OnToggleScheduleListener
 //
 //    init {
-//        alarms = ArrayList<Alarm>()
+//        scheduleList = ArrayList<Schedule>()
 //        this.listener = listener
 //    }
-//}
+
+    override fun getItemCount(): Int = scheduleList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_schedule, parent, false)
+
+        return ScheduleViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
+//        val schedule: Schedule = scheduleList[position]
+        holder.bind(scheduleList[position])
+    }
+
+    override fun onViewRecycled(holder: ScheduleViewHolder) {
+        super.onViewRecycled(holder)
+//        holder.scheduleStarted.setOnCheckedChangeListener(null)
+    }
+
+    fun setSchedules(schedules: List<Schedule>) {
+        scheduleList = scheduleList
+        notifyDataSetChanged()
+    }
+
+    interface OnToggleScheduleListener {
+        fun onToggle(schedule: Schedule?)
+    }
+
+    class ScheduleViewHolder(private val view: View):
+            RecyclerView.ViewHolder(view) {
+
+        private lateinit var schedule: Schedule
+
+//        fun bind(schedule: Schedule, listener: OnToggleScheduleListener) {
+        fun bind(schedule: Schedule) {
+            this.schedule = schedule
+
+            val title = schedule.title
+            val time = "${schedule.hour}:${schedule.minute}"
+            val duration = "${schedule.durationInMinutes}"
+            val trainingType = if(schedule.trainingType == Training.TrainingType.CYCLING) "C" else "R"
+            val target = "${schedule.target} " + if (trainingType == "C") "m" else "steps"
+            val scheduleType =
+                    if(schedule.scheduleType == Schedule.ScheduleType.EXACT) "Exact"
+                    else (if (schedule.isRecurring) "Routine" else "Day")
+
+            val binding: ItemScheduleBinding = ItemScheduleBinding.bind(view)
+
+            binding.tvScheduleTitle.text = title
+            binding.tvScheduleTime.text = time
+            binding.tvScheduleType.text = scheduleType
+            binding.tvTrainingType.text = trainingType
+            binding.tvTrainingTarget.text = target
+            binding.tvScheduleDuration.text = duration
+            binding.tvScheduleDayDate.text = "hehehe"
+
+            view.setOnClickListener(View.OnClickListener {
+//                val intent = Intent(view.context, NewsActivity::class.java)
+//                intent.putExtra("url", news.url)
 //
-//class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//    private val alarmTime: TextView
-//    private val alarmRecurring: ImageView
-//    private val alarmRecurringDays: TextView
-//    private val alarmTitle: TextView
-//    var alarmStarted: Switch
-//
-//    fun bind(alarm: Alarm, listener: OnToggleAlarmListener) {
-//        val alarmText = String.format("%02d:%02d", alarm.getHour(), alarm.getMinute())
-//        alarmTime.text = alarmText
-//        alarmStarted.isChecked = alarm.isStarted()
-//        if (alarm.isRecurring()) {
-//            alarmRecurring.setImageResource(R.drawable.ic_repeat_black_24dp)
-//            alarmRecurringDays.setText(alarm.getRecurringDaysText())
-//        } else {
-//            alarmRecurring.setImageResource(R.drawable.ic_looks_one_black_24dp)
-//            alarmRecurringDays.text = "Once Off"
-//        }
-//        if (alarm.getTitle().length() !== 0) {
-//            alarmTitle.setText(alarm.getTitle())
-//        } else {
-//            alarmTitle.text = "My alarm"
-//        }
-//        alarmStarted.setOnCheckedChangeListener { buttonView, isChecked -> listener.onToggle(alarm) }
-//    }
-//
-//    init {
-//        alarmTime = itemView.findViewById(R.id.item_alarm_time)
-//        alarmStarted = itemView.findViewById(R.id.item_alarm_started)
-//        alarmRecurring = itemView.findViewById(R.id.item_alarm_recurring)
-//        alarmRecurringDays = itemView.findViewById(R.id.item_alarm_recurringDays)
-//        alarmTitle = itemView.findViewById(R.id.item_alarm_title)
-//    }
-//}
-//
-//interface OnToggleAlarmListener {
-//    fun onToggle(alarm: Alarm?)
-//}
-//
-//class AlarmsListViewModel(application: Application) : AndroidViewModel(application) {
-//    private val alarmRepository: AlarmRepository
-//    private val alarmsLiveData: LiveData<List<Alarm>>
-//    fun update(alarm: Alarm?) {
-//        alarmRepository.update(alarm)
-//    }
-//
-//    fun getAlarmsLiveData(): LiveData<List<Alarm>> {
-//        return alarmsLiveData
-//    }
-//
-//    init {
-//        alarmRepository = AlarmRepository(application)
-//        alarmsLiveData = alarmRepository.getAlarmsLiveData()
-//    }
-//}
+//                view.context.startActivity(intent)
+            })
+//            scheduleStarted.setOnCheckedChangeListener
+//            { buttonView, isChecked -> listener.onToggle(schedule) }
+        }
+
+    }
+
+}
+
+

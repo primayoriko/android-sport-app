@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal"
     android:paddingRight="3dp"
     android:paddingLeft="3dp"
     android:paddingBottom="8dp"
-    android:paddingTop="4dp">
+    android:paddingTop="4dp"
+    android:orientation="horizontal" >
 
     <LinearLayout
         android:layout_width="0dp"
@@ -80,7 +80,7 @@
 
             <TextView
                 style="@style/item_schedule_desc"
-                android:id="@+id/tvScheduleType"
+                android:id="@+id/tvScheduleDuration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
@@ -92,15 +92,37 @@
 
         </LinearLayout>
 
-        <TextView
-            style="@style/item_schedule_desc"
-            android:id="@+id/tvScheduleDayDate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:background="@android:color/holo_orange_light"
-            android:textSize="12sp" />
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center_horizontal"
+                android:background="#E3AA3C"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/item_schedule_desc"
+                android:id="@+id/tvScheduleDayDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center_horizontal"
+                android:background="@android:color/holo_orange_light"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
