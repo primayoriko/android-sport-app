@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d8b40e2e2a19dd36405f4ebfe1920e9a",
+    "identityHash": "e08a8f246ef4d55d09256e9c9c1699e7",
     "entities": [
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainingType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL, `isMonday` INTEGER NOT NULL, `isTuesday` INTEGER NOT NULL, `isWednesday` INTEGER NOT NULL, `isThursday` INTEGER NOT NULL, `isFriday` INTEGER NOT NULL, `isSaturday` INTEGER NOT NULL, `isSunday` INTEGER NOT NULL, `notificationId` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainingType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL, `isAutomated` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `notificationId` INTEGER NOT NULL, `day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `isMonday` INTEGER NOT NULL, `isTuesday` INTEGER NOT NULL, `isWednesday` INTEGER NOT NULL, `isThursday` INTEGER NOT NULL, `isFriday` INTEGER NOT NULL, `isSaturday` INTEGER NOT NULL, `isSunday` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -63,6 +63,42 @@
             "notNull": true
           },
           {
+            "fieldPath": "isAutomated",
+            "columnName": "isAutomated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notificationId",
+            "columnName": "notificationId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "day",
+            "columnName": "day",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "month",
+            "columnName": "month",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "isMonday",
             "columnName": "isMonday",
             "affinity": "INTEGER",
@@ -103,12 +139,6 @@
             "columnName": "isSunday",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "notificationId",
-            "columnName": "notificationId",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -124,7 +154,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd8b40e2e2a19dd36405f4ebfe1920e9a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e08a8f246ef4d55d09256e9c9c1699e7')"
     ]
   }
 }

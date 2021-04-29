@@ -23,6 +23,12 @@ data class Schedule(
         var durationInMinutes: Int = 0,
         var target: Int = 0,
         var isRecurring: Boolean = false,
+        var isAutomated: Boolean = false,
+        var isActive: Boolean = true,
+        var notificationId: Int = 0,
+        var day: Int = 0,
+        var month: Int = 0,
+        var year: Int = 0,
         var isMonday: Boolean = false,
         var isTuesday: Boolean = false,
         var isWednesday: Boolean = false,
@@ -30,7 +36,6 @@ data class Schedule(
         var isFriday: Boolean = false,
         var isSaturday: Boolean = false,
         var isSunday: Boolean = false,
-        var notificationId: Int = 0,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

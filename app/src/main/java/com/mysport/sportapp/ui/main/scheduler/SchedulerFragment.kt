@@ -13,6 +13,7 @@ import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.ScheduleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_scheduler.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SchedulerFragment : Fragment() {
@@ -53,6 +54,10 @@ class SchedulerFragment : Fragment() {
         fabScheduler.setOnClickListener {
              findNavController()
                      .navigate(R.id.action_navigation_scheduler_to_exactScheduleMakerFragment)
+        }
+
+        refreshLayoutScheduler.setOnRefreshListener {
+            recyclerViewScheduler?.adapter?.notifyDataSetChanged()
         }
     }
 

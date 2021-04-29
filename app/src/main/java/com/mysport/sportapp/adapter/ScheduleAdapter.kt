@@ -1,6 +1,7 @@
 package com.mysport.sportapp.adapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +16,7 @@ import com.mysport.sportapp.databinding.ItemScheduleBinding
 //class ScheduleAdapter(listener: OnToggleScheduleListener):
 class ScheduleAdapter(private var scheduleList: List<Schedule>):
         RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-//    private var scheduleList: List<Schedule>
 //    private val listener: OnToggleScheduleListener
-//
-//    init {
-//        scheduleList = ArrayList<Schedule>()
-//        this.listener = listener
-//    }
-
     override fun getItemCount(): Int = scheduleList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -32,7 +26,6 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-//        val schedule: Schedule = scheduleList[position]
         holder.bind(scheduleList[position])
     }
 
@@ -44,10 +37,6 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
     fun setSchedules(schedules: List<Schedule>) {
         scheduleList = scheduleList
         notifyDataSetChanged()
-    }
-
-    interface OnToggleScheduleListener {
-        fun onToggle(schedule: Schedule?)
     }
 
     class ScheduleViewHolder(private val view: View):
@@ -64,6 +53,8 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
             val duration = "${schedule.durationInMinutes}"
             val trainingType = if(schedule.trainingType == Training.TrainingType.CYCLING) "C" else "R"
             val target = "${schedule.target} " + if (trainingType == "C") "m" else "steps"
+            val isAutomated = if(schedule.isAutomated) "YES" else "NO"
+            val status = if(schedule.isActive) "V" else "X"
             val scheduleType =
                     if(schedule.scheduleType == Schedule.ScheduleType.EXACT) "Exact"
                     else (if (schedule.isRecurring) "Routine" else "Day")
@@ -76,19 +67,28 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
             binding.tvTrainingType.text = trainingType
             binding.tvTrainingTarget.text = target
             binding.tvScheduleDuration.text = duration
-            binding.tvScheduleDayDate.text = "hehehe"
+            binding.tvAutomated.text = isAutomated
+            binding.tvScheduleDayDate.text = "hehehe" // TODO: set day date string
+            binding.tvScheduleStatus.text = status
+            binding.tvScheduleStatus
+                    .setBackgroundColor(if (schedule.isActive) Color.GREEN else Color.RED)
 
-            view.setOnClickListener(View.OnClickListener {
+//            view.setOnClickListener(View.OnClickListener {
 //                val intent = Intent(view.context, NewsActivity::class.java)
 //                intent.putExtra("url", news.url)
 //
 //                view.context.startActivity(intent)
-            })
+//            })
+//
 //            scheduleStarted.setOnCheckedChangeListener
-//            { buttonView, isChecked -> listener.onToggle(schedule) }
+//                  { buttonView, isChecked -> listener.onToggle(schedule) }
         }
 
     }
+
+//    interface OnToggleScheduleListener {
+//        fun onToggle(schedule: Schedule?)
+//    }
 
 }
 
