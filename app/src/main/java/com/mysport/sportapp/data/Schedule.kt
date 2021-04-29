@@ -81,19 +81,6 @@ data class Schedule(
         }
 
         if (!isRecurring) {
-            var toastText: String? = null
-
-//            toastText = String.format(
-//                    "One Time Alarm %s scheduled for %s at %02d:%02d",
-//                    title,
-//                    DayUtil.toDay(calendar.get(Calendar.DAY_OF_WEEK)),
-//                    hour,
-//                    minute,
-//                    alarmId
-//            )
-//
-//            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 alarmManager.setExact(
                         AlarmManager.RTC_WAKEUP,
@@ -103,20 +90,9 @@ data class Schedule(
             } else {
                 Timber.d("ERROR: Can't create scheduler alarm, need API version above or equal to 19.")
             }
-
-
         } else {
             val runDaily = (24 * 60 * 60 * 1000).toLong()
-//            val toastText = String.format(
-//                    "Recurring Alarm %s scheduled for %s at %02d:%02d",
-//                    title,
-//                    getRecurringDaysText(),
-//                    hour,
-//                    minute,
-//                    alarmId
-//            )
-//
-//            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
+
             alarmManager.setRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),

@@ -38,9 +38,7 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
             }
 
             run {
-                Timber.d("sad2asd\nas3das\nasd5sa")
                 if (isScheduledToday(intent)) {
-                    Timber.d("sad2a234sd\nas3da432s\nasd12135sa")
                     startSchedulerService(context, intent)
                 }
             }
@@ -86,7 +84,7 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Timber.d("wqewqe\naswqeqweasd12wqewq")
+//            Timber.d("wqewqe\naswqeqweasd12wqewq")
             context.startForegroundService(intentService)
         } else {
             context.startService(intentService)

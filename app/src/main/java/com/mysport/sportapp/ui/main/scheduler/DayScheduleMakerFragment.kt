@@ -50,50 +50,45 @@ class DayScheduleMakerFragment : Fragment() {
     }
 
     private fun createSchedule() {
+        val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
+        val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
+        val isRecurring = rgRecurring.checkedRadioButtonId == 0
+        val duration = etScheduleDuration.text.toString().toInt()
+        val target = etScheduleTarget.text.toString().toInt()
         val trainType =
                 if (rgScheduleType.checkedRadioButtonId == 1) TrainingType.RUNNING
                 else TrainingType.CYCLING
 
-        val isRecurring = rgRecurring.checkedRadioButtonId == 0
-        val duration = etScheduleDuration.text.toString().toIntOrNull()
-        val target = etScheduleTarget.text.toString().toIntOrNull()
-        val toast: Toast
 
-        if(target == null || duration == null){
-            toast = Toast.makeText(context, "Scheduling failed", Toast.LENGTH_LONG)
+        val recurringText = if (isRecurring) "recurring" else "one-time"
+        val toastText = "Scheduled successfully $recurringText at $hour:$minute"
+        val toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG)
 
-        } else {
-            toast = Toast.makeText(context, "Scheduled Successfully", Toast.LENGTH_LONG)
+        val randomInt = Random.nextInt(0, 100000)
+        val schedule = Schedule(
+                etScheduleTitle.text.toString(),
+                trainType,
+                ScheduleType.DAY,
+                hour,
+                minute,
+                duration,
+                target,
+                isRecurring,
+                cbMonday.isChecked,
+                cbTuesday.isChecked,
+                cbWednesday.isChecked,
+                cbThursday.isChecked,
+                cbFriday.isChecked,
+                cbSaturday.isChecked,
+                cbSunday.isChecked,
+                randomInt,
+        )
 
-            val randomInt = Random.nextInt(0, 100000)
-
-            val schedule = Schedule(
-                    etScheduleTitle.text.toString(),
-                    trainType,
-                    ScheduleType.DAY,
-                    TimePickerUtility.getTimePickerHour(tpScheduleTime),
-                    TimePickerUtility.getTimePickerMinute(tpScheduleTime),
-                    duration,
-                    target,
-                    isRecurring,
-                    cbMonday.isChecked,
-                    cbTuesday.isChecked,
-                    cbWednesday.isChecked,
-                    cbThursday.isChecked,
-                    cbFriday.isChecked,
-                    cbSaturday.isChecked,
-                    cbSunday.isChecked,
-                    randomInt,
-            )
-
-            Timber.d(schedule.toString())
-//        Timber.d(target)
-//        Timber.d(duration)
+        Timber.d(schedule.toString())
 
 //        viewModel.insert(schedule)
 
-            schedule.invoke(requireContext())
-        }
+        schedule.invoke(requireContext())
 
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
@@ -121,6 +116,5 @@ class DayScheduleMakerFragment : Fragment() {
 //            override fun onNothingSelected(parent: AdapterView<*>?) {
 //            }
 //        }
-
 
 }
