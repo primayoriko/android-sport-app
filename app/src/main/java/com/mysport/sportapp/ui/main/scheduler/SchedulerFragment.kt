@@ -53,7 +53,7 @@ class SchedulerFragment : Fragment() {
 
         fabScheduler.setOnClickListener {
              findNavController()
-                     .navigate(R.id.action_navigation_scheduler_to_exactScheduleMakerFragment)
+                     .navigate(R.id.action_navigation_scheduler_to_scheduleMakerFragment)
         }
 
         refreshLayoutScheduler.setOnRefreshListener {

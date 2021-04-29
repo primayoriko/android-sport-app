@@ -37,86 +37,65 @@ class DayScheduleMakerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnExactScheduleMaker.setOnClickListener {
+        btnScheduleMaker.setOnClickListener {
             createSchedule()
         }
 
         btnSchedulerSwitchToExact.setOnClickListener{
-            findNavController()
-                    .navigate(R.id.action_dayScheduleMakerFragment_to_exactScheduleMakerFragment)
+//            findNavController()
+//                    .navigate(R.id.action_dayScheduleMakerFragment_to_exactScheduleMakerFragment)
         }
     }
 
     private fun createSchedule() {
-        val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
-        val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
-        val isRecurring = rgRecurring.checkedRadioButtonId == 0
-        val trainingType =
-                if (rgScheduleType.checkedRadioButtonId == 1) TrainingType.RUNNING
-                else TrainingType.CYCLING
-//        val duration = etScheduleDuration.text.toString().toInt()
-//        val target = etScheduleTarget.text.toString().toInt()
-//        val isAutomated = rgAutomate.checkedRadioButtonId == 0
-
-        val recurringText = if (isRecurring) "recurring" else "one-time"
-        val toastText = "Scheduled successfully $recurringText at $hour:$minute"
-        val toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG)
-
-        val schedule = Schedule(
-                etScheduleTitle.text.toString(),
-                trainingType,
-                ScheduleType.DAY,
-                hour,
-                minute,
-                etScheduleDuration.text.toString().toInt(),
-                etScheduleTarget.text.toString().toInt(),
-                isRecurring,
-                rgAutomate.checkedRadioButtonId == 0,
-                true,
-                Random.nextInt(1, 100000),
-                0,
-                0,
-                0,
-                cbMonday.isChecked,
-                cbTuesday.isChecked,
-                cbWednesday.isChecked,
-                cbThursday.isChecked,
-                cbFriday.isChecked,
-                cbSaturday.isChecked,
-                cbSunday.isChecked,
-        )
-
-        Timber.d(schedule.toString())
-
-        viewModel.insert(schedule)
-
-        schedule.invoke(requireContext())
-
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-
-        findNavController().navigate(R.id.action_dayScheduleMakerFragment_to_navigation_scheduler)
-    }
-
-//        val spinner: Spinner? =  view.findViewById(R.id.dropdownTracker)
+//        val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
+//        val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
+//        val isRecurring = rgRecurring.checkedRadioButtonId == 0
+//        val trainingType =
+//                if (rgScheduleType.checkedRadioButtonId == 1) TrainingType.RUNNING
+//                else TrainingType.CYCLING
+////        val duration = etScheduleDuration.text.toString().toInt()
+////        val target = etScheduleTarget.text.toString().toInt()
+////        val isAutomated = rgAutomate.checkedRadioButtonId == 0
 //
-//        val values = resources.getStringArray(R.array.track_type)
-//        val adapter = ArrayAdapter(
-//            this.requireActivity(),
-//            android.R.layout.simple_spinner_item,
-//            values
+//        val recurringText = if (isRecurring) "recurring" else "one-time"
+//        val toastText = "Scheduled successfully $recurringText at $hour:$minute"
+//        val toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG)
+//
+//        val schedule = Schedule(
+//                etScheduleTitle.text.toString(),
+//                trainingType,
+//                ScheduleType.DAY,
+//                hour,
+//                minute,
+//                etScheduleDuration.text.toString().toInt(),
+//                etScheduleTarget.text.toString().toInt(),
+//                isRecurring,
+//                rgAutomate.checkedRadioButtonId == 0,
+//                true,
+//                Random.nextInt(1, 100000),
+//                0,
+//                0,
+//                0,
+//                cbMonday.isChecked,
+//                cbTuesday.isChecked,
+//                cbWednesday.isChecked,
+//                cbThursday.isChecked,
+//                cbFriday.isChecked,
+//                cbSaturday.isChecked,
+//                cbSunday.isChecked,
 //        )
-//        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
 //
-//        spinner?.adapter = adapter
-//        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-////                Log.v("item", parent.getItemAtPosition(position) as String)
-//                (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
-//            }
+//        Timber.d(schedule.toString())
 //
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//            }
-//        }
+//        viewModel.insert(schedule)
+//
+//        schedule.invoke(requireContext())
+//
+//        toast.setGravity(Gravity.CENTER, 0, 0)
+//        toast.show()
+//
+//        findNavController().navigate(R.id.action_dayScheduleMakerFragment_to_navigation_scheduler)
+    }
 
 }

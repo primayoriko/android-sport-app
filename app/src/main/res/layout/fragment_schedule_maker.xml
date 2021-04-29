@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="35dp"
     android:orientation="vertical"
-    tools:context=".ui.main.scheduler.ExactScheduleMakerFragment">
+    tools:context=".ui.main.scheduler.ScheduleMakerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,12 +37,12 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="Type:"
+                android:text="Training Type:"
                 android:scaleX=".9"
                 android:scaleY=".9"/>
 
             <RadioGroup
-                android:id="@+id/rgScheduleType"
+                android:id="@+id/rgTrainingType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -58,7 +58,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:textSize="14sp"
-                    android:text="Running" />
+                    android:text="Running"
+                    android:checked="true" />
 
                 <RadioButton
                     android:id="@+id/radioScheduleTypeCycling"
@@ -127,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Training Duration"
+                    android:hint="Training Duration (m)"
                     android:scaleX="0.7"
                     android:scaleY="0.7"
                     android:inputType="number" />
@@ -136,23 +137,170 @@
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textFontWeight="10"
-            android:text="Pick a Date" />
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
 
-        <DatePicker
-            android:id="@+id/tpScheduleDate"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="Schedule Type:"
+                android:scaleX=".9"
+                android:scaleY=".9"/>
+
+            <RadioGroup
+                android:id="@+id/rgScheduleType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:scaleX=".8"
+                android:scaleY=".8">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="Exact"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="Routine" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDays"
             android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false"
-            android:scaleX=".8"
-            android:scaleY=".8" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textFontWeight="10"
+                android:text="Select Day(s)" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleX=".9"
+                android:scaleY=".9">
+
+                <CheckBox
+                    android:id="@+id/cbMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Mon" />
+
+                <CheckBox
+                    android:id="@+id/cbTuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Tue" />
+
+                <CheckBox
+                    android:id="@+id/cbWednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Wed" />
+
+                <CheckBox
+                    android:id="@+id/cbThursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Thu" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleX=".9"
+                android:scaleY=".9">
+
+                <CheckBox
+                    android:id="@+id/cbFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="Fri" />
+
+                <CheckBox
+                    android:id="@+id/cbSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="Sat" />
+
+                <CheckBox
+                    android:id="@+id/cbSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="Sun" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textFontWeight="10"
+                android:text="Pick a Date" />
+
+            <DatePicker
+                android:id="@+id/tpScheduleDate"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:scaleX=".8"
+                android:scaleY=".8" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,7 +338,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:textSize="14sp"
-                    android:text="No" />
+                    android:text="No"
+                    android:checked="true" />
 
             </RadioGroup>
 
@@ -199,11 +348,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnExactScheduleMaker"
+                android:id="@+id/btnScheduleMaker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -214,18 +364,17 @@
                 android:textSize="16sp"
                 android:text="Create" />
 
-            <Button
-                android:id="@+id/btnSchedulerSwitchToDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="5dp"
-                android:backgroundTint="@color/black"
-                android:gravity="center"
-                android:textFontWeight="15"
-                android:textSize="9sp"
-                android:text="Switch to Day" />
-
+<!--            <Button-->
+<!--                android:id="@+id/btnSchedulerSwitchToDay"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:paddingHorizontal="5dp"-->
+<!--                android:backgroundTint="@color/black"-->
+<!--                android:gravity="center"-->
+<!--                android:textFontWeight="15"-->
+<!--                android:textSize="9sp"-->
+<!--                android:text="Switch to Day" />-->
         </LinearLayout>
 
     </LinearLayout>

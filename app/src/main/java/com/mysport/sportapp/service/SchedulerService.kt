@@ -29,7 +29,6 @@ class SchedulerService : Service() {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-//    lateinit var curNotificationBuilder: NotificationCompat.Builder
 
     private lateinit var vibrator: Vibrator
 //    private lateinit var mediaPlayer: MediaPlayer

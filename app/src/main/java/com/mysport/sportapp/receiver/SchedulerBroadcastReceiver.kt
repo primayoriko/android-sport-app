@@ -23,11 +23,11 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            Toast.makeText(context, "Alarm Reboot", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Schedule changed", Toast.LENGTH_SHORT).show()
 
-//            startRescheduleAlarmsService(context)
+//            startReschedulerService(context)
         } else {
-            Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Schedule triggered", Toast.LENGTH_SHORT).show()
 
             if (!intent.getBooleanExtra(RECURRING, false)) {
                 Timber.d("sadasd\nasdas\nasdsa")
@@ -44,11 +44,10 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
 
     private fun isScheduledToday(intent: Intent): Boolean {
         val calendar: Calendar = Calendar.getInstance()
-        val today: Int = calendar.get(Calendar.DAY_OF_WEEK)
 
-        calendar.timeInMillis = System.currentTimeMillis()
+//        calendar.timeInMillis = System.currentTimeMillis()
 
-        when (today) {
+        when (calendar.get(Calendar.DAY_OF_WEEK)) {
             Calendar.MONDAY -> {
                 return intent.getBooleanExtra(MONDAY, false)
             }
