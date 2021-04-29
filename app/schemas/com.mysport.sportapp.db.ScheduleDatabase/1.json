@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fd808430aeb6fa552fd9c6ac7fc5336e",
+    "identityHash": "d8b40e2e2a19dd36405f4ebfe1920e9a",
     "entities": [
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL, `isMonday` INTEGER NOT NULL, `isTuesday` INTEGER NOT NULL, `isWednesday` INTEGER NOT NULL, `isThursday` INTEGER NOT NULL, `isFriday` INTEGER NOT NULL, `isSaturday` INTEGER NOT NULL, `isSunday` INTEGER NOT NULL, `notificationId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -61,6 +61,54 @@
             "columnName": "isRecurring",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "isMonday",
+            "columnName": "isMonday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTuesday",
+            "columnName": "isTuesday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isWednesday",
+            "columnName": "isWednesday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isThursday",
+            "columnName": "isThursday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFriday",
+            "columnName": "isFriday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSaturday",
+            "columnName": "isSaturday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSunday",
+            "columnName": "isSunday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notificationId",
+            "columnName": "notificationId",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -76,7 +124,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd808430aeb6fa552fd9c6ac7fc5336e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd8b40e2e2a19dd36405f4ebfe1920e9a')"
     ]
   }
 }

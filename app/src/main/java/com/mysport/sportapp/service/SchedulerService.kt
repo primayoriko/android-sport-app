@@ -8,11 +8,15 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.os.Vibrator
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.mysport.sportapp.data.Constant
+import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
+import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
 import com.mysport.sportapp.data.Schedule.Companion.TITLE
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,15 +59,17 @@ class SchedulerService : Service() {
         return null
     }
 
-    fun startForegroundServices(intent: Intent) {
+    private fun startForegroundServices(intent: Intent) {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
         } else {
-            Timber.d(" ERROR: Can't create notification, need API version above 26.")
+            Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
+
+        Timber.d("eheheh\neheheh\neheheh\neheheh\neheheh\n")
 
         val alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE))
         val notificationIntent = Intent(this, SchedulerService::class.java)
@@ -71,15 +77,16 @@ class SchedulerService : Service() {
 //            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notificationBuilder = baseNotificationBuilder
-                .setContentTitle(alarmTitle)
-                .setContentText("Ring Ring .. Ring Ring")
+                .setChannelId(SCHEDULER_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(SCHEDULER_NOTIFICATION_CHANNEL_TITLE)
+                .setContentText("$alarmTitle: Ring Ring .. Ring Ring")
                 .setContentIntent(pendingIntent)
 
         val pattern = longArrayOf(0, 100, 100)
         vibrator.vibrate(pattern, 6)
 //        mediaPlayer.start()
 
-        startForeground(Constant.RUNNING_NOTIFICATION_ID, notificationBuilder.build())
+        startForeground(SCHEDULER_NOTIFICATION_ID, notificationBuilder.build())
 
     }
 

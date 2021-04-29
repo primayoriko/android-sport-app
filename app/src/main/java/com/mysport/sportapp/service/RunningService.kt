@@ -75,8 +75,8 @@ class RunningService: LifecycleService(), SensorEventListener {
         // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
-                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
                 .setChannelId(RUNNING_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
 
         postInitialValues()
 
@@ -190,7 +190,7 @@ class RunningService: LifecycleService(), SensorEventListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
         } else {
-            Timber.d(" ERROR: Can't create notification, need API version above 26.")
+            Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
         // TODO: Customize notification

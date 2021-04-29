@@ -85,8 +85,8 @@ class CyclingService: LifecycleService() {
         // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
-                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
                 .setChannelId(Constant.CYCLING_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
 
         postInitialValues()
 
@@ -194,7 +194,7 @@ class CyclingService: LifecycleService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
         } else {
-            Timber.d(" ERROR: Can't create notification, need API version above 26.")
+            Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
         startForeground(CYCLING_NOTIFICATION_ID, baseNotificationBuilder.build())

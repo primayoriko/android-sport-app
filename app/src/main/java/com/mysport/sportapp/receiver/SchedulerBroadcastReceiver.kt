@@ -11,8 +11,10 @@ import com.mysport.sportapp.data.Schedule.Companion.RECURRING
 import com.mysport.sportapp.data.Schedule.Companion.SATURDAY
 import com.mysport.sportapp.data.Schedule.Companion.SUNDAY
 import com.mysport.sportapp.data.Schedule.Companion.THURSDAY
+import com.mysport.sportapp.data.Schedule.Companion.TITLE
 import com.mysport.sportapp.data.Schedule.Companion.TUESDAY
 import com.mysport.sportapp.data.Schedule.Companion.WEDNESDAY
+import com.mysport.sportapp.service.SchedulerService
 import java.util.*
 
 
@@ -21,26 +23,32 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             val toastText = String.format("Alarm Reboot")
+
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-            startRescheduleAlarmsService(context)
+
+//            startRescheduleAlarmsService(context)
+
         } else {
-            val toastText = String.format("Alarm Received")
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show()
+
             if (!intent.getBooleanExtra(RECURRING, false)) {
-                startAlarmService(context, intent)
+                startSchedulerService(context, intent)
             }
+
             run {
-                if (alarmIsToday(intent)) {
-                    startAlarmService(context, intent)
+                if (isScheduledToday(intent)) {
+                    startSchedulerService(context, intent)
                 }
             }
         }
     }
 
-    private fun alarmIsToday(intent: Intent): Boolean {
+    private fun isScheduledToday(intent: Intent): Boolean {
         val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
         val today: Int = calendar.get(Calendar.DAY_OF_WEEK)
+
+        calendar.timeInMillis = System.currentTimeMillis()
+
         when (today) {
             Calendar.MONDAY -> {
                 return intent.getBooleanExtra(MONDAY, false)
@@ -64,27 +72,29 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
                 return intent.getBooleanExtra(SUNDAY, false)
             }
         }
+
         return false
     }
 
-    private fun startAlarmService(context: Context, intent: Intent) {
-//        val intentService = Intent(context, AlarmService::class.java)
-//        intentService.putExtra(TITLE, intent.getStringExtra(TITLE))
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            context.startForegroundService(intentService)
-//        } else {
-//            context.startService(intentService)
-//        }
+    private fun startSchedulerService(context: Context, intent: Intent) {
+        val intentService = Intent(context, SchedulerService::class.java)
+
+        intentService.putExtra(TITLE, intent.getStringExtra(TITLE))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intentService)
+        } else {
+            context.startService(intentService)
+        }
     }
 
-    private fun startRescheduleAlarmsService(context: Context) {
+//    private fun startReschedulerService(context: Context) {
 //        val intentService = Intent(context, RescheduleAlarmsService::class.java)
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            context.startForegroundService(intentService)
 //        } else {
 //            context.startService(intentService)
 //        }
-    }
-
+//    }
 
 }
