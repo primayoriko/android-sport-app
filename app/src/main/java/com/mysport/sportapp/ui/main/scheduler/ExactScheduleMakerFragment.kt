@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Training.TrainingType
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_exact_schedule_maker.*
 
+@AndroidEntryPoint
 class ExactScheduleMakerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

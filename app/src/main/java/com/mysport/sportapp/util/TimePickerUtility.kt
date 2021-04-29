@@ -4,7 +4,7 @@ import android.os.Build
 import android.widget.TimePicker
 
 
-object SchedulerUtility {
+object TimePickerUtility {
 
     fun getTimePickerHour(tp: TimePicker): Int =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

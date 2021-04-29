@@ -72,10 +72,11 @@ class RunningService: LifecycleService(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
 
+        // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
-                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
                 .setChannelId(RUNNING_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
 
         postInitialValues()
 
@@ -183,11 +184,13 @@ class RunningService: LifecycleService(), SensorEventListener {
         activateSensors()
         startTracker()
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-                as NotificationManager
+        val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
+        } else {
+            Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
         // TODO: Customize notification
@@ -233,6 +236,7 @@ class RunningService: LifecycleService(), SensorEventListener {
                 RUNNING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
+
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -242,11 +246,13 @@ class RunningService: LifecycleService(), SensorEventListener {
             val pauseIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_PAUSE_SERVICE
             }
+
             PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         } else {
             val resumeIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_START_OR_RESUME_SERVICE
             }
+
             PendingIntent.getService(this, 2, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
@@ -263,4 +269,5 @@ class RunningService: LifecycleService(), SensorEventListener {
             notificationManager.notify(RUNNING_NOTIFICATION_ID, curNotificationBuilder.build())
         }
     }
+
 }

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Constant.REQUEST_CODE_LOCATION_PERMISSION
+import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracker.*
@@ -45,35 +46,12 @@ class TrackerFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-//        val spinner: Spinner? =  view.findViewById(R.id.dropdownTracker)
-//
-//        val values = resources.getStringArray(R.array.track_type)
-//        val adapter = ArrayAdapter(
-//            this.requireActivity(),
-//            android.R.layout.simple_spinner_item,
-//            values
-//        )
-//        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-//
-//        spinner?.adapter = adapter
-//        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-////                Log.v("item", parent.getItemAtPosition(position) as String)
-//                (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//            }
-//        }
-
         return inflater.inflate(R.layout.fragment_tracker, container, false)
     }
 
@@ -90,7 +68,6 @@ class TrackerFragment : Fragment(),
 
         requestPermissions()
         activateSensors()
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -101,11 +78,10 @@ class TrackerFragment : Fragment(),
 
     override fun onSensorChanged(event: SensorEvent) {
         if(event.sensor?.type == Sensor.TYPE_ACCELEROMETER){
-            floatGravity = event.values;
+            floatGravity = event.values
 
         } else if(event.sensor?.type == Sensor.TYPE_MAGNETIC_FIELD){
-            floatGeoMagnetic = event.values;
-
+            floatGeoMagnetic = event.values
         }
 
         SensorManager.getRotationMatrix(floatRotationMatrix, null, floatGravity, floatGeoMagnetic);
@@ -124,7 +100,10 @@ class TrackerFragment : Fragment(),
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if(EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
+            AppSettingsDialog
+                    .Builder(this)
+                    .build()
+                    .show()
         } else {
             requestPermissions()
         }
@@ -140,40 +119,11 @@ class TrackerFragment : Fragment(),
     }
 
     private fun requestPermissions() {
-        if(!TrackerUtility.hasLocationPermissions(requireContext())) {
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            } else {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app cycling tracker.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
-            }
-        }
+        if(!PermissionUtility.hasSensorPermissions(requireContext()))
+            PermissionUtility.requestSensorPermissions(this)
 
-        if(!TrackerUtility.hasSensorPermissions(requireContext())) {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                EasyPermissions.requestPermissions(
-                        this,
-                        "You need to accept location permissions to use this app running tracker.",
-                        REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACTIVITY_RECOGNITION
-                )
-
-            } else {
-                // TODO: Search permission needed
-            }
-        }
+        if(!PermissionUtility.hasLocationPermissions(requireContext()))
+            PermissionUtility.requestLocationPermissions(this)
     }
 
     private fun activateSensors(){

@@ -32,6 +32,7 @@ import com.mysport.sportapp.data.Constant.FASTEST_LOCATION_INTERVAL
 import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.data.Polylines
+import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -81,10 +82,11 @@ class CyclingService: LifecycleService() {
     override fun onCreate() {
         super.onCreate()
 
+        // TODO: Customize notification
         curNotificationBuilder = baseNotificationBuilder
         curNotificationBuilder
-                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
                 .setChannelId(Constant.CYCLING_NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
 
         postInitialValues()
 
@@ -126,6 +128,7 @@ class CyclingService: LifecycleService() {
 
     private fun startTracker() {
         addEmptyPolyline()
+
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
 
@@ -184,16 +187,16 @@ class CyclingService: LifecycleService() {
 
     private fun startForegroundService() {
         startTracker()
-        isTracking.postValue(true)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-                as NotificationManager
+        val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
+        } else {
+            Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
-        // TODO: Customize notification
         startForeground(CYCLING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
         timeRunInSeconds.observe(this, Observer {
@@ -205,6 +208,7 @@ class CyclingService: LifecycleService() {
         })
 
         // TODO: Observe running
+
     }
 
     private fun pauseService() {
@@ -228,6 +232,7 @@ class CyclingService: LifecycleService() {
                 CYCLING_NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
         )
+
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -237,11 +242,13 @@ class CyclingService: LifecycleService() {
             val pauseIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_PAUSE_SERVICE
             }
+
             PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         } else {
             val resumeIntent = Intent(this, CyclingService::class.java).apply {
                 action = ACTION_START_OR_RESUME_SERVICE
             }
+
             PendingIntent.getService(this, 2, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
@@ -277,7 +284,7 @@ class CyclingService: LifecycleService() {
     @SuppressLint("MissingPermission")
     private fun updateLocationTracking(isTracking: Boolean) {
         if (isTracking) {
-            if (TrackerUtility.hasLocationPermissions(this)) {
+            if (PermissionUtility.hasLocationPermissions(this)) {
                 val request = LocationRequest().apply {
                     interval = LOCATION_UPDATE_INTERVAL
                     fastestInterval = FASTEST_LOCATION_INTERVAL

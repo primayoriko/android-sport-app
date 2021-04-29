@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,124 +8,184 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="35dp"
     android:orientation="vertical"
-    tools:context=".ui.main.scheduler.ExactScheduleMakerFragment" >
-
-    <EditText
-        android:id="@+id/etScheduleTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginHorizontal="15dp"
-        android:hint="Schedule Title" />
+    tools:context=".ui.main.scheduler.ExactScheduleMakerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/etScheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="15dp"
+            android:hint="Schedule Title"
+            android:scaleX=".9"
+            android:scaleY=".9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="Type:"
+                android:scaleX=".9"
+                android:scaleY=".9"/>
+
+            <RadioGroup
+                android:id="@+id/rgScheduleType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:scaleX=".8"
+                android:scaleY=".8">
+
+                <RadioButton
+                    android:id="@+id/radioScheduleTypeRunning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="Running" />
+
+                <RadioButton
+                    android:id="@+id/radioScheduleTypeCycling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="14sp"
+                    android:text="Cycling" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="180dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Pick a Time"
+                    android:textAlignment="center"
+                    android:textFontWeight="10"
+                    android:textSize="14sp" />
+
+                <TimePicker
+                    android:id="@+id/tpScheduleTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="140dp"
+                    android:scaleX=".75"
+                    android:scaleY=".75"
+                    android:timePickerMode="spinner" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="127dp"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etScheduleTarget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="Training Target"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/etScheduleDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Training Duration"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="14sp"
-            android:text="Type:"/>
-
-        <RadioGroup
-            android:id="@+id/rgScheduleType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:layout_weight="0.7"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <RadioButton
-                android:id="@+id/radioScheduleTypeRunning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:textSize="14sp"
-                android:text="Running" />
-
-            <RadioButton
-                android:id="@+id/radioScheduleTypeCycling"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:textSize="14sp"
-                android:text="Cycling" />
-
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textFontWeight="10"
-        android:text="Pick a Time" />
-
-    <TimePicker
-        android:id="@+id/tpScheduleTime"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:timePickerMode="spinner"
-        android:scaleX=".8"
-        android:scaleY=".8" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textFontWeight="10"
-        android:text="Pick a Date" />
-
-    <DatePicker
-        android:id="@+id/tpScheduleDate"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:datePickerMode="spinner"
-        android:calendarViewShown="false"
-        android:scaleX=".8"
-        android:scaleY=".8" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btnExactScheduleMaker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="18dp"
-            android:gravity="center"
             android:textFontWeight="10"
-            android:textSize="16sp"
-            android:text="Create" />
+            android:text="Pick a Date" />
 
-        <Button
-            android:id="@+id/btnSchedulerSwitchToDay"
-            android:layout_width="wrap_content"
+        <DatePicker
+            android:id="@+id/tpScheduleDate"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:scaleX=".8"
+            android:scaleY=".8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingHorizontal="8dp"
-            android:backgroundTint="@color/black"
             android:gravity="center"
-            android:textFontWeight="15"
-            android:textSize="10sp"
-            android:text="Switch to Day" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnExactScheduleMaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="18dp"
+                android:gravity="center"
+                android:textFontWeight="10"
+                android:textSize="16sp"
+                android:text="Create" />
+
+            <Button
+                android:id="@+id/btnSchedulerSwitchToDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="5dp"
+                android:backgroundTint="@color/black"
+                android:gravity="center"
+                android:textFontWeight="15"
+                android:textSize="9sp"
+                android:text="Switch to Day" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
