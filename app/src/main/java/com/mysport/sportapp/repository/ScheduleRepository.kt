@@ -13,9 +13,9 @@ class ScheduleRepository @Inject constructor(
 
     suspend fun delete(schedule: Schedule) = scheduleDao.delete(schedule)
 
-    suspend fun getAllSortedByDate() = scheduleDao.getAllSortedByDate()
-
     suspend fun update(schedule: Schedule) = scheduleDao.update(schedule)
+
+    fun getAllSortedByDate() = scheduleDao.getAllSortedByDate()
 
     // TODO: Link with all method in DAO
 
