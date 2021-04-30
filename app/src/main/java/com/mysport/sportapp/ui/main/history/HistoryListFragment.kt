@@ -6,10 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
+import com.mysport.sportapp.adapter.ScheduleAdapter
+import com.mysport.sportapp.adapter.TrainingAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_history_list.*
+import kotlinx.android.synthetic.main.fragment_scheduler.*
+import timber.log.Timber
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class HistoryListFragment : Fragment() {
 
     private val viewModel: HistoryViewModel by viewModels()
@@ -35,8 +44,30 @@ class HistoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.historyList.observe()
+        val gridColumnCount: Int = 1
 
+        recyclerViewHistory.layoutManager = GridLayoutManager(context, gridColumnCount)
+        //        recyclerViewNews.setHasFixedSize(true)
+
+        viewModel.trainingRecords.observe( viewLifecycleOwner,
+                Observer { trainingList ->
+//                    Timber.d("hehehe\nhehehe\n")
+//                    Timber.d((trainingList == null).toString())
+////                    Timber.d(trainingList.size.toString())
+////                    if(trainingList.isNotEmpty()) Timber.d(trainingList.first().toString())
+//                    Timber.d("hehehe\nhehehe\n")
+//
+//                    if(trainingList != null)
+//                        recyclerViewHistory?.adapter = TrainingAdapter(trainingList)
+                })
+
+        viewModel.trainingList.observe( viewLifecycleOwner,
+            Observer { scheduleList ->
+                Timber.d("hehehe\nhehehe\n")
+                recyclerViewHistory?.adapter = TrainingAdapter(scheduleList)
+            })
+
+        viewModel.fetchOnADay(day, month, year)
 //        Snackbar.make(
 //            requireActivity().findViewById(R.id.activity_main),
 //            "$day $month $year",

@@ -12,6 +12,10 @@ class TrainingRepository @Inject constructor(
 
     suspend fun delete(training: Training) = trainingDao.delete(training)
 
+    fun getAllSortedByDate() = trainingDao.getAllSortedByDate()
+
+    fun getAllBetweenTimestamps(start: Long, end: Long) = trainingDao.getAllBetweenTimestamps(start, end)
+
     // TODO: Link with all method in DAO
 
 }
