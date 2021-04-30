@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
@@ -60,27 +61,8 @@ class HistoryListFragment : Fragment() {
                 val resList =
                     scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
 
-                recyclerViewHistory?.adapter = TrainingAdapter(resList)
+                recyclerViewHistory?.adapter = TrainingAdapter(resList, this)
             })
-
     }
 
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment HistoryListFragment.
-//         */
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//                HistoryListFragment().apply {
-//                    arguments = Bundle().apply {
-//                        putString(ARG_PARAM1, param1)
-//                        putString(ARG_PARAM2, param2)
-//                    }
-//                }
-//    }
 }

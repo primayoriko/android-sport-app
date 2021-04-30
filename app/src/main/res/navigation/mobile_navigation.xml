@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.mysport.sportapp.ui.main.history.HistoryFragment"
-        android:label="@string/history"
+        android:label="@string/title_history"
         tools:layout="@layout/fragment_history" >
         <action
             android:id="@+id/action_navigation_history_to_historyListFragment"
@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/historyListFragment"
         android:name="com.mysport.sportapp.ui.main.history.HistoryListFragment"
-        android:label="History"
+        android:label="@string/title_history"
         tools:layout="@layout/fragment_history_detail" >
         <action
             android:id="@+id/action_historyListFragment_to_historyDetailFragment"
@@ -107,9 +107,19 @@
         android:name="com.mysport.sportapp.ui.main.history.HistoryDetailFragment"
         android:label="History Detail"
         tools:layout="@layout/fragment_history_detail" >
-        <action
-            android:id="@+id/action_historyDetailFragment_to_historyListFragment"
-            app:destination="@id/historyListFragment" />
+        <argument android:name="image" />
+        <argument
+            android:name="time"
+            app:argType="string" />
+        <argument
+            android:name="duration"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="result"
+            app:argType="string" />
     </fragment>
 
 </navigation>

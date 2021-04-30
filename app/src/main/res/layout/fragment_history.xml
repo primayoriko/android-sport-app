@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/history"
+            android:text="@string/title_history"
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="32sp"
