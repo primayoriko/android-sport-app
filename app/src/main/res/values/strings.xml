@@ -2,6 +2,7 @@
     <string name="app_name">SportApp</string>
     <string name="title_news">News</string>
     <string name="title_home">Home</string>
+    <string name="title_history">History</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_news">News</string>
@@ -37,5 +38,7 @@
         <item>Cycling</item>
         <item>Run</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="history">History</string>
 
 </resources>
