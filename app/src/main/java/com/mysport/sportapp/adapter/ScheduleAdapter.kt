@@ -9,7 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Schedule
-import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.data.Schedule.ScheduleType
+import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.databinding.ItemScheduleBinding
 
 
@@ -34,8 +35,8 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
 //        holder.scheduleStarted.setOnCheckedChangeListener(null)
     }
 
-    fun setSchedules(schedules: List<Schedule>) {
-        scheduleList = scheduleList
+    fun setSchedules(scheduleList: List<Schedule>) {
+        this.scheduleList = scheduleList
         notifyDataSetChanged()
     }
 
@@ -51,13 +52,12 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
             val title = schedule.title
             val time = "${schedule.hour}:${schedule.minute}"
             val duration = "${schedule.durationInMinutes}"
-            val trainingType = if(schedule.trainingType == Training.TrainingType.CYCLING) "C" else "R"
+            val trainingType = if(schedule.trainingType == TrainingType.CYCLING) "C" else "R"
             val target = "${schedule.target} " + if (trainingType == "C") "m" else "steps"
             val isAutomated = if(schedule.isAutomated) "YES" else "NO"
             val status = if(schedule.isActive) "V" else "X"
             val scheduleType =
-                    if(schedule.scheduleType == Schedule.ScheduleType.EXACT) "Exact"
-                    else (if (schedule.isRecurring) "Routine" else "Day")
+                    if(schedule.scheduleType == ScheduleType.EXACT) "Exact" else "Routine"
 
             val binding: ItemScheduleBinding = ItemScheduleBinding.bind(view)
 

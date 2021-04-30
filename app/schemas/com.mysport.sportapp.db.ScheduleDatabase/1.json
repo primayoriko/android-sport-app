@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e08a8f246ef4d55d09256e9c9c1699e7",
+    "identityHash": "b024905d253b2ce0bdf51ca0d2d3a6e7",
     "entities": [
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainingType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isRecurring` INTEGER NOT NULL, `isAutomated` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `notificationId` INTEGER NOT NULL, `day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `isMonday` INTEGER NOT NULL, `isTuesday` INTEGER NOT NULL, `isWednesday` INTEGER NOT NULL, `isThursday` INTEGER NOT NULL, `isFriday` INTEGER NOT NULL, `isSaturday` INTEGER NOT NULL, `isSunday` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `trainingType` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `hour` INTEGER NOT NULL, `minute` INTEGER NOT NULL, `durationInMinutes` INTEGER NOT NULL, `target` INTEGER NOT NULL, `isAutomated` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `notificationId` INTEGER NOT NULL, `day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `isMonday` INTEGER NOT NULL, `isTuesday` INTEGER NOT NULL, `isWednesday` INTEGER NOT NULL, `isThursday` INTEGER NOT NULL, `isFriday` INTEGER NOT NULL, `isSaturday` INTEGER NOT NULL, `isSunday` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -53,12 +53,6 @@
           {
             "fieldPath": "target",
             "columnName": "target",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isRecurring",
-            "columnName": "isRecurring",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -154,7 +148,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e08a8f246ef4d55d09256e9c9c1699e7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b024905d253b2ce0bdf51ca0d2d3a6e7')"
     ]
   }
 }

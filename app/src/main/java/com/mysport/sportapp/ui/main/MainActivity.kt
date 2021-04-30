@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         navController
             .addOnDestinationChangedListener { _, destination, _ ->
                 when(destination.id) {
-                    R.id.navigation_news, R.id.navigation_tracker, R.id.navigation_home,
-                    R.id.navigation_history,R.id.navigation_scheduler ->
+                    R.id.navigation_home,
+                    R.id.navigation_news, R.id.navigation_tracker,
+                    R.id.navigation_history, R.id.navigation_scheduler ->
                         mainBottomNavView.visibility = View.VISIBLE
                     else -> mainBottomNavView.visibility = View.GONE
                 }

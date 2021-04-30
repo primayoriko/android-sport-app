@@ -6,6 +6,6 @@
         android:icon="@drawable/ic_white_close_24"
         android:visible="false"
         app:showAsAction="always"
-        android:title="Cancel Track" />
+        android:title="Cancel Track"/>
 
 </menu>

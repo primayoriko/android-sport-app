@@ -26,7 +26,7 @@ class HistoryFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_history, container, false)
-        val calendView = view.findViewById<View>(R.id.calendarView)
+//        val calendView = view.findViewById<View>(R.id.calendarView)
         val btn: Button = view.findViewById(R.id.buttonHistory)
         val date = Bundle()
 //        calendarView.setOnDateChangeListener{ calendView, i, i2, i3 ->

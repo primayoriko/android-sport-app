@@ -8,14 +8,14 @@
     android:paddingLeft="3dp"
     android:paddingBottom="8dp"
     android:paddingTop="4dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".2"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/item_schedule_desc"
@@ -27,7 +27,7 @@
             android:background="@color/colorPrimaryDark"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
         <TextView
             style="@style/item_schedule_desc"
@@ -37,7 +37,7 @@
             android:layout_weight=".35"
             android:gravity="center"
             android:background="#54D8D7"
-            android:textAlignment="center" />
+            android:textAlignment="center"/>
 
     </LinearLayout>
 
@@ -46,7 +46,7 @@
         android:layout_height="match_parent"
         android:layout_weight=".65"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/item_schedule_title"
@@ -58,13 +58,13 @@
             android:background="#634304"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/item_schedule_desc"
@@ -76,7 +76,7 @@
                 android:background="#9E6A04"
                 android:textAlignment="center"
                 android:textSize="12sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
 
             <TextView
                 style="@style/item_schedule_desc"
@@ -88,7 +88,7 @@
                 android:background="#9E6A04"
                 android:textAlignment="center"
                 android:textSize="12sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/item_schedule_desc"
@@ -108,7 +108,7 @@
                 android:background="#E3AA3C"
                 android:textAlignment="center"
                 android:textSize="12sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"/>
 
             <TextView
                 style="@style/item_schedule_desc"
@@ -120,7 +120,7 @@
                 android:background="@android:color/holo_orange_light"
                 android:textAlignment="center"
                 android:textSize="12sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -131,7 +131,7 @@
         android:layout_height="match_parent"
         android:layout_weight=".15"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/item_schedule_desc"
@@ -143,7 +143,7 @@
             android:background="@color/black"
             android:textAlignment="center"
             android:textSize="25sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
         <TextView
             style="@style/item_schedule_desc"
@@ -153,7 +153,7 @@
             android:layout_weight=".35"
             android:gravity="center"
             android:background="#FFEB3B"
-            android:textAlignment="center" />
+            android:textAlignment="center"/>
 
     </LinearLayout>
 

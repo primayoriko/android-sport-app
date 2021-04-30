@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mysport.sportapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!--  Need To Requested Manually  -->
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
-    <!--    <uses-permission android:name="com.google.android.things.permission.MANAGE_SENSOR_DRIVERS" />-->
+    <!--    <uses-permission android:name="com.google.android.things.permission.MANAGE_SENSOR_DRIVERS"/>-->
 
     <application
         android:name=".MainApplication"
@@ -29,9 +29,9 @@
             android:label="@string/app_name">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>
@@ -45,32 +45,32 @@
 
         <receiver android:name=".receiver.SchedulerBroadcastReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
         <service
             android:name=".service.RunningService"
             android:foregroundServiceType="location"
-            android:stopWithTask="true" />
+            android:stopWithTask="true"/>
 
         <service
             android:name=".service.CyclingService"
             android:foregroundServiceType="location"
-            android:stopWithTask="true" />
+            android:stopWithTask="true"/>
 
         <service
             android:name=".service.SchedulerService"
             android:foregroundServiceType="mediaPlayback"
-            android:stopWithTask="true" />
+            android:stopWithTask="true"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_api_key" />
+            android:value="@string/google_maps_api_key"/>
 
     </application>
 

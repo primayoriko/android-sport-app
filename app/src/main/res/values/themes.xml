@@ -25,7 +25,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.SportApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.SportApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="Theme.SportApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.SportApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>
