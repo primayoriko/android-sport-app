@@ -25,27 +25,29 @@ object ServiceModule {
     @Provides
     fun provideMainActivityPendingIntent(
             @ApplicationContext app: Context
-    ) = PendingIntent.getActivity(
-            app,
-            0,
-            Intent(app, MainActivity::class.java).also {
-                it.action = ACTION_SHOW_TRACKING_FRAGMENT
-            },
-            PendingIntent.FLAG_UPDATE_CURRENT
-    )
+    ): PendingIntent =
+            PendingIntent.getActivity(
+                    app,
+                    0,
+                    Intent(app, MainActivity::class.java).also {
+                        it.action = ACTION_SHOW_TRACKING_FRAGMENT
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
     @ServiceScoped
     @Provides
     fun provideBaseNotificationBuilder(
             @ApplicationContext app: Context,
             pendingIntent: PendingIntent
-    ) = NotificationCompat.Builder(app, BASE_NOTIFICATION_CHANNEL_ID)
-            .setAutoCancel(false)
-            .setOngoing(true)
-            .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
-            .setContentTitle(BASE_NOTIFICATION_CHANNEL_TITLE)
-            .setContentText("sample text here")
-            .setContentIntent(pendingIntent)
+    ): NotificationCompat.Builder =
+            NotificationCompat.Builder(app, BASE_NOTIFICATION_CHANNEL_ID)
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
+                    .setContentTitle(BASE_NOTIFICATION_CHANNEL_TITLE)
+                    .setContentText("New message for you, expand this")
+                    .setContentIntent(pendingIntent)
 
     @ServiceScoped
     @Provides

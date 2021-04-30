@@ -80,15 +80,17 @@ class SchedulerService : Service() {
         val notificationIntent = Intent(this, SchedulerService::class.java)
         val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
 //            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val pattern = longArrayOf(0, 100, 1000)
+        val pattern = longArrayOf(0, 150, 900)
         val notificationBuilder = baseNotificationBuilder
                 .setChannelId(SCHEDULER_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(SCHEDULER_NOTIFICATION_CHANNEL_TITLE)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setContentText(message)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(message))
+//                .setContentText(message)
                 .setContentIntent(pendingIntent)
 
-        vibrator.vibrate(pattern, 0)
+//        vibrator.vibrate(pattern, 0)
+        vibrator.vibrate(800)
 //        mediaPlayer.start()
         startForeground(SCHEDULER_NOTIFICATION_ID, notificationBuilder.build())
     }
