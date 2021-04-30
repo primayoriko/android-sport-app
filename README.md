@@ -69,7 +69,9 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
    - nmnmnm
 
 2. Yasyfiana Fariha (13518143)
-   - nmnmnm
+   - Calendar History
+   - List history (fragment, database, recyclerviewer, bug)
+   - Detail fragment (baru fragment polos)
 
 
 ## Credits
