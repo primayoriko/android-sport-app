@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTimer"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTotalStep" />
+        app:layout_constraintTop_toTopOf="@id/tvTotalStep"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnToggleTrack"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnFinishTrack"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTimer"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinishTrack"
@@ -56,6 +56,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnToggleTrack"
-        app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTimer"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

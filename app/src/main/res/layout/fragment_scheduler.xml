@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="52dp"
-    tools:context=".ui.main.scheduler.SchedulerFragment" >
+    tools:context=".ui.main.scheduler.SchedulerFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayoutScheduler"
@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -36,9 +36,9 @@
         android:backgroundTint="#99AAEE"
         android:src="@drawable/ic_white_add_alert_24"
         android:contentDescription="add_schedule_img"
-        app:borderWidth="0dp" />
+        app:borderWidth="0dp"/>
 
-    <!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <!--        app:srcCompat="@android:drawable/ic_dialog_email"/>-->
     <!--    <Spinner-->
     <!--        android:id="@+id/dropdownTracker"-->
     <!--        android:layout_width="wrap_content"-->

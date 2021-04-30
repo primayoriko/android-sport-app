@@ -7,7 +7,7 @@
     android:paddingLeft="3dp"
     android:paddingBottom="8dp"
     android:paddingTop="4dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/newsImage"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.7"
         android:background="@android:color/holo_orange_light"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/item_news_title"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
 
         <TextView
             style="@style/item_news_author"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
 
         <TextView
             style="@style/item_news_desc"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
 
     </LinearLayout>
 

@@ -9,65 +9,65 @@
         android:id="@+id/navigation_news"
         android:name="com.mysport.sportapp.ui.main.news.NewsFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news"/>
 
     <fragment
         android:id="@+id/navigation_tracker"
         android:name="com.mysport.sportapp.ui.main.tracker.TrackerFragment"
         android:label="@string/title_tracker"
-        tools:layout="@layout/fragment_tracker" >
+        tools:layout="@layout/fragment_tracker">
         <action
             android:id="@+id/action_navigation_tracker_to_cyclingFragment"
-            app:destination="@id/cyclingFragment" />
+            app:destination="@id/cyclingFragment"/>
         <action
             android:id="@+id/action_navigation_tracker_to_runningFragment"
-            app:destination="@id/runningFragment" />
+            app:destination="@id/runningFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.mysport.sportapp.ui.main.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/cyclingFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.CyclingFragment"
         android:label="@string/title_cycling"
-        tools:layout="@layout/fragment_cycling" >
+        tools:layout="@layout/fragment_cycling">
         <action
             android:id="@+id/action_cyclingFragment_to_navigation_tracker"
-            app:destination="@id/navigation_tracker" />
+            app:destination="@id/navigation_tracker"/>
     </fragment>
 
     <fragment
         android:id="@+id/runningFragment"
         android:name="com.mysport.sportapp.ui.main.tracker.RunningFragment"
         android:label="@string/title_running"
-        tools:layout="@layout/fragment_running" >
+        tools:layout="@layout/fragment_running">
         <action
             android:id="@+id/action_runningFragment_to_navigation_tracker"
-            app:destination="@id/navigation_tracker" />
+            app:destination="@id/navigation_tracker"/>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_scheduler"
         android:name="com.mysport.sportapp.ui.main.scheduler.SchedulerFragment"
         android:label="@string/title_scheduler"
-        tools:layout="@layout/fragment_scheduler" >
+        tools:layout="@layout/fragment_scheduler">
         <action
             android:id="@+id/action_navigation_scheduler_to_scheduleMakerFragment"
-            app:destination="@id/scheduleMakerFragment" />
+            app:destination="@id/scheduleMakerFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/scheduleMakerFragment"
         android:name="com.mysport.sportapp.ui.main.scheduler.ScheduleMakerFragment"
-        android:label="fragment_schedule_maker"
-        tools:layout="@layout/fragment_schedule_maker" >
+        android:label="Schedule Maker"
+        tools:layout="@layout/fragment_schedule_maker">
         <action
             android:id="@+id/action_scheduleMakerFragment_to_navigation_scheduler"
-            app:destination="@id/navigation_scheduler" />
+            app:destination="@id/navigation_scheduler"/>
     </fragment>
 
 </navigation>

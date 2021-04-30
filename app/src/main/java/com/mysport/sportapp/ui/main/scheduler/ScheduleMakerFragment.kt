@@ -2,11 +2,12 @@ package com.mysport.sportapp.ui.main.scheduler
 
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_schedule_maker.*
 import timber.log.Timber
 import kotlin.random.Random
+
 
 @AndroidEntryPoint
 class ScheduleMakerFragment : Fragment() {
@@ -40,33 +42,30 @@ class ScheduleMakerFragment : Fragment() {
             createSchedule()
         }
 
-        rgScheduleType.setOnCheckedChangeListener {
-            _, selectedID ->
-                if (selectedID == 0){
-                    layoutDays.visibility = View.GONE
-                    layoutDate.visibility = View.VISIBLE
-                } else {
-                    layoutDate.visibility = View.GONE
-                    layoutDays.visibility = View.VISIBLE
-                }
-        }
+        rgScheduleType.setOnCheckedChangeListener { _, id ->
+//            Timber.d("$id\n$id\n$")
+//            Timber.d("${radioScheduleTypeExact.id}\n$${radioScheduleTypeRoutine.id}\n$")
 
-//        btnSchedulerSwitchToDay.setOnClickListener{
-//            findNavController()
-//                    .navigate(R.id.action_exactScheduleMakerFragment_to_dayScheduleMakerFragment)
-//        }
+            if (id == radioScheduleTypeExact.id) {
+                layoutDays.visibility = View.GONE
+                layoutDate.visibility = View.VISIBLE
+            } else {
+                layoutDate.visibility = View.GONE
+                layoutDays.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun createSchedule() {
         val scheduleType =
-                if (rgScheduleType.checkedRadioButtonId == 1) ScheduleType.ROUTINE
+                if (rgScheduleType.checkedRadioButtonId == radioScheduleTypeRoutine.id) ScheduleType.ROUTINE
                 else ScheduleType.EXACT
         val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
         val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
         val duration = etScheduleDuration.text.toString().toIntOrNull()
         val target = etScheduleTarget.text.toString().toIntOrNull()
         val trainingType =
-                if (rgTrainingType.checkedRadioButtonId == 1) TrainingType.RUNNING
+                if (rgTrainingType.checkedRadioButtonId == radioTrainingTypeRunning.id) TrainingType.RUNNING
                 else TrainingType.CYCLING
 
 //        val isAutomated = rgAutomate.checkedRadioButtonId == 0
@@ -82,7 +81,7 @@ class ScheduleMakerFragment : Fragment() {
                     minute,
                     duration!!,
                     target!!,
-                    rgAutomate.checkedRadioButtonId == 0,
+                    rgAutomate.checkedRadioButtonId == radioAutomatedTrue.id,
                     true,
                     Random.nextInt(1, 100000),
                     0,

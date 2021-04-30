@@ -55,6 +55,7 @@ data class Schedule(
         const val SATURDAY = "SATURDAY"
         const val SUNDAY = "SUNDAY"
         const val RECURRING = "RECURRING"
+        const val FINISH_MSG = "FINISH_MSG"
     }
 
     fun invoke(context: Context) {
@@ -72,9 +73,13 @@ data class Schedule(
         intent.putExtra(FRIDAY, isFriday)
         intent.putExtra(SATURDAY, isSaturday)
         intent.putExtra(SUNDAY, isSunday)
+        intent.putExtra(SUNDAY, isSunday)
+        intent.putExtra(FINISH_MSG, false)
 
-        val schedulerPendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, 0)
         val calendar: Calendar = Calendar.getInstance()
+        var schedulerPendingIntent =
+                PendingIntent.getBroadcast(context, notificationId, intent, 0)
+
 
         if(scheduleType == ScheduleType.EXACT){
             calendar.set(Calendar.DAY_OF_MONTH, day)
@@ -104,6 +109,17 @@ data class Schedule(
                         calendar.timeInMillis,
                         schedulerPendingIntent
                 )
+
+                calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + durationInMinutes)
+                intent.putExtra(FINISH_MSG, true)
+                schedulerPendingIntent =
+                        PendingIntent.getBroadcast(context, notificationId + 1, intent, 0)
+
+                alarmManager.setExact(
+                        AlarmManager.RTC,
+                        calendar.timeInMillis,
+                        schedulerPendingIntent
+                )
             } else {
                 Timber.d("ERROR: Can't create scheduler alarm, need API version above or equal to 19.")
             }
@@ -111,7 +127,19 @@ data class Schedule(
             val runDaily = (24 * 60 * 60 * 1000).toLong()
 
             alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
+                    AlarmManager.RTC,
+                    calendar.timeInMillis,
+                    runDaily,
+                    schedulerPendingIntent
+            )
+
+            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + durationInMinutes)
+            intent.putExtra(FINISH_MSG, true)
+            schedulerPendingIntent =
+                    PendingIntent.getBroadcast(context, notificationId + 1, intent, 0)
+
+            alarmManager.setRepeating(
+                    AlarmManager.RTC,
                     calendar.timeInMillis,
                     runDaily,
                     schedulerPendingIntent

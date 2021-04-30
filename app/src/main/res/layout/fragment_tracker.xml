@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/imageCompass"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/imageCompass"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSelectRunning"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleTracker" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTracker"/>
 
     <Button
         android:id="@+id/buttonSelectRunning"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSelectCycling"
-        app:layout_constraintTop_toBottomOf="@+id/imageCompass" />
+        app:layout_constraintTop_toBottomOf="@+id/imageCompass"/>
 
     <Button
         android:id="@+id/buttonSelectCycling"
@@ -66,6 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSelectRunning"  />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectRunning" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
