@@ -18,7 +18,8 @@ import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
-import com.mysport.sportapp.data.Schedule.Companion.TITLE
+import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
+import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -71,7 +72,8 @@ class SchedulerService : Service() {
 
 //        Timber.d("eheheh\neheheh\neheheh\neheheh\neheheh\n")
 
-        val alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE))
+        val message = intent.getStringExtra(MESSAGE)
+        val isFinishMessage = intent.getBooleanExtra(FINISH_MSG, false)
         val notificationIntent = Intent(this, SchedulerService::class.java)
         val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
 //            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -79,7 +81,7 @@ class SchedulerService : Service() {
         val notificationBuilder = baseNotificationBuilder
                 .setChannelId(SCHEDULER_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(SCHEDULER_NOTIFICATION_CHANNEL_TITLE)
-                .setContentText("$alarmTitle: Ring Ring .. Ring Ring")
+                .setContentText(message)
                 .setContentIntent(pendingIntent)
 
         vibrator.vibrate(pattern, 0)

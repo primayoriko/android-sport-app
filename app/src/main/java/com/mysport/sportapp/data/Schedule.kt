@@ -46,7 +46,11 @@ data class Schedule(
 
     companion object {
         const val ID = "ID"
-        const val TITLE = "TITLE"
+        const val RECURRING = "RECURRING"
+        const val AUTO_TRACK = "AUTO_TRACK"
+        const val MESSAGE = "MESSAGE"
+        const val FINISH_MSG = "FINISH_MSG"
+        const val DURATION = "DURATION"
         const val MONDAY = "MONDAY"
         const val TUESDAY = "TUESDAY"
         const val WEDNESDAY = "WEDNESDAY"
@@ -54,8 +58,6 @@ data class Schedule(
         const val FRIDAY = "FRIDAY"
         const val SATURDAY = "SATURDAY"
         const val SUNDAY = "SUNDAY"
-        const val RECURRING = "RECURRING"
-        const val FINISH_MSG = "FINISH_MSG"
     }
 
     fun invoke(context: Context) {
@@ -63,9 +65,21 @@ data class Schedule(
         val intent = Intent(context, SchedulerBroadcastReceiver::class.java)
         val isRecurring = scheduleType == ScheduleType.ROUTINE
 
+        val training = if (trainingType == Training.TrainingType.CYCLING) "Cycling" else "Running"
+        val resultUnit = if (trainingType == Training.TrainingType.CYCLING) "m" else "steps"
+
+        val message = "It's reminder for $title training schedule,\n" +
+                "let's go to $training for $durationInMinutes minutes now!!\n" +
+                "Your target today is $target $resultUnit."
+
+        val finishMessage = "Wow your training must be over, good job! See you later, pals."
+
         intent.putExtra(ID, notificationId)
-        intent.putExtra(TITLE, title)
         intent.putExtra(RECURRING, isRecurring)
+        intent.putExtra(MESSAGE, message)
+        intent.putExtra(FINISH_MSG, false)
+        intent.putExtra(AUTO_TRACK, isAutomated)
+        intent.putExtra(DURATION, durationInMinutes)
         intent.putExtra(MONDAY, isMonday)
         intent.putExtra(TUESDAY, isTuesday)
         intent.putExtra(WEDNESDAY, isWednesday)
@@ -74,12 +88,10 @@ data class Schedule(
         intent.putExtra(SATURDAY, isSaturday)
         intent.putExtra(SUNDAY, isSunday)
         intent.putExtra(SUNDAY, isSunday)
-        intent.putExtra(FINISH_MSG, false)
 
         val calendar: Calendar = Calendar.getInstance()
         var schedulerPendingIntent =
                 PendingIntent.getBroadcast(context, notificationId, intent, 0)
-
 
         if(scheduleType == ScheduleType.EXACT){
             calendar.set(Calendar.DAY_OF_MONTH, day)
@@ -111,6 +123,7 @@ data class Schedule(
                 )
 
                 calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + durationInMinutes)
+                intent.putExtra(MESSAGE, finishMessage)
                 intent.putExtra(FINISH_MSG, true)
                 schedulerPendingIntent =
                         PendingIntent.getBroadcast(context, notificationId + 1, intent, 0)
@@ -134,6 +147,7 @@ data class Schedule(
             )
 
             calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + durationInMinutes)
+            intent.putExtra(MESSAGE, finishMessage)
             intent.putExtra(FINISH_MSG, true)
             schedulerPendingIntent =
                     PendingIntent.getBroadcast(context, notificationId + 1, intent, 0)
