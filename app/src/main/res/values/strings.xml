@@ -9,6 +9,7 @@
     <string name="title_tracker">Tracker</string>
     <string name="title_running">Running Tracker</string>
     <string name="title_cycling">Cycling Tracker</string>
+    <string name="title_schedule_list">Schedule List</string>
     <string name="title_scheduler">Scheduler</string>
 
     <string name="tv_tracker_fragment_header_text">Select Training Tracker</string>

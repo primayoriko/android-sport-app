@@ -20,8 +20,9 @@ class ListHistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_listhistory, container, false)
-        val listView = view.findViewById<View>(R.id.recyclerViewHistory)
+        val view: View = inflater
+            .inflate(R.layout.fragment_listhistory, container, false)
+
         val day = arguments?.getInt("Day")
         val month = arguments?.getInt("Month")
         val year = arguments?.getInt("Year")
