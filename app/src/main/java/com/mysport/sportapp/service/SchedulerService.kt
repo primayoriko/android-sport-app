@@ -89,7 +89,8 @@ class SchedulerService : Service() {
 //                .setContentText(message)
                 .setContentIntent(pendingIntent)
 
-        vibrator.vibrate(pattern, 0)
+//        vibrator.vibrate(pattern, 0)
+        vibrator.vibrate(800)
 //        mediaPlayer.start()
         startForeground(SCHEDULER_NOTIFICATION_ID, notificationBuilder.build())
     }
