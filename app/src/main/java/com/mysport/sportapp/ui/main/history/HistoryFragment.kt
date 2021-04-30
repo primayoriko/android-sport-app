@@ -47,7 +47,13 @@ class HistoryFragment : Fragment(){
             val month = dpDate.month
             val year = dpDate.year
 
-            findNavController().navigate(R.id.action_navigation_history_to_historyListFragment)
+            val bundle = Bundle()
+            bundle.putInt("DAY", day)
+            bundle.putInt("MONTH", month)
+            bundle.putInt("YEAR", year)
+
+            findNavController()
+                .navigate(R.id.action_navigation_history_to_historyListFragment, bundle)
         }
     }
 

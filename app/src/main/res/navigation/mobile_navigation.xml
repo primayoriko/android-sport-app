@@ -88,6 +88,18 @@
         <action
             android:id="@+id/action_historyListFragment_to_historyDetailFragment"
             app:destination="@id/historyDetailFragment" />
+        <argument
+            android:name="day"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="month"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="year"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
