@@ -46,7 +46,6 @@ data class Schedule(
 
     companion object {
         const val ID = "ID"
-        const val TRAINING_TYPE = "TRAINING_TYPE"
         const val RECURRING = "RECURRING"
         const val AUTO_TRACK = "AUTO_TRACK"
         const val MESSAGE = "MESSAGE"
@@ -76,7 +75,6 @@ data class Schedule(
         val finishMessage = "Wow your training must be over, good job! See you later, pals."
 
         intent.putExtra(ID, notificationId)
-        intent.putExtra(TRAINING_TYPE, trainingType)
         intent.putExtra(RECURRING, isRecurring)
         intent.putExtra(MESSAGE, message)
         intent.putExtra(FINISH_MSG, false)

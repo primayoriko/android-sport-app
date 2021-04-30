@@ -46,7 +46,7 @@ object ServiceModule {
                     .setOngoing(true)
                     .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
                     .setContentTitle(BASE_NOTIFICATION_CHANNEL_TITLE)
-//                    .setContentText("New message for you, expand this")
+                    .setContentText("New message for you, expand this")
                     .setContentIntent(pendingIntent)
 
     @ServiceScoped
