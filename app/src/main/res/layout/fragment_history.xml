@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="30dp"
     android:layout_gravity="center"
     android:foregroundGravity="center"
     android:background="@color/light_blue_600"
@@ -30,6 +31,7 @@
             android:textFontWeight="15"/>
 
         <DatePicker
+            android:id="@+id/dpDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX=".8"
@@ -51,7 +53,7 @@
         <!--    </LinearLayout>-->
 
         <Button
-            android:id="@+id/buttonHistory"
+            android:id="@+id/btnHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Check" />

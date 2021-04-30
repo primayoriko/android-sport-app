@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Constant
 import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.service.RunningService
 import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.TrackerUtility
@@ -190,7 +191,7 @@ class RunningFragment : Fragment() {
     private fun endTrack() {
         val dateTimestamp = Calendar.getInstance().timeInMillis
         val trainingEntry = Training(
-                Training.TrainingType.CYCLING,
+                TrainingType.RUNNING,
                 dateTimestamp,
                 curTimeInMillis,
                 null,

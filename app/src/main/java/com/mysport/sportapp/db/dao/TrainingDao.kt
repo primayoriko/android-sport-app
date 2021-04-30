@@ -13,13 +13,13 @@ interface TrainingDao {
     @Delete
     suspend fun delete(training: Training)
 
-    // TODO: add fetch / querying method for spec no. 3
+    @Query("SELECT * FROM training WHERE id = :id")
+    fun get(id: Int): LiveData<Training>
 
-    // Examples
-//    @Query("SELECT * FROM running_table ORDER BY timestamp DESC")
-//    fun getAllRunsSortedByDate(): LiveData<List<Run>>
-//
-//    @Query("SELECT * FROM running_table ORDER BY timeInMillis DESC")
-//    fun getAllRunsSortedByTimeInMillis(): LiveData<List<Run>>
+    @Query("SELECT * FROM training ORDER BY timestamp DESC")
+    fun getAllSortedByDate(): LiveData<List<Training>>
+
+    @Query("SELECT * FROM training WHERE timestamp BETWEEN :start AND :end ORDER BY timestamp DESC")
+    fun getAllBetweenTimestamps(start: Long, end: Long): LiveData<List<Training>>
 
 }

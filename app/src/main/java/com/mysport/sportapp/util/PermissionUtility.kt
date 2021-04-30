@@ -17,7 +17,7 @@ object PermissionUtility {
                         Manifest.permission.ACTIVITY_RECOGNITION
                 )
             } else {
-                true
+                false
             }
 
     fun hasLocationPermissions(context: Context) =
@@ -57,6 +57,18 @@ object PermissionUtility {
             }
 
     fun requestSensorPermissions(fragment: Fragment) =
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            EasyPermissions.requestPermissions(
+                fragment,
+                "You need to accept location permissions to use this app running tracker.",
+                Constant.REQUEST_CODE_LOCATION_PERMISSION,
+                Manifest.permission.ACTIVITY_RECOGNITION
+            )
+        } else {
+            // TODO: Search permission needed
+        }
+
+    fun requestLocationPermissions(fragment: Fragment) =
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 EasyPermissions.requestPermissions(
                         fragment,
@@ -74,18 +86,6 @@ object PermissionUtility {
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 )
-            }
-
-    fun requestLocationPermissions(fragment: Fragment) =
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                EasyPermissions.requestPermissions(
-                        fragment,
-                        "You need to accept location permissions to use this app running tracker.",
-                        Constant.REQUEST_CODE_LOCATION_PERMISSION,
-                        Manifest.permission.ACTIVITY_RECOGNITION
-                )
-            } else {
-                // TODO: Search permission needed
             }
 
 }

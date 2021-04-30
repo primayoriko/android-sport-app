@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +13,7 @@ import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Schedule
 import com.mysport.sportapp.data.Schedule.ScheduleType
 import com.mysport.sportapp.data.Training.TrainingType
-import com.mysport.sportapp.util.TimePickerUtility
+import com.mysport.sportapp.util.TimeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_schedule_maker.*
 import timber.log.Timber
@@ -60,8 +59,8 @@ class ScheduleMakerFragment : Fragment() {
         val scheduleType =
                 if (rgScheduleType.checkedRadioButtonId == radioScheduleTypeRoutine.id) ScheduleType.ROUTINE
                 else ScheduleType.EXACT
-        val hour = TimePickerUtility.getTimePickerHour(tpScheduleTime)
-        val minute = TimePickerUtility.getTimePickerMinute(tpScheduleTime)
+        val hour = TimeUtility.getTimePickerHour(tpScheduleTime)
+        val minute = TimeUtility.getTimePickerMinute(tpScheduleTime)
         val duration = etScheduleDuration.text.toString().toIntOrNull()
         val target = etScheduleTarget.text.toString().toIntOrNull()
         val trainingType =

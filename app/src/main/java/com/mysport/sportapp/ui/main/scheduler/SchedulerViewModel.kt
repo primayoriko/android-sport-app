@@ -9,7 +9,7 @@ import com.mysport.sportapp.data.Schedule
 import com.mysport.sportapp.repository.ScheduleRepository
 import kotlinx.coroutines.launch
 
-class SchedulerViewModel  @ViewModelInject constructor(
+class SchedulerViewModel @ViewModelInject constructor(
         val scheduleRepository: ScheduleRepository
 ): ViewModel() {
 

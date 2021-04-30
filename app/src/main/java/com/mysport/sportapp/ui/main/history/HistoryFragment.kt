@@ -6,85 +6,52 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_history.*
 
-
+@AndroidEntryPoint
 class HistoryFragment : Fragment(){
-
 
     companion object {
         fun newInstance() = HistoryFragment()
     }
 
-    private lateinit var viewModel: HistoryViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_history, container, false)
-//        val calendView = view.findViewById<View>(R.id.calendarView)
-        val btn: Button = view.findViewById(R.id.buttonHistory)
-        val date = Bundle()
-//        calendarView.setOnDateChangeListener{ calendView, i, i2, i3 ->
-//            date.putInt("Day", i)
-//            date.putInt("Month", i2)
-//            date.putInt("Year", i3)
-//        }
-        btn.setOnClickListener{ view ->
-            view.findNavController().navigate(R.id.list_history)
-//            var fragment: Fragment? = null
-////            when (R.id.refreshLayoutHistory) {
-////                R.id.refreshLayoutHistory -> {
-//                    fragment = ListHistoryFragment()
-////                }
-////            }
-//
-//
-//            if (fragment != null) {
-//                val transaction = activity?.supportFragmentManager?.beginTransaction()
-//                transaction?.replace(R.id.refreshLayoutHistory, fragment)
-//                transaction?.commit()
-//            }
-//            if (transaction != null) {
-//                transaction.disallowAddToBackStack()
-//            }
-//            if (transaction != null) {
-//                transaction.commit()
-//            }
-        }
-
-//        val date = Bundle()
-//        calendarView.setOnDateChangeListener{ calendView, i, i2, i3 ->
-//            date.putInt("Day", i)
-//            date.putInt("Month", i2)
-//            date.putInt("Year", i3)
-////            view.findNavController().navigate(R.id.recyclerViewHistory, date)
-////            this.setArguments(date);
-//        }
-
-        return view
-//        return inflater.inflate(R.layout.fragment_history, container, false)
+        return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
-//    override fun onClick(v: View?) {
-//        when (v?.id) {
-//            R.id.buttonHistory -> {
-//
-//            }
-//
-//            else -> {
-//            }
-//        }
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btnHistory.setOnClickListener{
+            val day = dpDate.dayOfMonth
+            val month = dpDate.month
+            val year = dpDate.year
+
+            val bundle = Bundle()
+            bundle.putInt("DAY", day)
+            bundle.putInt("MONTH", month)
+            bundle.putInt("YEAR", year)
+
+            findNavController()
+                .navigate(R.id.action_navigation_history_to_historyListFragment, bundle)
+        }
+    }
 
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="3dp"
+    android:paddingLeft="3dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="4dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/trainingImage"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/iv_news_item_desc"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:background="@android:color/holo_orange_light"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/item_news_title"
+            android:id="@+id/trainingType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            style="@style/item_news_author"
+            android:id="@+id/trainingResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            style="@style/item_news_desc"
+            android:id="@+id/trainingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            style="@style/item_news_desc"
+            android:id="@+id/trainingDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</LinearLayout>

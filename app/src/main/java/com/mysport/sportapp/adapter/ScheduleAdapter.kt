@@ -21,9 +21,11 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
     override fun getItemCount(): Int = scheduleList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_schedule, parent, false)
+        val view: View = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_schedule, parent, false)
 
-        return ScheduleViewHolder(itemView)
+        return ScheduleViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
@@ -35,7 +37,7 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
 //        holder.scheduleStarted.setOnCheckedChangeListener(null)
     }
 
-    fun setSchedules(scheduleList: List<Schedule>) {
+    fun setScheduleList(scheduleList: List<Schedule>) {
         this.scheduleList = scheduleList
         notifyDataSetChanged()
     }
@@ -72,16 +74,6 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
             binding.tvScheduleStatus.text = status
             binding.tvScheduleStatus
                     .setBackgroundColor(if (schedule.isActive) Color.GREEN else Color.RED)
-
-//            view.setOnClickListener(View.OnClickListener {
-//                val intent = Intent(view.context, NewsActivity::class.java)
-//                intent.putExtra("url", news.url)
-//
-//                view.context.startActivity(intent)
-//            })
-//
-//            scheduleStarted.setOnCheckedChangeListener
-//                  { buttonView, isChecked -> listener.onToggle(schedule) }
         }
 
     }
