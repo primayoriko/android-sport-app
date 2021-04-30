@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.fragment_history.*
 @AndroidEntryPoint
 class HistoryFragment : Fragment(){
 
-    private val viewModel: HistoryViewModel by viewModels()
-
     companion object {
         fun newInstance() = HistoryFragment()
     }
@@ -36,7 +34,6 @@ class HistoryFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

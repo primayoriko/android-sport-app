@@ -21,9 +21,9 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
     override fun getItemCount(): Int = scheduleList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_schedule, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_schedule, parent, false)
 
-        return ScheduleViewHolder(itemView)
+        return ScheduleViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {

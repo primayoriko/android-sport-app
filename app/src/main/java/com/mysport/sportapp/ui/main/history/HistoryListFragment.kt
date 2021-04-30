@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
 import kotlin.properties.Delegates
 
 class HistoryListFragment : Fragment() {
+
+    private val viewModel: HistoryViewModel by viewModels()
 
     private var day by Delegates.notNull<Int>()
     private var month by Delegates.notNull<Int>()
@@ -26,12 +29,13 @@ class HistoryListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        viewModel.historyList.observe()
 
 //        Snackbar.make(
 //            requireActivity().findViewById(R.id.activity_main),

@@ -13,7 +13,11 @@ interface TrainingDao {
     @Delete
     suspend fun delete(training: Training)
 
-    // TODO: add fetch / querying method for spec no. 3
+    @Query("SELECT * FROM training WHERE id = :id")
+    fun get(id: Int): LiveData<Training>
+
+    @Query("SELECT * FROM training") //" WHERE date = :day")
+    fun getAllOnADay(day: Int, month: Int, year: Int): LiveData<List<Training>>
 
     // Examples
 //    @Query("SELECT * FROM running_table ORDER BY timestamp DESC")
