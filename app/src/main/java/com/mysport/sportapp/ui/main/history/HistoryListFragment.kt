@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.ScheduleAdapter
 import com.mysport.sportapp.adapter.TrainingAdapter
+import com.mysport.sportapp.util.TimeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_history_list.*
 import kotlinx.android.synthetic.main.fragment_scheduler.*
@@ -49,30 +50,19 @@ class HistoryListFragment : Fragment() {
         recyclerViewHistory.layoutManager = GridLayoutManager(context, gridColumnCount)
         //        recyclerViewNews.setHasFixedSize(true)
 
-        viewModel.trainingRecords.observe( viewLifecycleOwner,
-                Observer { trainingList ->
-//                    Timber.d("hehehe\nhehehe\n")
-//                    Timber.d((trainingList == null).toString())
-////                    Timber.d(trainingList.size.toString())
-////                    if(trainingList.isNotEmpty()) Timber.d(trainingList.first().toString())
-//                    Timber.d("hehehe\nhehehe\n")
-//
-//                    if(trainingList != null)
-//                        recyclerViewHistory?.adapter = TrainingAdapter(trainingList)
-                })
-
         viewModel.trainingList.observe( viewLifecycleOwner,
             Observer { scheduleList ->
-                Timber.d("hehehe\nhehehe\n")
-                recyclerViewHistory?.adapter = TrainingAdapter(scheduleList)
+                val todayTimestamp = TimeUtility.getDayTimestampInMillis(day, month, year)
+                val tomorrowTimestamp = todayTimestamp + (1000 * 60 * 60 * 24)
+//                Timber.d("hehehe\nhehehe\n")
+//                Timber.d(todayTimestamp.toString())
+//                Timber.d(tomorrowTimestamp.toString())
+                val resList =
+                    scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
+
+                recyclerViewHistory?.adapter = TrainingAdapter(resList)
             })
 
-        viewModel.fetchOnADay(day, month, year)
-//        Snackbar.make(
-//            requireActivity().findViewById(R.id.activity_main),
-//            "$day $month $year",
-//            Snackbar.LENGTH_LONG
-//        ).show()
     }
 
 //    companion object {

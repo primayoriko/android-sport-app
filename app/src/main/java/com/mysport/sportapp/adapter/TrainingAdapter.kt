@@ -10,6 +10,7 @@ import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.databinding.ItemTrainingBinding
 import com.mysport.sportapp.util.TimeUtility
+import timber.log.Timber
 import java.util.*
 
 class TrainingAdapter(private var trainingList: List<Training>):
