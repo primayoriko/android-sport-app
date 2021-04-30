@@ -3,22 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_container_history_list"
+    android:id="@+id/fragment_container_schedule_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_overlay"
+    android:layout_marginBottom="52dp"
     tools:context=".ui.main.scheduler.ScheduleListFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayoutHistory"
+        android:id="@+id/refreshLayoutScheduler"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewHistory"
+            android:id="@+id/recyclerViewScheduler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            tools:listitem="@layout/item_training"
+            tools:listitem="@layout/item_schedule"
             android:padding="@dimen/big_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -27,19 +27,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <!--        app:srcCompat="@android:drawable/ic_dialog_email"/>-->
-    <!--    <Spinner-->
-    <!--        android:id="@+id/dropdownTracker"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="8dp"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--    </Spinner>-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabScheduler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="#99AAEE"
+        android:src="@drawable/ic_white_add_alert_24"
+        android:contentDescription="add_schedule_img"
+        app:borderWidth="0dp"/>
 
 </FrameLayout>

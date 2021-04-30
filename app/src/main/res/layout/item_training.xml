@@ -10,7 +10,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/trainingImage"
+        android:id="@+id/ivTrainingImage"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
@@ -26,7 +26,7 @@
 
         <TextView
             style="@style/item_news_title"
-            android:id="@+id/trainingType"
+            android:id="@+id/tvTrainingType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
@@ -34,7 +34,7 @@
 
         <TextView
             style="@style/item_news_author"
-            android:id="@+id/trainingResult"
+            android:id="@+id/tvTrainingResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
@@ -42,7 +42,7 @@
 
         <TextView
             style="@style/item_news_desc"
-            android:id="@+id/trainingTime"
+            android:id="@+id/tvTrainingTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
@@ -50,7 +50,7 @@
 
         <TextView
             style="@style/item_news_desc"
-            android:id="@+id/trainingDuration"
+            android:id="@+id/tvTrainingDuration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"

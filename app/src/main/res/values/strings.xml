@@ -9,6 +9,7 @@
     <string name="title_tracker">Tracker</string>
     <string name="title_running">Running Tracker</string>
     <string name="title_cycling">Cycling Tracker</string>
+    <string name="title_schedule_list">Schedule List</string>
     <string name="title_scheduler">Scheduler</string>
 
     <string name="tv_tracker_fragment_header_text">Select Training Tracker</string>
@@ -30,15 +31,14 @@
     <string name="google_maps_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDon-mmL2p2wIpdq7-wDh2UG9BuDjIJWXs</string>
 
     <!-- Strings used for fragments for navigation -->
+    <string name="hello_blank_fragment">No Text</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="track_type">
         <item>Cycling</item>
         <item>Run</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="history">History</string>
 
 </resources>

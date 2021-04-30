@@ -1,18 +1,25 @@
 package com.mysport.sportapp.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.databinding.ItemTrainingBinding
+import com.mysport.sportapp.ui.main.history.HistoryListFragment
+import com.mysport.sportapp.util.Converter
 import com.mysport.sportapp.util.TimeUtility
+import timber.log.Timber
 import java.util.*
 
-class TrainingAdapter(private var trainingList: List<Training>):
+class TrainingAdapter(private var trainingList: List<Training>, private val fragment: Fragment):
     RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
 
     override fun getItemCount(): Int = trainingList.size
@@ -26,7 +33,7 @@ class TrainingAdapter(private var trainingList: List<Training>):
     }
 
     override fun onBindViewHolder(holder: TrainingViewHolder, position: Int) {
-        holder.bind(trainingList[position])
+        holder.bind(trainingList[position], fragment)
     }
 
     override fun onViewRecycled(holder: TrainingViewHolder) {
@@ -39,7 +46,7 @@ class TrainingAdapter(private var trainingList: List<Training>):
         private lateinit var training: Training
 
 //        fun bind(training: Training, listener: OnToggleTrainingListener) {
-        fun bind(training: Training) {
+        fun bind(training: Training, fragment: Fragment) {
             this.training = training
 
             val binding = ItemTrainingBinding.bind(view)
@@ -47,37 +54,39 @@ class TrainingAdapter(private var trainingList: List<Training>):
                 if (training.type == TrainingType.CYCLING) "Cycling" else "Running"
             val result =
                 if (training.type == TrainingType.CYCLING) training.distance else training.step
+
             val resultStr = "$result " + if (trainingType == "Cycling") "m" else "steps"
-
             val time = TimeUtility.getDateString(training.timestamp)
-            val duration = String.format("%.2f", training.duration.toFloat() / 1000F)
+            val duration = String.format("%.2f s", training.duration.toFloat() / 1000F)
 
-            binding.trainingType.text = trainingType
-            binding.trainingDuration.text = duration
-            binding.trainingResult.text = resultStr
-            binding.trainingTime.text = time
+            binding.tvTrainingType.text = trainingType
+            binding.tvTrainingDuration.text = duration
+            binding.tvTrainingResult.text = resultStr
+            binding.tvTrainingTime.text = time
 
-            Glide.with(view.context).load(training.img).into(binding.trainingImage)
-//            view.setOnClickListener(View.OnClickListener {
-//                val intent = Intent(view.context, NewsActivity::class.java)
-//                intent.putExtra("url", news.url)
-//
-//                view.context.startActivity(intent)
-//            })
-//
+            Glide.with(view.context).load(training.img).into(binding.ivTrainingImage)
+
+            val converter = Converter()
+            val bundle = Bundle()
+
+            val imgByte = converter.fromBitmap(training.img!!)
+
+            bundle.putString("TYPE", trainingType)
+            bundle.putString("RESULT", resultStr)
+            bundle.putString("TIME", time)
+            bundle.putString("DURATION", duration)
+            bundle.putByteArray("IMAGE", imgByte)
+
+            view.setOnClickListener(
+                View.OnClickListener {
+                    view.findFragment<HistoryListFragment>()
+                        .findNavController()
+                        .navigate(R.id.action_historyListFragment_to_historyDetailFragment, bundle)
+                })
 //            scheduleStarted.setOnCheckedChangeListener
 //                  { buttonView, isChecked -> listener.onToggle(schedule) }
         }
 
-//            view.setOnClickListener(View.OnClickListener {
-//                val intent = Intent(view.context, NewsActivity::class.java)
-//                intent.putExtra("url", news.url)
-//
-//                view.context.startActivity(intent)
-//            })
-//
-//            scheduleStarted.setOnCheckedChangeListener
-//                  { buttonView, isChecked -> listener.onToggle(schedule) }
     }
 
     interface OnClickedListener {

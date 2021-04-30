@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.history.HistoryDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/ivTrainingImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            android:layout_marginVertical="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_not_interested_24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@color/light_blue_A200">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tvTrainingType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".4"
+                        android:paddingVertical="15dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimaryDark"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:text="@string/hello_blank_fragment" />
+
+                    <TextView
+                        android:id="@+id/tvTrainingResult"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:paddingVertical="15dp"
+                        android:layout_gravity="center"
+                        android:background="#063A09"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:text="@string/hello_blank_fragment" />
+
+                </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_gravity="center_horizontal">-->
+<!--                </LinearLayout>-->
+
+                <TextView
+                    android:id="@+id/tvTrainingTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="25dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:text="@string/hello_blank_fragment" />
+
+                <TextView
+                    android:id="@+id/tvTrainingDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="25dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:text="@string/hello_blank_fragment" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
