@@ -66,7 +66,9 @@ class TrackerFragment : Fragment(),
             findNavController().navigate(R.id.action_navigation_tracker_to_cyclingFragment)
         }
 
-        requestPermissions()
+        if(!PermissionUtility.hasSensorPermissions(requireContext()))
+            PermissionUtility.requestSensorPermissions(this)
+
         activateSensors()
     }
 
@@ -105,7 +107,7 @@ class TrackerFragment : Fragment(),
                     .build()
                     .show()
         } else {
-            requestPermissions()
+            PermissionUtility.requestSensorPermissions(this)
         }
     }
 
@@ -116,14 +118,6 @@ class TrackerFragment : Fragment(),
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    private fun requestPermissions() {
-        if(!PermissionUtility.hasSensorPermissions(requireContext()))
-            PermissionUtility.requestSensorPermissions(this)
-
-        if(!PermissionUtility.hasLocationPermissions(requireContext()))
-            PermissionUtility.requestLocationPermissions(this)
     }
 
     private fun activateSensors(){

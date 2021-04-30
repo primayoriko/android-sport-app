@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.mysport.sportapp.data.Constant
 import pub.devrel.easypermissions.EasyPermissions
 
+// TODO: Create permission factory to keep it DRY
 object PermissionUtility {
 
     fun hasSensorPermissions(context: Context) =

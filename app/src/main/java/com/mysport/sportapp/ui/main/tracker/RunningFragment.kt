@@ -2,8 +2,10 @@ package com.mysport.sportapp.ui.main.tracker
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.data.Training.TrainingType
 import com.mysport.sportapp.service.RunningService
 import com.mysport.sportapp.ui.main.MainActivity
+import com.mysport.sportapp.util.GraphicUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cycling.btnFinishTrack
@@ -149,14 +152,10 @@ class RunningFragment : Fragment() {
     private fun showCancelTrackingDialog() {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
                 .setTitle("Cancel")
-                .setMessage("Are you sure to cancel the current tracking?")
                 .setIcon(R.drawable.ic_white_delete_24)
-                .setPositiveButton("Yes") { _, _ ->
-                    stopTrack()
-                }
-                .setNegativeButton("No") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
+                .setMessage("Are you sure to cancel the current tracking?")
+                .setPositiveButton("Yes") { _, _ -> stopTrack() }
+                .setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
                 .create()
         dialog.show()
     }
@@ -164,14 +163,10 @@ class RunningFragment : Fragment() {
     private fun showFinishTrackingDialog() {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
                 .setTitle("End")
-                .setMessage("Are you sure to end the current tracking?")
                 .setIcon(R.drawable.ic_white_delete_24)
-                .setPositiveButton("Yes") { _, _ ->
-                    endTrack()
-                }
-                .setNegativeButton("No") { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
+                .setMessage("Are you sure to end the current tracking?")
+                .setPositiveButton("Yes") { _, _ -> endTrack() }
+                .setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
                 .create()
         dialog.show()
     }
@@ -194,19 +189,19 @@ class RunningFragment : Fragment() {
                 TrainingType.RUNNING,
                 dateTimestamp,
                 curTimeInMillis,
-                null,
-                Bitmap.createBitmap(50, 50, Bitmap.Config.ALPHA_8),
+                GraphicUtility.createImage(50, 50, Color.RED),
+            null,
                 curStepCount
         )
 
         Timber.d(trainingEntry.toString())
 
         viewModel.insert(trainingEntry)
-        Snackbar.make(
-                requireActivity().findViewById(R.id.activity_main),
-                "Training data saved successfully",
-                Snackbar.LENGTH_LONG
-        ).show()
+
+        val toast = Toast.makeText(context, "Training data saved successfully", Toast.LENGTH_LONG)
+
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
 
         stopTrack()
     }

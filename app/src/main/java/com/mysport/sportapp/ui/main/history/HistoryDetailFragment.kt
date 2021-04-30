@@ -24,7 +24,7 @@ class HistoryDetailFragment : Fragment() {
 
         val converter = Converter()
         arguments?.let {
-//            img = converter.toBitmap(it.getByteArray("IMG")!!)
+            img = converter.toBitmap(it.getByteArray("IMAGE")!!)
             type = it.getString("TYPE")!!
             result = it.getString("RESULT")!!
             time = it.getString("TIME")!!
@@ -48,7 +48,7 @@ class HistoryDetailFragment : Fragment() {
         tvTrainingResult.text = result
         tvTrainingTime.text = time
 
-//        Glide.with(view.context).load(img).into(ivTrainingImg)
+        Glide.with(view.context).load(img).into(ivTrainingImg)
 
     }
 
