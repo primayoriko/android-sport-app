@@ -30,6 +30,7 @@
             android:textFontWeight="15"/>
 
         <DatePicker
+            android:id="@+id/dpDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX=".8"
@@ -51,7 +52,7 @@
         <!--    </LinearLayout>-->
 
         <Button
-            android:id="@+id/buttonHistory"
+            android:id="@+id/btnHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Check" />
