@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container_tracker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="52dp"
+    android:orientation="horizontal"
+    tools:context=".ui.main.tracker.TrackerFragment">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageCompass"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@drawable/compass_landscape"
+            android:contentDescription="@string/iv_compass_desc"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tvTitleTracker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:text="@string/tv_tracker_fragment_header_text"/>
+
+        <Button
+            android:id="@+id/buttonSelectRunning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/button_select_running"/>
+
+        <Button
+            android:id="@+id/buttonSelectCycling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/button_select_cycling"/>
+
+    </LinearLayout>
+
+</LinearLayout>
