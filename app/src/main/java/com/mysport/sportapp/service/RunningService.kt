@@ -134,26 +134,13 @@ class RunningService: LifecycleService(), SensorEventListener {
 
         }
 
-        // STEP_COUNTER Sensor.
-        // *** Step Counting does not restart until the device is restarted - therefore, an algorithm for restarting the counting must be implemented.
 //        if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
 //            val countSteps = event.values[0].toInt()
-//
-//            // -The long way of starting a new step counting sequence.-
-//            /**
-//             * int tempStepCount = countSteps;
-//             * int initialStepCount = countSteps - tempStepCount; // Nullify step count - so that the step cpuinting can restart.
-//             * currentStepCount += initialStepCount; // This variable will be initialised with (0), and will be incremented by itself for every Sensor step counted.
-//             * stepCountTxV.setText(String.valueOf(currentStepCount));
-//             * currentStepCount++; // Increment variable by 1 - so that the variable can increase for every Step_Counter event.
-//             */
-//
-//            // -The efficient way of starting a new step counting sequence.-
-//            if (stepCount.value!! == 0) { // If the stepCounter is in its initial value, then...
-//                stepCount.postValue(event.values[0].toInt()) // Assign the StepCounter Sensor event value to it.
+//            if (stepCount.value!! == 0) {
+//                stepCount.postValue(event.values[0].toInt())
 //            }
 //
-//            newStepCounter = countSteps - stepCounter // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
+//            newStepCounter = countSteps - stepCounter
 //        }
     }
 
