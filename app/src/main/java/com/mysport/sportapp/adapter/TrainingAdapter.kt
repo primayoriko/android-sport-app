@@ -28,8 +28,6 @@ class TrainingAdapter(
         fun onClick(item: Training)
     }
 
-//    lateinit var callback: OnClickListener
-
     override fun getItemCount(): Int = trainingList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingViewHolder {
