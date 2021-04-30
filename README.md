@@ -72,6 +72,9 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
    - Pembuatan compass
    - Pembuatan scheduler
    - Pembuatan history
+   - tampilan responsive + adaptive
+   - pembuatan struktur project
+   - testing program
 
 2. Yasyfiana Fariha (13518143)
    - Calendar History
