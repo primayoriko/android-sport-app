@@ -39,7 +39,7 @@ class RunningService: LifecycleService(), SensorEventListener {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-    lateinit var curNotificationBuilder: NotificationCompat.Builder
+    lateinit var notificationBuilder: NotificationCompat.Builder
 
     lateinit var sensorManager: SensorManager
     lateinit var stepDetectorSensor: Sensor
@@ -73,10 +73,12 @@ class RunningService: LifecycleService(), SensorEventListener {
         super.onCreate()
 
         // TODO: Customize notification
-        curNotificationBuilder = baseNotificationBuilder
-        curNotificationBuilder
+        notificationBuilder = baseNotificationBuilder
+        notificationBuilder
                 .setChannelId(RUNNING_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
+                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setContentText("00:00:00")
 
         postInitialValues()
 
@@ -184,7 +186,7 @@ class RunningService: LifecycleService(), SensorEventListener {
 
         timeTrackInSeconds.observe(this, Observer {
             if (!serviceKilled) {
-                val notification = curNotificationBuilder
+                val notification = notificationBuilder
                         .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
                 notificationManager.notify(RUNNING_NOTIFICATION_ID, notification.build())
             }
@@ -244,15 +246,15 @@ class RunningService: LifecycleService(), SensorEventListener {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        curNotificationBuilder.javaClass.getDeclaredField("mActions").apply {
+        notificationBuilder.javaClass.getDeclaredField("mActions").apply {
             isAccessible = true
-            set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
+            set(notificationBuilder, ArrayList<NotificationCompat.Action>())
         }
 
         if(!serviceKilled) {
-            curNotificationBuilder = baseNotificationBuilder
+            notificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-            notificationManager.notify(RUNNING_NOTIFICATION_ID, curNotificationBuilder.build())
+            notificationManager.notify(RUNNING_NOTIFICATION_ID, notificationBuilder.build())
         }
     }
 

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".ui.main.scheduler.ScheduleListFragment">
+    tools:context=".ui.main.history.HistoryListFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayoutHistory"
@@ -46,7 +46,7 @@
                 android:layout_gravity="center_horizontal">
 
                 <ImageView
-                    android:id="@+id/ivTrainingImage"
+                    android:id="@+id/ivTrainingImageDet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="150dp"
@@ -82,7 +82,7 @@
                             android:layout_gravity="center_horizontal">
 
                             <TextView
-                                android:id="@+id/tvTrainingType"
+                                android:id="@+id/tvTrainingTypeDet"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".4"
@@ -95,7 +95,7 @@
                                 android:text="@string/hello_blank_fragment" />
 
                             <TextView
-                                android:id="@+id/tvTrainingResult"
+                                android:id="@+id/tvTrainingResultDet"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".8"
@@ -110,7 +110,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvTrainingTime"
+                            android:id="@+id/tvTrainingTimeDet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:paddingVertical="25dp"
@@ -120,7 +120,7 @@
                             android:text="@string/hello_blank_fragment" />
 
                         <TextView
-                            android:id="@+id/tvTrainingDuration"
+                            android:id="@+id/tvTrainingDurationDet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:paddingVertical="25dp"

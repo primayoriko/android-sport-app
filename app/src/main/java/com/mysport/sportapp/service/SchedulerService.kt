@@ -18,6 +18,7 @@ import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
+import com.mysport.sportapp.data.Schedule.Companion.DURATION
 import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
 import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
 import com.mysport.sportapp.util.TrackerUtility
@@ -74,6 +75,8 @@ class SchedulerService : Service() {
 
         val message = intent.getStringExtra(MESSAGE)
         val isFinishMessage = intent.getBooleanExtra(FINISH_MSG, false)
+        val duration = intent.getIntExtra(DURATION, -1)
+
         val notificationIntent = Intent(this, SchedulerService::class.java)
         val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
 //            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -81,6 +84,7 @@ class SchedulerService : Service() {
         val notificationBuilder = baseNotificationBuilder
                 .setChannelId(SCHEDULER_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(SCHEDULER_NOTIFICATION_CHANNEL_TITLE)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentText(message)
                 .setContentIntent(pendingIntent)
 
@@ -117,15 +121,15 @@ class SchedulerService : Service() {
 //
 //        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 //
-//        curNotificationBuilder.javaClass.getDeclaredField("mActions").apply {
+//        notificationBuilder.javaClass.getDeclaredField("mActions").apply {
 //            isAccessible = true
-//            set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
+//            set(notificationBuilder, ArrayList<NotificationCompat.Action>())
 //        }
 //
 //        if(!serviceKilled) {
-//            curNotificationBuilder = baseNotificationBuilder
+//            notificationBuilder = baseNotificationBuilder
 //                    .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-//            notificationManager.notify(RUNNING_NOTIFICATION_ID, curNotificationBuilder.build())
+//            notificationManager.notify(RUNNING_NOTIFICATION_ID, notificationBuilder.build())
 //        }
 
 }

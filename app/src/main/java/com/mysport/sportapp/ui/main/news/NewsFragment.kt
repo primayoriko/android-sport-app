@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
 import com.mysport.sportapp.api.NewsApi
+import com.mysport.sportapp.data.Constant.NEWS_API_API_KEY_QUERY
+import com.mysport.sportapp.data.Constant.NEWS_API_CATEGORY_QUERY
+import com.mysport.sportapp.data.Constant.NEWS_API_COUNTRY_QUERY
 import com.mysport.sportapp.data.News
 import com.mysport.sportapp.data.NewsResponse
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,9 +70,9 @@ class NewsFragment: Fragment() {
     }
 
     private fun fetchNews(){
-        val apiKey: String = resources.getString(R.string.news_api_query_api_key)
-        val country: String = resources.getString(R.string.news_api_query_country)
-        val category: String = resources.getString(R.string.news_api_query_category)
+        val apiKey: String = NEWS_API_API_KEY_QUERY
+        val country: String = NEWS_API_COUNTRY_QUERY
+        val category: String = NEWS_API_CATEGORY_QUERY
 
         NewsApi().getNews(country, category, apiKey).enqueue(object : Callback<NewsResponse> {
 

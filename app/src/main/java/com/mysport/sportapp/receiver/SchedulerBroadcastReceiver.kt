@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import com.mysport.sportapp.data.Schedule.Companion.AUTO_TRACK
+import com.mysport.sportapp.data.Schedule.Companion.DURATION
 import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
 import com.mysport.sportapp.data.Schedule.Companion.FRIDAY
 import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
@@ -76,6 +77,7 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
         intentService.putExtra(MESSAGE, intent.getStringExtra(MESSAGE))
         intentService.putExtra(FINISH_MSG, intent.getBooleanExtra(FINISH_MSG, false))
         intentService.putExtra(AUTO_TRACK, intent.getBooleanExtra(AUTO_TRACK, false))
+        intentService.putExtra(DURATION, intent.getIntExtra(DURATION, -1))
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             context.startService(intentService)
