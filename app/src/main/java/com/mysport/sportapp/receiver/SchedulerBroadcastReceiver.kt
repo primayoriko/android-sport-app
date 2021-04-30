@@ -15,6 +15,7 @@ import com.mysport.sportapp.data.Schedule.Companion.RECURRING
 import com.mysport.sportapp.data.Schedule.Companion.SATURDAY
 import com.mysport.sportapp.data.Schedule.Companion.SUNDAY
 import com.mysport.sportapp.data.Schedule.Companion.THURSDAY
+import com.mysport.sportapp.data.Schedule.Companion.TRAINING_TYPE
 import com.mysport.sportapp.data.Schedule.Companion.TUESDAY
 import com.mysport.sportapp.data.Schedule.Companion.WEDNESDAY
 import com.mysport.sportapp.service.SchedulerService
@@ -78,6 +79,7 @@ class SchedulerBroadcastReceiver : BroadcastReceiver() {
         intentService.putExtra(FINISH_MSG, intent.getBooleanExtra(FINISH_MSG, false))
         intentService.putExtra(AUTO_TRACK, intent.getBooleanExtra(AUTO_TRACK, false))
         intentService.putExtra(DURATION, intent.getIntExtra(DURATION, -1))
+        intentService.putExtra(TRAINING_TYPE, intent.getSerializableExtra(TRAINING_TYPE))
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             context.startService(intentService)

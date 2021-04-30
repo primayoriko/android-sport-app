@@ -12,15 +12,21 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getSystemService
 import com.mysport.sportapp.data.Constant
+import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
+import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
+import com.mysport.sportapp.data.Schedule.Companion.AUTO_TRACK
 import com.mysport.sportapp.data.Schedule.Companion.DURATION
 import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
 import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
+import com.mysport.sportapp.data.Schedule.Companion.TRAINING_TYPE
+import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -75,23 +81,54 @@ class SchedulerService : Service() {
 
         val message = intent.getStringExtra(MESSAGE)
         val isFinishMessage = intent.getBooleanExtra(FINISH_MSG, false)
+        val isAutoTrack = intent.getBooleanExtra(AUTO_TRACK, false)
         val duration = intent.getIntExtra(DURATION, -1)
+        val trainingType = intent.getSerializableExtra(TRAINING_TYPE) as Training.TrainingType?
 
         val notificationIntent = Intent(this, SchedulerService::class.java)
         val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
 //            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val pattern = longArrayOf(0, 150, 900)
         val notificationBuilder = baseNotificationBuilder
                 .setChannelId(SCHEDULER_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(SCHEDULER_NOTIFICATION_CHANNEL_TITLE)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(message))
 //                .setContentText(message)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(message))
                 .setContentIntent(pendingIntent)
 
-        vibrator.vibrate(pattern, 0)
+        val pattern = longArrayOf(0, 150, 900)
+//        vibrator.vibrate(pattern, 0)
+        vibrator.vibrate(2000)
 //        mediaPlayer.start()
         startForeground(SCHEDULER_NOTIFICATION_ID, notificationBuilder.build())
+
+        if(isAutoTrack){
+            if(!isFinishMessage){
+                if(trainingType == Training.TrainingType.CYCLING){
+                    Intent(applicationContext, CyclingService::class.java).also {
+                        it.action = ACTION_START_OR_RESUME_SERVICE
+                        applicationContext.startService(it)
+                    }
+                } else {
+                    Intent(applicationContext, RunningService::class.java).also {
+                        it.action = ACTION_START_OR_RESUME_SERVICE
+                        applicationContext.startService(it)
+                    }
+                }
+            } else {
+                if(trainingType == Training.TrainingType.CYCLING){
+                    Intent(applicationContext, CyclingService::class.java).also {
+                        it.action = ACTION_STOP_SERVICE
+                        applicationContext.startService(it)
+                    }
+                } else {
+                    Intent(applicationContext, CyclingService::class.java).also {
+                        it.action = ACTION_STOP_SERVICE
+                        applicationContext.startService(it)
+                    }
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
