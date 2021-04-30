@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ED3D0F8C"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    android:background="@color/light_blue_600"
     android:orientation="vertical"
     tools:context=".ui.main.history.HistoryFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="155dp"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
-        android:text="@string/history"
-        android:textAlignment="center"
-        android:textColor="#FFF"
-        android:textSize="32sp" />
-
     <LinearLayout
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_calender">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:background="@color/light_blue_600"
+        android:orientation="vertical">
 
-        <CalendarView
-            android:id="@+id/calendarView"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="320dp" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/history"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="32sp"
+            android:textFontWeight="15"/>
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:background="@color/white"/>
+        <!--    <LinearLayout-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginStart="44dp"-->
+        <!--        android:layout_marginLeft="45dp"-->
+        <!--        android:layout_marginTop="10dp"-->
+        <!--        android:orientation="vertical"-->
+        <!--        android:background="@drawable/bg_calender">-->
+
+        <!--        <CalendarView-->
+        <!--            android:id="@+id/calendarView"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content" />-->
+        <!--    </LinearLayout>-->
+
+        <Button
+            android:id="@+id/buttonHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="160dp"
-        android:text="Lihat" />
-
-
-</LinearLayout>
+</ScrollView>

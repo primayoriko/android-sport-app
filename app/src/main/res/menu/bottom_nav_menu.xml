@@ -17,14 +17,13 @@
         android:title="@string/title_tracker"/>
 
     <item
-        android:id="@+id/navigation_scheduler"
-        android:icon="@drawable/ic_baseline_timer_24"
-        android:title="@string/title_scheduler"/>
-
-    <item
         android:id="@+id/navigation_history"
         android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/title_history" />
-    
+
+    <item
+        android:id="@+id/navigation_scheduler"
+        android:icon="@drawable/ic_baseline_timer_24"
+        android:title="@string/title_scheduler"/>
 
 </menu>
