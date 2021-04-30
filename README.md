@@ -2,124 +2,71 @@
 
 ## Description
 ----------------
-Game Tanks: Extended ini adalah pengembangan dari Tutorial Game Tanks yang dikembangkan dengan Unity. Game ini memiliki Genre Shooting 3D dan dapat dimainkan oleh beberapa pihak bersamaan melalui koneksi LAN. Game memiliki beberapa mode dan map yang dapat dipilih sesuai dengan keinginan.
+Aplikasi pada platform android ini merupakan aplikasi penunjang workout.
+Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiatan olahraga kita yaitu berlari dan bermain sepeda.
 
-## How To Run
-
-### From Unity Editor
+## Procedure & Specification
+### Sports News
 ----------------
-Ada dua cara, yang pertama
+- Penggguna dapat melihat halaman list berita olahraga dengan sumber berita adalah https://www.google.com/url?q=https://newsapi.org/s/indonesia-sports-news-api&sa=D&source=editors&ust=1619802393505000&usg=AOvVaw3edVsHqPpHqgcA2L6su17S
+- Ketika pengguna memilih salah satu list, aplikasi akan menampilkan WebView dengan konten sesuai dengan list yang dipilih
 
-1. Tekan tombol play pada bagian atas layar
-2. Unity Editor akan menjalankan game pada aplikasi tersebut
-
-Cara kedua
-1. Tekan menu `File`
-2. tekan Pilihan `Build And Run`
-3. Tunggu sampai program dibuat dan terbuka di folder berbeda
+#### Documentation
+![alt text](./docs/news.jpg)
+![alt text](./docs/newLand.jpg)
+![alt text](./docs/webview.jpg)
 
 
-### Builded
+### Training Tracker
 ----------------
-1. Langsung jalankan/eksekusi saja executable file yang dimiliki
+- Pengguna dapat mencatat dengan melacak latihan yang di lakukan (start & finish)
+- Latihan terdiri atas 2 jenis, yaitu Cycling dan Walking
+- Sebelum memilih jenis latihan, aplikasi menampilkan kompas disertai pilihan jenis latihan
+- Cycling, melacak rute melalui GPS. Hasil berupa jarak tempuh dan garis rute
+- Running, melacak jumlah langkah
+- Sistem pelacakan berjalan di background
+
+#### Documentation
+![alt text](./docs/Tracker.jpg)
+![alt text](./docs/runningTrack.jpg)
+![alt text](./docs/CyclingTrack.jpg)
+
+### Training History
+- Menampilkan kalender yang jika dipilih suatu tanggal akan menampilkan history latihan ditanggal tersebut
+- List log history pada tanggal tersebut ditampilkan dalam bentuk list
+- Jika list dipilih, maka akan menampilkan informasi detail latihan yang dipilih
+
+#### Documentation
+![alt text](./docs/calenderHistory.jpg)
+![alt text](./docs/History.jpg)
+![alt text](./docs/HistoryLand.jpg)
+![alt text](./docs/HistoryLand2.jpg)
+![alt text](./docs/HistoryDetail1.jpg)
+![alt text](./docs/HistoryDetail2.jpg)
+
+### Training Scheduler
+- Aplikasi menampilkan pilihan waktu yang dapat dipilih untuk membuat jadwal
+
+#### Documentation
+![alt text](./docs/ListSchedule.jpg)
+![alt text](./docs/addschedule.jpg)
 
 
-## How To Use
 
-### Setting
-----------------
-
-1. Di main menu tekan button `Settings`.
-2. Setting Audio yang diinginkan.
-3. Jika sudah dapat menekan kembali tombol `Back`.
-
-
-### Credits
-----------------
-
-1. Di main menu tekan button `Credits`.
-2. Jika sudah dapat menekan kembali tombol `Back`.
-
-
-### Start to Playing
-----------------
-
-1. Di main menu tekan button `Play`.
-2. Akan dihadapkan pada page pengaturan permainan, pilih opsi yang diinginkan.
-3. Jika sudah tekan tombol `Play`.
-4. Akan dihadapkan pada multiplayer setup page, pilih yang diinginkan dengan menekan salah satu button.
-5. Jika sudah, dan tidak ada masalah, permainan dapat segera dimulai.
-
-
-## How To Play
-----------------
-
-1. Gunakan key WASD menggerakkan tank 
-2. Gunakan key spasi untuk menembak peluru biasa
-3. Gunakan key j atau k untuk menembak peluru khusus (membayar cash tertentu)
-4. Gunakan key n atau m untuk mengeluarkan (spawn) bot untuk membantumu (membayar cash tertentu)
-5. Di sekitar map akan terdapat spawnable crate, ambil untuk mendapatkan cash!
-6. Lakukan tujuan permainan sesuai mode game, 
-   - Mode Last Stand (atau Battle Royale) kalah kan musuh-musuhmu yang lain!
-   - Mode Collect Money kumpulkan uang hingga sejumlah yang dimint adan jadilah pemenang!
-
-
-## Specification Progress
-----------------
-1. **[Parsial, beberapa masih kurang sinkron antara server dan klien]** Multiplayer dapat dijalankan secara local area network dengan lebih dari dua pemain. Implementasi matchmaking (lobby) dibebaskan.
-2. **[Selesai]** Pada main menu, terdapat settings untuk mengatur intensitas suara dan nama pemain yang diimplementasi dengan PlayerPrefs.
-3. **[Selesai]** Desain pada map harus berbeda dari desain semula pada tutorial namun dapat menggunakan aset apapun.
-4. **[Selesai]** Terdapat objek cash yang muncul secara periodik. Tank dapat mengambil cash untuk menambahkan uang yang dimilikinya.
-5. **[Selesai]** Terdapat minimal dua jenis senjata dengan karakteristik yang berbeda. Pemain dapat membeli senjata dengan menggunakan cash.
-6. **[Parsial, kurang animasi]** Terdapat minimal dua jenis karakter bergerak yang dapat dikeluarkan (tempat dibebaskan) dengan membayar cash, memiliki behavior yang berbeda, dan dapat diserang dengan peluru. Animasi saat karakter bergerak melakukan aksi (contohnya jalan, tembak, dan diam) harus berbeda, namun dapat menggunakan aset apapun.
-7. **[Efek default sehingga tidak bisa menembus satu sama lain]** Terdapat interaksi collision antara objek bergerak seperti tank dan karakter.
-8. **[Selesai]** Aset tambahan yang digunakan dibebaskan namun perlu dituliskan pada credits.
-9. **[Selesai]** Terdapat lebih dari satu map yang dapat dipilih oleh pemain.
-10. **[Selesai]** Terdapat lebih dari satu game mode selain battle royale.
-
-
-## Library and Asset Used
-----------------
-Berikut ini adalah Library dan Asset yang digunakan di luar dari Library Default System dari C# dan UnityEngine dari UI 
-
-1. [Mirror](https://assetstore.unity.com/packages/tools/network/mirror-129321): Digunakan sebagai sarana untuk men-support pembuatan mutiplayer game.
-   
-2. [Tools Wooden Box](https://assetstore.unity.com/packages/3d/props/tools/tools-wooden-boxes-185738): Digunakan sebagai Asset (hanya model 3D tanpa script) untuk membuat crate pada game yang merupakan spawn object dan dapat dicollect untuk mendapatkan cash.
-   
-
-## Some Screenshot
-----------------
-
-1. Main Menu
-
-    ![]()
-
-2. Settings
-
-    ![]()
-
-3. MultiPlayer Lobby
-
-    ![]()
+### Other Specification
+- Menggunakan recyclerviewer untuk menampilkan list berita
+- Menyimpan log history pada SQLite, sebagai database
+- Pada fitur SportNews, ketika orientasi landscape. Berita ditampilkan dalam 2 kolom. Saat potrait dalam 1 kolom
+- Jika device android dalam keadaan orientasi landscape. Ketika pengguna menekan salah satu list, detail ditampilkan disebelah kanan daftar list log history. Penerapan ini menggunakan fragment.
 
 
 ## Contributors
 ----------------
-
 1. Naufal Prima Yoriko (13518146)
-   - Weapon System
-   - Crate Spawn
-   - Game Mode
-   - Credits Page
-   - Integration of Game
-   - Bugfixing
-  
+   - nmnmnm
 
-  
-2. Yasyfiana
-   - Multiplayer
-   - NPC
-   - Bugfixing
+2. Yasyfiana Fariha (13518143)
+   - nmnmnm
 
 
 ## Credits
@@ -134,13 +81,3 @@ Here are some learning source that we're used to create this project
 - [Simplified Programming Youtube Channel](https://www.youtube.com/watch?v=0aOn2mIRlCA)
 - [Programmer World Youtube Channel](https://www.youtube.com/watch?v=Dqg1A4hy-jI)
 - Android Codelabs
-
-<!-- 
-Kelengkapan README
-
-Deskripsi aplikasi.
-Cara kerja, terutama mengenai pemenuhan spesifikasi aplikasi.
-Library yang digunakan dan justifikasi penggunaannya.
-Screenshot aplikasi.
-Pembagian kerja anggota kelompok. 
--->
