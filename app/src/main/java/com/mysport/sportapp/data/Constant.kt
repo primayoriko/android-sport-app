@@ -5,10 +5,12 @@ import android.graphics.Color
 object Constant {
     const val DATABASE_NAME = "sport_db"
 
-    const val NEWS_BASE_URL = "https://newsapi.org/"
-    const val NEWS_BASE_URL_PATH = "v2/top-headlines/"
+    const val NEWS_API_BASE_URL = "https://newsapi.org/"
+    const val NEWS_API_BASE_URL_PATH = "v2/top-headlines/"
 
-    const val SHARED_PREFERENCES_NAME = "sharedPref"
+    const val NEWS_API_CATEGORY_QUERY = "sports"
+    const val NEWS_API_COUNTRY_QUERY = "id"
+    const val NEWS_API_API_KEY_QUERY = "44fa6725eac7435d89e9c59a8fec8688"
 
     const val ACTION_START_OR_RESUME_SERVICE = "ACTION_START_OR_RESUME_SERVICE"
     const val ACTION_PAUSE_SERVICE = "ACTION_PAUSE_SERVICE"

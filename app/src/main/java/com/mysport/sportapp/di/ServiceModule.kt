@@ -44,7 +44,7 @@ object ServiceModule {
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
             .setContentTitle(BASE_NOTIFICATION_CHANNEL_TITLE)
-            .setContentText("00:00:00")
+            .setContentText("sample text here")
             .setContentIntent(pendingIntent)
 
     @ServiceScoped

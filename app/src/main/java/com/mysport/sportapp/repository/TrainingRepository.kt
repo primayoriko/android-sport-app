@@ -16,6 +16,4 @@ class TrainingRepository @Inject constructor(
 
     fun getAllBetweenTimestamps(start: Long, end: Long) = trainingDao.getAllBetweenTimestamps(start, end)
 
-    // TODO: Link with all method in DAO
-
 }

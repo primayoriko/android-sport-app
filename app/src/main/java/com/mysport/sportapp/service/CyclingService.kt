@@ -50,7 +50,7 @@ class CyclingService: LifecycleService() {
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-    lateinit var curNotificationBuilder: NotificationCompat.Builder
+    lateinit var notificationBuilder: NotificationCompat.Builder
 
     var isFirstTrack = true
     var serviceKilled = false
@@ -83,10 +83,12 @@ class CyclingService: LifecycleService() {
         super.onCreate()
 
         // TODO: Customize notification
-        curNotificationBuilder = baseNotificationBuilder
-        curNotificationBuilder
+        notificationBuilder = baseNotificationBuilder
+        notificationBuilder
                 .setChannelId(Constant.CYCLING_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
+                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setContentText("00:00:00")
 
         postInitialValues()
 
@@ -201,7 +203,7 @@ class CyclingService: LifecycleService() {
 
         timeRunInSeconds.observe(this, Observer {
             if(!serviceKilled) {
-                val notification = curNotificationBuilder
+                val notification = notificationBuilder
                         .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
                 notificationManager.notify(CYCLING_NOTIFICATION_ID, notification.build())
             }
@@ -254,15 +256,15 @@ class CyclingService: LifecycleService() {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        curNotificationBuilder.javaClass.getDeclaredField("mActions").apply {
+        notificationBuilder.javaClass.getDeclaredField("mActions").apply {
             isAccessible = true
-            set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
+            set(notificationBuilder, ArrayList<NotificationCompat.Action>())
         }
 
         if(!serviceKilled) {
-            curNotificationBuilder = baseNotificationBuilder
+            notificationBuilder = baseNotificationBuilder
                     .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
-            notificationManager.notify(CYCLING_NOTIFICATION_ID, curNotificationBuilder.build())
+            notificationManager.notify(CYCLING_NOTIFICATION_ID, notificationBuilder.build())
         }
     }
 

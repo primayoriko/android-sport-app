@@ -25,6 +25,4 @@ class ScheduleRepository @Inject constructor(
 
     fun getAllActive() = scheduleDao.getAllActive()
 
-    // TODO: Link with all method in DAO
-
 }

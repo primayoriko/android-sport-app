@@ -1,5 +1,6 @@
 package com.mysport.sportapp.ui.main.history
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,14 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
-import com.mysport.sportapp.adapter.ScheduleAdapter
 import com.mysport.sportapp.adapter.TrainingAdapter
+import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.util.Converter
 import com.mysport.sportapp.util.TimeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_history_list.*
-import kotlinx.android.synthetic.main.fragment_scheduler.*
 import timber.log.Timber
 import kotlin.properties.Delegates
 
@@ -46,6 +48,9 @@ class HistoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val orientation = resources.configuration.orientation
+
+        val isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE
         val gridColumnCount: Int = 1
 
         recyclerViewHistory.layoutManager = GridLayoutManager(context, gridColumnCount)
@@ -53,16 +58,77 @@ class HistoryListFragment : Fragment() {
 
         viewModel.trainingList.observe( viewLifecycleOwner,
             Observer { scheduleList ->
-                val todayTimestamp = TimeUtility.getDayTimestampInMillis(day, month, year)
-                val tomorrowTimestamp = todayTimestamp + (1000 * 60 * 60 * 24)
-//                Timber.d("hehehe\nhehehe\n")
-//                Timber.d(todayTimestamp.toString())
-//                Timber.d(tomorrowTimestamp.toString())
-                val resList =
-                    scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
+                    val todayTimestamp = TimeUtility.getDayTimestampInMillis(day, month, year)
+                    val tomorrowTimestamp = todayTimestamp + (1000 * 60 * 60 * 24)
+    //                Timber.d(todayTimestamp.toString())
+    //                Timber.d(tomorrowTimestamp.toString())
+                    val resList =
+                        scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
 
-                recyclerViewHistory?.adapter = TrainingAdapter(resList, this)
+                    val callback = if(isLandscape) landscapeCallback else portraitCallback
+
+                    recyclerViewHistory?.adapter = TrainingAdapter(resList, callback)
             })
+
+    }
+
+    private val landscapeCallback = object: TrainingAdapter.OnClickListener {
+        override fun onClick(item: Training) {
+//            tvTrainingTypeDet.text = binding.tvTrainingType.text
+//            tvTrainingDurationDet.text = binding.tvTrainingDuration.text
+//            tvTrainingResultDet.text = binding.tvTrainingResult.text
+//            tvTrainingTimeDet.text = binding.tvTrainingTime.text
+            val str = stringifyTraining(item)
+
+            tvTrainingTypeDet.text = str[0]
+            tvTrainingResultDet.text = str[1]
+            tvTrainingTimeDet.text = str[2]
+            tvTrainingDurationDet.text = str[3]
+
+            view?.let {
+                Glide.with(it.context).load(item.img).into(ivTrainingImageDet)
+            }
+        }
+
+    }
+
+    private val portraitCallback = object: TrainingAdapter.OnClickListener {
+        override fun onClick(item: Training) {
+            val converter = Converter()
+            val bundle = Bundle()
+            val imgByte = converter.fromBitmap(item.img)
+            val str = stringifyTraining(item)
+
+            bundle.putString("TYPE", str[0])
+            bundle.putString("RESULT", str[1])
+            bundle.putString("TIME", str[2])
+            bundle.putString("DURATION", str[3])
+            bundle.putByteArray("IMAGE", imgByte)
+
+            findNavController()
+                    .navigate(R.id.action_historyListFragment_to_historyDetailFragment, bundle)
+        }
+
+    }
+
+    private fun stringifyTraining(training: Training): List<String> {
+        val trainingType =
+                if (training.type == Training.TrainingType.CYCLING) "Cycling" else "Running"
+        val rawRes =
+                if (training.type == Training.TrainingType.CYCLING) training.distance!!.toInt() else training.step
+
+        val result = String.format("%d ", rawRes) + if (trainingType == "Cycling") "m" else "steps"
+        val time = TimeUtility.getDateString(training.timestamp)
+        val duration = String.format("%.2f s", training.duration.toFloat() / 1000F)
+
+        val res = ArrayList<String>()
+
+        res.add(trainingType)
+        res.add(result)
+        res.add(time)
+        res.add(duration)
+
+        return res
     }
 
 }

@@ -1,7 +1,7 @@
 package com.mysport.sportapp.api
 
-import com.mysport.sportapp.data.Constant.NEWS_BASE_URL
-import com.mysport.sportapp.data.Constant.NEWS_BASE_URL_PATH
+import com.mysport.sportapp.data.Constant.NEWS_API_BASE_URL
+import com.mysport.sportapp.data.Constant.NEWS_API_BASE_URL_PATH
 import com.mysport.sportapp.data.NewsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewsApi {
-    @GET(NEWS_BASE_URL_PATH)
+    @GET(NEWS_API_BASE_URL_PATH)
     fun getNews(
             @Query("country") country: String,
             @Query("category") category: String,
@@ -21,7 +21,7 @@ interface NewsApi {
 
     companion object {
         operator fun invoke(): NewsApi {
-            val baseUrl: String = NEWS_BASE_URL
+            val baseUrl: String = NEWS_API_BASE_URL
 
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BASIC
