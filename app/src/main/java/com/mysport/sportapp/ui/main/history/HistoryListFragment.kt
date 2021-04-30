@@ -46,6 +46,7 @@ class HistoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val isPortrait = R.integer.landscape_flag != 1
         val gridColumnCount: Int = 1
 
         recyclerViewHistory.layoutManager = GridLayoutManager(context, gridColumnCount)
@@ -61,8 +62,9 @@ class HistoryListFragment : Fragment() {
                 val resList =
                     scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
 
-                recyclerViewHistory?.adapter = TrainingAdapter(resList, this)
+                recyclerViewHistory?.adapter = TrainingAdapter(resList, isPortrait, this)
             })
+
     }
 
 }

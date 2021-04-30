@@ -12,15 +12,20 @@ import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.data.Training
 import com.mysport.sportapp.data.Training.TrainingType
+import com.mysport.sportapp.databinding.FragmentHistoryListBinding
 import com.mysport.sportapp.databinding.ItemTrainingBinding
 import com.mysport.sportapp.ui.main.history.HistoryListFragment
 import com.mysport.sportapp.util.Converter
 import com.mysport.sportapp.util.TimeUtility
+import kotlinx.android.synthetic.main.fragment_history_list.*
 import timber.log.Timber
 import java.util.*
 
-class TrainingAdapter(private var trainingList: List<Training>, private val fragment: Fragment):
-    RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
+class TrainingAdapter(
+    private var trainingList: List<Training>,
+    private val isPortrait: Boolean,
+    private val fragment: Fragment
+    ): RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
 
     override fun getItemCount(): Int = trainingList.size
 
@@ -33,7 +38,7 @@ class TrainingAdapter(private var trainingList: List<Training>, private val frag
     }
 
     override fun onBindViewHolder(holder: TrainingViewHolder, position: Int) {
-        holder.bind(trainingList[position], fragment)
+        holder.bind(trainingList[position], isPortrait, fragment)
     }
 
     override fun onViewRecycled(holder: TrainingViewHolder) {
@@ -46,7 +51,7 @@ class TrainingAdapter(private var trainingList: List<Training>, private val frag
         private lateinit var training: Training
 
 //        fun bind(training: Training, listener: OnToggleTrainingListener) {
-        fun bind(training: Training, fragment: Fragment) {
+        fun bind(training: Training, isPortrait: Boolean, fragment: Fragment) {
             this.training = training
 
             val binding = ItemTrainingBinding.bind(view)
@@ -66,23 +71,34 @@ class TrainingAdapter(private var trainingList: List<Training>, private val frag
 
             Glide.with(view.context).load(training.img).into(binding.ivTrainingImage)
 
-            val converter = Converter()
-            val bundle = Bundle()
+            if(isPortrait) {
+                val converter = Converter()
+                val bundle = Bundle()
+                val imgByte = converter.fromBitmap(training.img)
 
-            val imgByte = converter.fromBitmap(training.img!!)
+                bundle.putString("TYPE", trainingType)
+                bundle.putString("RESULT", resultStr)
+                bundle.putString("TIME", time)
+                bundle.putString("DURATION", duration)
+                bundle.putByteArray("IMAGE", imgByte)
 
-            bundle.putString("TYPE", trainingType)
-            bundle.putString("RESULT", resultStr)
-            bundle.putString("TIME", time)
-            bundle.putString("DURATION", duration)
-            bundle.putByteArray("IMAGE", imgByte)
+                view.setOnClickListener(
+                    View.OnClickListener {
+                        view.findFragment<HistoryListFragment>()
+                            .findNavController()
+                            .navigate(R.id.action_historyListFragment_to_historyDetailFragment, bundle)
+                    })
+            } else {
+                view.setOnClickListener(
+                    View.OnClickListener {
+                        fragment.tvTrainingType.text = trainingType
+                        fragment.tvTrainingDuration.text = duration
+                        fragment.tvTrainingResult.text = resultStr
+                        fragment.tvTrainingTime.text = time
 
-            view.setOnClickListener(
-                View.OnClickListener {
-                    view.findFragment<HistoryListFragment>()
-                        .findNavController()
-                        .navigate(R.id.action_historyListFragment_to_historyDetailFragment, bundle)
-                })
+                        Glide.with(view.context).load(training.img).into(fragment.ivTrainingImage)
+                    })
+            }
 //            scheduleStarted.setOnCheckedChangeListener
 //                  { buttonView, isChecked -> listener.onToggle(schedule) }
         }
