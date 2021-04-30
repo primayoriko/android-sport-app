@@ -48,7 +48,7 @@ class HistoryDetailFragment : Fragment() {
         tvTrainingResult.text = result
         tvTrainingTime.text = time
 
-        Glide.with(view.context).load(img).into(ivTrainingImg)
+        Glide.with(view.context).load(img).into(ivTrainingImage)
 
     }
 

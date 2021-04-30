@@ -56,7 +56,6 @@ class NewsFragment: Fragment() {
 
         viewModel.newsList.observe( viewLifecycleOwner,
                 Observer { news ->
-                    // TODO: implements if anything needs to be updated
                     recyclerViewNews?.adapter = NewsAdapter(news)
                 })
 

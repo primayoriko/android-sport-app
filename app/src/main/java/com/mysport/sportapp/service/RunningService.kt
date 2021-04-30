@@ -193,7 +193,6 @@ class RunningService: LifecycleService(), SensorEventListener {
             Timber.d("ERROR: Can't create notification, need API version above or equal to 26.")
         }
 
-        // TODO: Customize notification
         startForeground(RUNNING_NOTIFICATION_ID, baseNotificationBuilder.build())
 
         timeTrackInSeconds.observe(this, Observer {

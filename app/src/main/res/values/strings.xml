@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SportApp</string>
+
     <string name="title_news">News</string>
     <string name="title_home">Home</string>
     <string name="title_history">History</string>
@@ -23,7 +24,6 @@
     <string name="button_select_cycling">Cycling</string>
     <string name="button_select_running">Running</string>
 
-    <!--    <string name="base_url">https://newsapi.org/v2/top-headlines</string>-->
     <string name="news_api_query_category">sports</string>
     <string name="news_api_query_country">id</string>
     <string name="news_api_query_api_key">44fa6725eac7435d89e9c59a8fec8688</string>
@@ -39,6 +39,5 @@
         <item>Cycling</item>
         <item>Run</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
