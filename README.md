@@ -12,9 +12,11 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
 - Ketika pengguna memilih salah satu list, aplikasi akan menampilkan WebView dengan konten sesuai dengan list yang dipilih
 
 #### Documentation
-![alt text](./docs/news.jpg)
-![alt text](./docs/newLand.jpg)
-![alt text](./docs/webview.jpg)
+<img src="./docs/news.jpg" width="200">
+<img src="./docs/webview.jpg" width="200">
+<img src="./docs/newLands.jpg" width="200">
+
+
 
 
 ### Training Tracker
@@ -27,9 +29,10 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
 - Sistem pelacakan berjalan di background
 
 #### Documentation
-![alt text](./docs/Tracker.jpg)
-![alt text](./docs/runningTrack.jpg)
-![alt text](./docs/CyclingTrack.jpg)
+<img src="./docs/Tracker.jpg" width="200">
+<img src="./docs/runningTrack.jpg" width="200">
+<img src="./docs/CyclingTrack.jpg" width="200">
+
 
 ### Training History
 - Menampilkan kalender yang jika dipilih suatu tanggal akan menampilkan history latihan ditanggal tersebut
@@ -37,20 +40,20 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
 - Jika list dipilih, maka akan menampilkan informasi detail latihan yang dipilih
 
 #### Documentation
-![alt text](./docs/calenderHistory.jpg)
-![alt text](./docs/History.jpg)
-![alt text](./docs/HistoryLand.jpg)
-![alt text](./docs/HistoryLand2.jpg)
-![alt text](./docs/HistoryDetail1.jpg)
-![alt text](./docs/HistoryDetail2.jpg)
+<img src="./docs/calenderHistory.jpg" width="200">
+<img src="./docs/History.jpg" width="200">
+<img src="./docs/HistoryLand.jpg" width="200">
+<img src="./docs/HistoryLands2.jpg" width="200">
+<img src="./docs/HistoryDetail1.jpg" width="200">
+<img src="./docs/HistoryDetail2.jpg" width="200">
+
 
 ### Training Scheduler
 - Aplikasi menampilkan pilihan waktu yang dapat dipilih untuk membuat jadwal
 
 #### Documentation
-![alt text](./docs/ListSchedule.jpg)
-![alt text](./docs/addschedule.jpg)
-
+<img src="./docs/ListSchedule.jpg" width="200">
+<img src="./docs/addschedule.jpg" width="200">
 
 
 ### Other Specification
@@ -63,10 +66,20 @@ Pada aplikasi ini kita dapat melihat berita seputar olahraga dan mentrack kegiat
 ## Contributors
 ----------------
 1. Naufal Prima Yoriko (13518146)
-   - nmnmnm
+   - Pembuatan web news
+   - Pembuatan cycling tracker
+   - Pembuatan running tracker
+   - Pembuatan compass
+   - Pembuatan scheduler
+   - Pembuatan history
+   - tampilan responsive + adaptive
+   - pembuatan struktur project
+   - testing program
 
 2. Yasyfiana Fariha (13518143)
-   - nmnmnm
+   - Calendar History
+   - List history (fragment, database, recyclerviewer, bug)
+   - Detail fragment (baru fragment polos)
 
 
 ## Credits
@@ -77,7 +90,8 @@ Here are some learning source that we're used to create this project
 - [Android Developer Docs](https://developer.android.com)
 - [Kotlin Lang Docs](https://kotlinlang.org/docs/home.html)
 - [Raywenderlich Web](https://www.raywenderlich.com)
+- [LearnToDroid Web](https://learntodroid.com/)
 - [Phillip Lackner Youtube Channel](https://www.youtube.com/playlist?list=PLQkwcJG4YTCQ6emtoqSZS2FVwZR9FT3BV)
 - [Simplified Programming Youtube Channel](https://www.youtube.com/watch?v=0aOn2mIRlCA)
 - [Programmer World Youtube Channel](https://www.youtube.com/watch?v=Dqg1A4hy-jI)
-- Android Codelabs
+- [Android Codelabs](https://codelabs.developers.google.com/)

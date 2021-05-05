@@ -12,14 +12,16 @@ import java.util.concurrent.TimeUnit
 
 object TrackerUtility {
 
-    fun getFormattedStopWatchTime(ms: Long, includeMillis: Boolean = false): String {
+    fun getFormattedTime(ms: Long, includeMillis: Boolean = false): String {
         var milliseconds = ms
-        val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds)
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds)
 
+        val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
         milliseconds -= TimeUnit.HOURS.toMillis(hours)
+
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds)
         milliseconds -= TimeUnit.MINUTES.toMillis(minutes)
+
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds)
 
         if(!includeMillis) {
             return "${if(hours < 10) "0" else ""}$hours:" +
