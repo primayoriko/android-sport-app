@@ -176,10 +176,8 @@ class RunningFragment : Fragment() {
             menu?.getItem(0)?.isVisible = true
 
             sendCommandToService(Constant.ACTION_PAUSE_SERVICE)
-
         } else {
             sendCommandToService(Constant.ACTION_START_OR_RESUME_SERVICE)
-
         }
     }
 
@@ -211,29 +209,5 @@ class RunningFragment : Fragment() {
 
         findNavController().navigate(R.id.action_runningFragment_to_navigation_tracker)
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//    }
-//
-//    override fun onLowMemory() {
-//        super.onLowMemory()
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//    }
 
 }

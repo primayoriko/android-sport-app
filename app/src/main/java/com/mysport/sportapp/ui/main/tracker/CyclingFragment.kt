@@ -101,10 +101,10 @@ class CyclingFragment:
         subscribeToObservers()
     }
 
-
     override fun onResume() {
         super.onResume()
         mapView?.onResume()
+        addAllPolylines()
     }
 
     override fun onStart() {
@@ -232,10 +232,8 @@ class CyclingFragment:
             menu?.getItem(0)?.isVisible = true
 
             sendCommandToService(ACTION_PAUSE_SERVICE)
-
         } else {
             sendCommandToService(ACTION_START_OR_RESUME_SERVICE)
-
         }
     }
 
