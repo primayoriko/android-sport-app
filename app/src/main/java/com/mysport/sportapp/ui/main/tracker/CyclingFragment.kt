@@ -184,7 +184,7 @@ class CyclingFragment:
         CyclingService.timeTrainInMillis.observe(viewLifecycleOwner, Observer {
             curTimeInMillis = it
 
-            val formattedTime = TrackerUtility.getFormattedStopWatchTime(curTimeInMillis, true)
+            val formattedTime = TrackerUtility.getFormattedTime(curTimeInMillis, true)
 
             tvTimer.text = formattedTime
         })

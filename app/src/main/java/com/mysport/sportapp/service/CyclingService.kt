@@ -155,7 +155,7 @@ class CyclingService: LifecycleService() {
                                 distances
                         )
 
-                        distanceInMeters.postValue(distanceInMeters.value!! + distances[0]/3)
+                        distanceInMeters.postValue(distanceInMeters.value!! + distances[0])
 
                         lastLocation = curLoc
 
@@ -204,7 +204,7 @@ class CyclingService: LifecycleService() {
         timeRunInSeconds.observe(this, Observer {
             if(!serviceKilled) {
                 val notification = notificationBuilder
-                        .setContentText(TrackerUtility.getFormattedStopWatchTime(it * 1000L))
+                        .setContentText(TrackerUtility.getFormattedTime(it * 1000L, false))
                 notificationManager.notify(CYCLING_NOTIFICATION_ID, notification.build())
             }
         })
