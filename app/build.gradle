@@ -120,9 +120,6 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // Log Interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
-
     // Material Design
     implementation 'com.google.android.material:material:1.4.0-rc01'
 
@@ -135,9 +132,14 @@ dependencies {
     // Easy Permissions
     implementation 'pub.devrel:easypermissions:3.0.0'
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
     // Google Maps Location Services
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+    // Log Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.room:room-testing:2.3.0'
