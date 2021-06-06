@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/drawable/ic_white_delete_24.xml" value="0.24583333333333332" />
+        <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout-land/fragment_history.xml" value="0.15364583333333334" />
+        <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout/fragment_cycling.xml" value="0.13360507246376813" />
+        <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout/fragment_history.xml" value="0.13360507246376813" />
         <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout/fragment_history_list.xml" value="0.13360507246376813" />
         <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout/fragment_schedule_list.xml" value="0.13360507246376813" />
         <entry key="..\:/Riko/Projects/AndroidKotlin/SportApp/app/src/main/res/layout/fragment_scheduler.xml" value="0.13360507246376813" />
