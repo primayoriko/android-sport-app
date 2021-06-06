@@ -8,16 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.NewsAdapter
 import com.mysport.sportapp.api.NewsApi
-import com.mysport.sportapp.data.Constant.NEWS_API_API_KEY_QUERY
-import com.mysport.sportapp.data.Constant.NEWS_API_CATEGORY_QUERY
-import com.mysport.sportapp.data.Constant.NEWS_API_COUNTRY_QUERY
-import com.mysport.sportapp.data.News
-import com.mysport.sportapp.data.NewsResponse
+import com.mysport.sportapp.constant.Constant.NEWS_API_API_KEY_QUERY
+import com.mysport.sportapp.constant.Constant.NEWS_API_CATEGORY_QUERY
+import com.mysport.sportapp.constant.Constant.NEWS_API_COUNTRY_QUERY
+import com.mysport.sportapp.domain.NewsResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
@@ -31,14 +29,6 @@ class NewsFragment: Fragment() {
 
     companion object {
         fun newInstance() = NewsFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?){
-        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onCreateView(

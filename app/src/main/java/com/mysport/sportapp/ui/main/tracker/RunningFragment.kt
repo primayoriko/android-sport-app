@@ -1,7 +1,6 @@
 package com.mysport.sportapp.ui.main.tracker
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -11,11 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant
-import com.mysport.sportapp.data.Training
-import com.mysport.sportapp.data.Training.TrainingType
+import com.mysport.sportapp.constant.Constant
+import com.mysport.sportapp.domain.Training
+import com.mysport.sportapp.domain.Training.TrainingType
 import com.mysport.sportapp.service.RunningService
 import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.GraphicUtility
@@ -25,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_cycling.btnFinishTrack
 import kotlinx.android.synthetic.main.fragment_cycling.btnToggleTrack
 import kotlinx.android.synthetic.main.fragment_cycling.tvTimer
 import kotlinx.android.synthetic.main.fragment_running.*
-import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -33,23 +30,12 @@ class RunningFragment : Fragment() {
 
     private val viewModel: TrackerViewModel by viewModels()
 
-    //    private var isInitialized = false
     private var isTracking = false
 
     private var curStepCount = 0
     private var curTimeInMillis = 0L
 
     private var menu: Menu? = null
-//    private var param1: String? = null
-//    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -67,24 +53,19 @@ class RunningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         btnFinishTrack.visibility = View.GONE
-
         btnToggleTrack.setOnClickListener {
             toggleTrack()
         }
-
         btnFinishTrack.setOnClickListener {
             showFinishTrackingDialog()
         }
-
         subscribeToObservers()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_tracker_menu, menu)
-
         this.menu = menu
     }
 
@@ -116,20 +97,14 @@ class RunningFragment : Fragment() {
         RunningService.isTracking.observe(viewLifecycleOwner, Observer {
             updateButton(it)
         })
-
         RunningService.stepCount.observe(viewLifecycleOwner, Observer {
             curStepCount = it
-
             val displayedStepCount = "$curStepCount"
-
             tvTotalStep.text = displayedStepCount
         })
-
         RunningService.timeTrainInMillis.observe(viewLifecycleOwner, Observer {
             curTimeInMillis = it
-
             val formattedTime = TrackerUtility.getFormattedTime(curTimeInMillis, true)
-
             tvTimer.text = formattedTime
         })
     }
@@ -140,11 +115,9 @@ class RunningFragment : Fragment() {
         if(!isTracking) {
             btnToggleTrack.text = "Start"
             btnFinishTrack.visibility = View.VISIBLE
-
         } else {
             btnToggleTrack.text = "Stop"
             btnFinishTrack.visibility = View.GONE
-
             menu?.getItem(0)?.isVisible = true
         }
     }
@@ -192,21 +165,17 @@ class RunningFragment : Fragment() {
                 curStepCount
         )
 
-        Timber.d(trainingEntry.toString())
-
         viewModel.insert(trainingEntry)
 
         val toast = Toast.makeText(context, "Training data saved successfully", Toast.LENGTH_LONG)
 
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
-
         stopTrack()
     }
 
     private fun stopTrack() {
         sendCommandToService(Constant.ACTION_STOP_SERVICE)
-
         findNavController().navigate(R.id.action_runningFragment_to_navigation_tracker)
     }
 

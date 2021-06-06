@@ -1,8 +1,9 @@
-package com.mysport.sportapp.data
+package com.mysport.sportapp.constant
 
 import android.graphics.Color
 
 object Constant {
+
     const val DATABASE_NAME = "sport_db"
 
     const val NEWS_API_BASE_URL = "https://newsapi.org/"

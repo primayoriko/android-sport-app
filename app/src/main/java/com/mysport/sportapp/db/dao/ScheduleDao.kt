@@ -2,7 +2,7 @@ package com.mysport.sportapp.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.mysport.sportapp.data.Schedule
+import com.mysport.sportapp.domain.Schedule
 
 
 @Dao

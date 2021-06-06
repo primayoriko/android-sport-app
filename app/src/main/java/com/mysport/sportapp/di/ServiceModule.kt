@@ -6,9 +6,9 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant.ACTION_SHOW_TRACKING_FRAGMENT
-import com.mysport.sportapp.data.Constant.BASE_NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.BASE_NOTIFICATION_CHANNEL_TITLE
+import com.mysport.sportapp.constant.Constant.ACTION_SHOW_TRACKING_FRAGMENT
+import com.mysport.sportapp.constant.Constant.BASE_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.constant.Constant.BASE_NOTIFICATION_CHANNEL_TITLE
 import com.mysport.sportapp.ui.main.MainActivity
 import dagger.Module
 import dagger.Provides
@@ -54,4 +54,5 @@ object ServiceModule {
     fun provideFusedLocationProviderClient(
             @ApplicationContext app: Context
     ) = FusedLocationProviderClient(app)
+
 }

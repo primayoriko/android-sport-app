@@ -16,14 +16,14 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
-import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_NAME
-import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_ID
-import com.mysport.sportapp.data.Constant.RUNNING_NOTIFICATION_CHANNEL_TITLE
-import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
+import com.mysport.sportapp.constant.Constant.ACTION_PAUSE_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_START_OR_RESUME_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_STOP_SERVICE
+import com.mysport.sportapp.constant.Constant.RUNNING_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.constant.Constant.RUNNING_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.constant.Constant.RUNNING_NOTIFICATION_ID
+import com.mysport.sportapp.constant.Constant.RUNNING_NOTIFICATION_CHANNEL_TITLE
+import com.mysport.sportapp.constant.Constant.TRACKER_UPDATE_INTERVAL
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -79,7 +79,6 @@ class RunningService: LifecycleService(), SensorEventListener {
                 .setContentTitle(RUNNING_NOTIFICATION_CHANNEL_TITLE)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
                 .setContentText("00:00:00")
-
         postInitialValues()
 
         isTracking.observe(this, Observer {
@@ -117,25 +116,18 @@ class RunningService: LifecycleService(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-
         serviceKilled = true
         Timber.d("Service Stopped")
 
     }
 
-    override fun onLowMemory() {
-        super.onLowMemory()
-    }
-
     override fun onSensorChanged(event: SensorEvent) {
-
         if (isTracking.value!! && event.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
             val detectSteps = if (event.values[0].toInt() > 0) 1 else 0
 
             stepCount.postValue(stepCount.value!! + detectSteps)
 
         }
-
 //        if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
 //            val countSteps = event.values[0].toInt()
 //            if (stepCount.value!! == 0) {

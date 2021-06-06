@@ -1,23 +1,21 @@
 package com.mysport.sportapp.adapter
 
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Schedule
-import com.mysport.sportapp.data.Schedule.ScheduleType
-import com.mysport.sportapp.data.Training.TrainingType
+import com.mysport.sportapp.domain.Schedule
+import com.mysport.sportapp.domain.Schedule.ScheduleType
+import com.mysport.sportapp.domain.Training.TrainingType
 import com.mysport.sportapp.databinding.ItemScheduleBinding
 
 
 //class ScheduleAdapter(listener: OnToggleScheduleListener):
 class ScheduleAdapter(private var scheduleList: List<Schedule>):
         RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-//    private val listener: OnToggleScheduleListener
+
     override fun getItemCount(): Int = scheduleList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -32,15 +30,10 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
         holder.bind(scheduleList[position])
     }
 
-    override fun onViewRecycled(holder: ScheduleViewHolder) {
-        super.onViewRecycled(holder)
-//        holder.scheduleStarted.setOnCheckedChangeListener(null)
-    }
-
-    fun setScheduleList(scheduleList: List<Schedule>) {
-        this.scheduleList = scheduleList
-        notifyDataSetChanged()
-    }
+//    fun setScheduleList(scheduleList: List<Schedule>) {
+//        this.scheduleList = scheduleList
+//        notifyDataSetChanged()
+//    }
 
     class ScheduleViewHolder(private val view: View):
             RecyclerView.ViewHolder(view) {
@@ -50,7 +43,6 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
 //        fun bind(schedule: Schedule, listener: OnToggleScheduleListener) {
         fun bind(schedule: Schedule) {
             this.schedule = schedule
-
             val title = schedule.title
             val time = "${schedule.hour}:${schedule.minute}"
             val duration = "${schedule.durationInMinutes}"
@@ -60,7 +52,6 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
             val status = if(schedule.isActive) "V" else "X"
             val scheduleType =
                     if(schedule.scheduleType == ScheduleType.EXACT) "Exact" else "Routine"
-
             val binding: ItemScheduleBinding = ItemScheduleBinding.bind(view)
 
             binding.tvScheduleTitle.text = title
@@ -77,11 +68,9 @@ class ScheduleAdapter(private var scheduleList: List<Schedule>):
         }
 
     }
-
 //    interface OnToggleScheduleListener {
 //        fun onToggle(schedule: Schedule?)
 //    }
-
 }
 
 

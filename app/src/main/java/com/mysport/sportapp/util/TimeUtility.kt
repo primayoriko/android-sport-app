@@ -47,7 +47,6 @@ object TimeUtility {
     fun getDateArray(timestamp: Long): IntArray {
         val date = IntArray(7)
         val calendar = Calendar.getInstance()
-
         calendar.timeInMillis = timestamp
 
         date[0] = calendar.get(Calendar.YEAR)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
 import com.mysport.sportapp.databinding.ItemNewsBinding
-import com.mysport.sportapp.data.News
+import com.mysport.sportapp.domain.News
 import com.mysport.sportapp.ui.news.NewsActivity
 
 class NewsAdapter(private val newsList: List<News>):
@@ -18,7 +18,6 @@ class NewsAdapter(private val newsList: List<News>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
-
         return NewsViewHolder(view)
     }
 
@@ -47,15 +46,13 @@ class NewsAdapter(private val newsList: List<News>):
             newsItemBinding.newsAuthor.text = news.author
 
             Glide.with(view.context).load(imageUrl.toString()).into(newsItemBinding.newsImage)
-
             view.setOnClickListener(View.OnClickListener {
                 val intent = Intent(view.context, NewsActivity::class.java)
                 intent.putExtra("url", news.url)
-
                 view.context.startActivity(intent)
             })
-
         }
+
     }
 }
 

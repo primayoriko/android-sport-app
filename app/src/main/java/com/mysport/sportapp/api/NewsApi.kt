@@ -1,8 +1,8 @@
 package com.mysport.sportapp.api
 
-import com.mysport.sportapp.data.Constant.NEWS_API_BASE_URL
-import com.mysport.sportapp.data.Constant.NEWS_API_BASE_URL_PATH
-import com.mysport.sportapp.data.NewsResponse
+import com.mysport.sportapp.constant.Constant.NEWS_API_BASE_URL
+import com.mysport.sportapp.constant.Constant.NEWS_API_BASE_URL_PATH
+import com.mysport.sportapp.domain.NewsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewsApi {
+
     @GET(NEWS_API_BASE_URL_PATH)
     fun getNews(
             @Query("country") country: String,
@@ -40,4 +41,5 @@ interface NewsApi {
                 .create(NewsApi::class.java)
         }
     }
+
 }

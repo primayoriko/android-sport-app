@@ -1,4 +1,4 @@
-package com.mysport.sportapp.data
+package com.mysport.sportapp.domain
 
 import android.graphics.Bitmap
 import android.graphics.Color

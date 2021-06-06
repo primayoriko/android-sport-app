@@ -1,23 +1,15 @@
 package com.mysport.sportapp.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.findFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Training
-import com.mysport.sportapp.data.Training.TrainingType
+import com.mysport.sportapp.domain.Training
+import com.mysport.sportapp.domain.Training.TrainingType
 import com.mysport.sportapp.databinding.ItemTrainingBinding
-import com.mysport.sportapp.ui.main.history.HistoryListFragment
-import com.mysport.sportapp.util.Converter
 import com.mysport.sportapp.util.TimeUtility
-import kotlinx.android.synthetic.main.fragment_history_list.*
-import timber.log.Timber
-import java.util.*
 
 class TrainingAdapter(
         private var trainingList: List<Training>,
@@ -34,18 +26,12 @@ class TrainingAdapter(
         val view: View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_training, parent, false)
-
         return TrainingViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TrainingViewHolder, position: Int) {
         holder.bind(trainingList[position])
-
         holder.view.setOnClickListener { callback.onClick(trainingList[position]) }
-    }
-
-    override fun onViewRecycled(holder: TrainingViewHolder) {
-        super.onViewRecycled(holder)
     }
 
     class TrainingViewHolder(val view: View):
@@ -55,7 +41,6 @@ class TrainingAdapter(
 
         fun bind(training: Training) {
             this.training = training
-
             val binding = ItemTrainingBinding.bind(view)
             val trainingType =
                 if (training.type == TrainingType.CYCLING) "Cycling" else "Running"

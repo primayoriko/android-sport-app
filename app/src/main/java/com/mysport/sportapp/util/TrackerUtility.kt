@@ -1,20 +1,14 @@
 package com.mysport.sportapp.util
 
-import android.Manifest
-import android.content.Context
 import android.location.Location
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.mysport.sportapp.data.Polyline
+import com.mysport.sportapp.domain.Polyline
 import okhttp3.internal.format
-import pub.devrel.easypermissions.EasyPermissions
 import java.util.concurrent.TimeUnit
 
 object TrackerUtility {
 
     fun getFormattedTime(ms: Long, includeMillis: Boolean = false): String {
         var milliseconds = ms
-
         val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
         milliseconds -= TimeUnit.HOURS.toMillis(hours)
 
@@ -54,10 +48,8 @@ object TrackerUtility {
                     pos2.longitude,
                     result
             )
-
             distance += result[0]
         }
-
         return distance
     }
 
