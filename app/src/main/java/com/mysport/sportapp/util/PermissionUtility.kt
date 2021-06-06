@@ -5,7 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import androidx.fragment.app.Fragment
-import com.mysport.sportapp.data.Constant
+import com.mysport.sportapp.constant.Constant
 import pub.devrel.easypermissions.EasyPermissions
 
 // TODO: Create permission factory to keep it DRY

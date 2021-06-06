@@ -15,16 +15,16 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
-import com.mysport.sportapp.data.Constant.MAP_ZOOM
-import com.mysport.sportapp.data.Constant.POLYLINE_COLOR
-import com.mysport.sportapp.data.Constant.POLYLINE_WIDTH
+import com.mysport.sportapp.constant.Constant.ACTION_PAUSE_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_START_OR_RESUME_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_STOP_SERVICE
+import com.mysport.sportapp.constant.Constant.MAP_ZOOM
+import com.mysport.sportapp.constant.Constant.POLYLINE_COLOR
+import com.mysport.sportapp.constant.Constant.POLYLINE_WIDTH
 import com.mysport.sportapp.service.CyclingService
 import com.mysport.sportapp.util.TrackerUtility
-import com.mysport.sportapp.data.Polyline
-import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.domain.Polyline
+import com.mysport.sportapp.domain.Training
 import com.mysport.sportapp.ui.main.MainActivity
 import com.mysport.sportapp.util.PermissionUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +33,6 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
 import java.util.*
-import kotlin.math.round
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
@@ -257,18 +256,22 @@ class CyclingFragment:
                     distanceInMeters += TrackerUtility.calculatePolylineLength(polyline)
                 }
 
-                val trainingEntry = Training(
+                val trainingEntry = bmp?.let {
+                    Training(
                         Training.TrainingType.CYCLING,
                         dateTimestamp,
                         curTimeInMillis,
-                        bmp,
+                        it,
                         distanceInMeters,
                         null
-                )
+                    )
+                }
 
                 Timber.d(trainingEntry.toString())
 
-                viewModel.insert(trainingEntry)
+                if (trainingEntry != null) {
+                    viewModel.insert(trainingEntry)
+                }
 
                 val toast = Toast.makeText(context, "Training data saved successfully", Toast.LENGTH_LONG)
 

@@ -1,27 +1,21 @@
 package com.mysport.sportapp.service
 
-import android.R
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.os.Vibrator
-import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import com.mysport.sportapp.data.Constant
-import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
-import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
-import com.mysport.sportapp.data.Constant.SCHEDULER_NOTIFICATION_ID
-import com.mysport.sportapp.data.Schedule.Companion.DURATION
-import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
-import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
-import com.mysport.sportapp.util.TrackerUtility
+import com.mysport.sportapp.constant.Constant.SCHEDULER_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.constant.Constant.SCHEDULER_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.constant.Constant.SCHEDULER_NOTIFICATION_CHANNEL_TITLE
+import com.mysport.sportapp.constant.Constant.SCHEDULER_NOTIFICATION_ID
+import com.mysport.sportapp.domain.Schedule.Companion.DURATION
+import com.mysport.sportapp.domain.Schedule.Companion.FINISH_MSG
+import com.mysport.sportapp.domain.Schedule.Companion.MESSAGE
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -45,13 +39,11 @@ class SchedulerService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         startForegroundServices(intent)
-
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         vibrator.cancel()
 //        mediaPlayer.stop()
     }
@@ -88,7 +80,6 @@ class SchedulerService : Service() {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(message))
 //                .setContentText(message)
                 .setContentIntent(pendingIntent)
-
 //        vibrator.vibrate(pattern, 0)
         vibrator.vibrate(800)
 //        mediaPlayer.start()
@@ -105,7 +96,6 @@ class SchedulerService : Service() {
 
         notificationManager.createNotificationChannel(channel)
     }
-
 //    val notificationActionText = if(isTracking) "Pause" else "Resume"
 //        val pendingIntent = if(isTracking) {
 //            val pauseIntent = Intent(this, CyclingService::class.java).apply {
@@ -133,5 +123,4 @@ class SchedulerService : Service() {
 //                    .addAction(R.drawable.ic_baseline_pause_24, notificationActionText, pendingIntent)
 //            notificationManager.notify(RUNNING_NOTIFICATION_ID, notificationBuilder.build())
 //        }
-
 }

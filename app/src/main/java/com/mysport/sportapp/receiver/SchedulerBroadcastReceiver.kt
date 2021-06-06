@@ -4,21 +4,19 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.widget.Toast
-import com.mysport.sportapp.data.Schedule.Companion.AUTO_TRACK
-import com.mysport.sportapp.data.Schedule.Companion.DURATION
-import com.mysport.sportapp.data.Schedule.Companion.FINISH_MSG
-import com.mysport.sportapp.data.Schedule.Companion.FRIDAY
-import com.mysport.sportapp.data.Schedule.Companion.MESSAGE
-import com.mysport.sportapp.data.Schedule.Companion.MONDAY
-import com.mysport.sportapp.data.Schedule.Companion.RECURRING
-import com.mysport.sportapp.data.Schedule.Companion.SATURDAY
-import com.mysport.sportapp.data.Schedule.Companion.SUNDAY
-import com.mysport.sportapp.data.Schedule.Companion.THURSDAY
-import com.mysport.sportapp.data.Schedule.Companion.TUESDAY
-import com.mysport.sportapp.data.Schedule.Companion.WEDNESDAY
+import com.mysport.sportapp.domain.Schedule.Companion.AUTO_TRACK
+import com.mysport.sportapp.domain.Schedule.Companion.DURATION
+import com.mysport.sportapp.domain.Schedule.Companion.FINISH_MSG
+import com.mysport.sportapp.domain.Schedule.Companion.FRIDAY
+import com.mysport.sportapp.domain.Schedule.Companion.MESSAGE
+import com.mysport.sportapp.domain.Schedule.Companion.MONDAY
+import com.mysport.sportapp.domain.Schedule.Companion.RECURRING
+import com.mysport.sportapp.domain.Schedule.Companion.SATURDAY
+import com.mysport.sportapp.domain.Schedule.Companion.SUNDAY
+import com.mysport.sportapp.domain.Schedule.Companion.THURSDAY
+import com.mysport.sportapp.domain.Schedule.Companion.TUESDAY
+import com.mysport.sportapp.domain.Schedule.Companion.WEDNESDAY
 import com.mysport.sportapp.service.SchedulerService
-import timber.log.Timber
 import java.util.*
 
 

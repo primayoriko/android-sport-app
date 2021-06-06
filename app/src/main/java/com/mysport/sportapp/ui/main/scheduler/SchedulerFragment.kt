@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Schedule
-import com.mysport.sportapp.data.Schedule.ScheduleType
-import com.mysport.sportapp.data.Training.TrainingType
+import com.mysport.sportapp.domain.Schedule
+import com.mysport.sportapp.domain.Schedule.ScheduleType
+import com.mysport.sportapp.domain.Training.TrainingType
 import com.mysport.sportapp.util.TimeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_scheduler.*
@@ -42,9 +42,6 @@ class SchedulerFragment : Fragment() {
         }
 
         rgScheduleType.setOnCheckedChangeListener { _, id ->
-//            Timber.d("$id\n$id\n$")
-//            Timber.d("${radioScheduleTypeExact.id}\n$${radioScheduleTypeRoutine.id}\n$")
-
             if (id == radioScheduleTypeExact.id) {
                 layoutDays.visibility = View.GONE
                 layoutDate.visibility = View.VISIBLE
@@ -155,7 +152,6 @@ class SchedulerFragment : Fragment() {
 //        spinner?.adapter = adapter
 //        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-////                Log.v("item", parent.getItemAtPosition(position) as String)
 //                (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
 //            }
 //

@@ -2,7 +2,7 @@ package com.mysport.sportapp.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.domain.Training
 
 @Dao
 interface TrainingDao {

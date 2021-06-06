@@ -1,12 +1,10 @@
 package com.mysport.sportapp.ui.main.tracker
 
-import android.Manifest
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant.REQUEST_CODE_LOCATION_PERMISSION
 import com.mysport.sportapp.util.PermissionUtility
-import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracker.*
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -43,10 +39,6 @@ class TrackerFragment : Fragment(),
     }
 
     private lateinit var viewModel: TrackerViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +73,6 @@ class TrackerFragment : Fragment(),
     override fun onSensorChanged(event: SensorEvent) {
         if(event.sensor?.type == Sensor.TYPE_ACCELEROMETER){
             floatGravity = event.values
-
         } else if(event.sensor?.type == Sensor.TYPE_MAGNETIC_FIELD){
             floatGeoMagnetic = event.values
         }
@@ -90,10 +81,6 @@ class TrackerFragment : Fragment(),
         SensorManager.getOrientation(floatRotationMatrix, floatOrientation);
 
         imageCompass?.rotation = (-floatOrientation[0] * 180 / 3.14159).toFloat()
-
-//        Timber.d(floatOrientation[0].toString())
-//        Timber.d(floatOrientation[1].toString())
-//        Timber.d(floatOrientation[2].toString())
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -122,7 +109,6 @@ class TrackerFragment : Fragment(),
 
     private fun activateSensors(){
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         magneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 

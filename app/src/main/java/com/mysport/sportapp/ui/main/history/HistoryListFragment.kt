@@ -11,15 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.mysport.sportapp.R
 import com.mysport.sportapp.adapter.TrainingAdapter
-import com.mysport.sportapp.data.Training
+import com.mysport.sportapp.domain.Training
 import com.mysport.sportapp.util.Converter
 import com.mysport.sportapp.util.TimeUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_history_list.*
-import timber.log.Timber
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
@@ -60,8 +58,6 @@ class HistoryListFragment : Fragment() {
             Observer { scheduleList ->
                     val todayTimestamp = TimeUtility.getDayTimestampInMillis(day, month, year)
                     val tomorrowTimestamp = todayTimestamp + (1000 * 60 * 60 * 24)
-    //                Timber.d(todayTimestamp.toString())
-    //                Timber.d(tomorrowTimestamp.toString())
                     val resList =
                         scheduleList.filter { it.timestamp in todayTimestamp..tomorrowTimestamp }
 
@@ -74,10 +70,6 @@ class HistoryListFragment : Fragment() {
 
     private val landscapeCallback = object: TrainingAdapter.OnClickListener {
         override fun onClick(item: Training) {
-//            tvTrainingTypeDet.text = binding.tvTrainingType.text
-//            tvTrainingDurationDet.text = binding.tvTrainingDuration.text
-//            tvTrainingResultDet.text = binding.tvTrainingResult.text
-//            tvTrainingTimeDet.text = binding.tvTrainingTime.text
             val str = stringifyTraining(item)
 
             tvTrainingTypeDet.text = str[0]

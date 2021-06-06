@@ -1,7 +1,6 @@
 package com.mysport.sportapp.repository
 
-import androidx.lifecycle.LiveData
-import com.mysport.sportapp.data.Schedule
+import com.mysport.sportapp.domain.Schedule
 import com.mysport.sportapp.db.dao.ScheduleDao
 import javax.inject.Inject
 

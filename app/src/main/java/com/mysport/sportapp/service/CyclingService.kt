@@ -20,18 +20,17 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import com.mysport.sportapp.R
-import com.mysport.sportapp.data.Constant
-import com.mysport.sportapp.data.Constant.ACTION_PAUSE_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_START_OR_RESUME_SERVICE
-import com.mysport.sportapp.data.Constant.ACTION_STOP_SERVICE
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_ID
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_NAME
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_ID
-import com.mysport.sportapp.data.Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE
-import com.mysport.sportapp.data.Constant.FASTEST_LOCATION_INTERVAL
-import com.mysport.sportapp.data.Constant.LOCATION_UPDATE_INTERVAL
-import com.mysport.sportapp.data.Constant.TRACKER_UPDATE_INTERVAL
-import com.mysport.sportapp.data.Polylines
+import com.mysport.sportapp.constant.Constant
+import com.mysport.sportapp.constant.Constant.ACTION_PAUSE_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_START_OR_RESUME_SERVICE
+import com.mysport.sportapp.constant.Constant.ACTION_STOP_SERVICE
+import com.mysport.sportapp.constant.Constant.CYCLING_NOTIFICATION_CHANNEL_ID
+import com.mysport.sportapp.constant.Constant.CYCLING_NOTIFICATION_CHANNEL_NAME
+import com.mysport.sportapp.constant.Constant.CYCLING_NOTIFICATION_ID
+import com.mysport.sportapp.constant.Constant.FASTEST_LOCATION_INTERVAL
+import com.mysport.sportapp.constant.Constant.LOCATION_UPDATE_INTERVAL
+import com.mysport.sportapp.constant.Constant.TRACKER_UPDATE_INTERVAL
+import com.mysport.sportapp.domain.Polylines
 import com.mysport.sportapp.util.PermissionUtility
 import com.mysport.sportapp.util.TrackerUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,7 +88,6 @@ class CyclingService: LifecycleService() {
                 .setContentTitle(Constant.CYCLING_NOTIFICATION_CHANNEL_TITLE)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
                 .setContentText("00:00:00")
-
         postInitialValues()
 
         fusedLocationProviderClient = FusedLocationProviderClient(this)
@@ -130,7 +128,6 @@ class CyclingService: LifecycleService() {
 
     private fun startTracker() {
         addEmptyPolyline()
-
         isTracking.postValue(true)
         timeStarted = System.currentTimeMillis()
 
@@ -139,14 +136,12 @@ class CyclingService: LifecycleService() {
             while(isTracking.value!!){
                 if(paths.isNotEmpty()){
                     val path = paths.last()
-
                     if(paths.last().size > 1 && lastLocation != null){
                         val curLoc: LatLng = path.last()
                         val distances = FloatArray(1)
 
-                        Timber.d("Last Loc: longi ${lastLocation!!.longitude} lati ${lastLocation!!.latitude}")
-                        Timber.d("Cur Loc: longi ${curLoc.longitude} lati ${curLoc.latitude}")
-
+//                        Timber.d("Last Loc: longi ${lastLocation!!.longitude} lati ${lastLocation!!.latitude}")
+//                        Timber.d("Cur Loc: longi ${curLoc.longitude} lati ${curLoc.latitude}")
                         Location.distanceBetween(
                                 lastLocation!!.latitude,
                                 lastLocation!!.longitude,
@@ -154,18 +149,13 @@ class CyclingService: LifecycleService() {
                                 curLoc.longitude,
                                 distances
                         )
-
                         distanceInMeters.postValue(distanceInMeters.value!! + distances[0])
 
                         lastLocation = curLoc
-
                     } else if(path.isNotEmpty()) {
                         lastLocation = path.last()
-
                     }
-
                 }
-
                 delay(TRACKER_UPDATE_INTERVAL * 15)
             }
         }
@@ -179,10 +169,8 @@ class CyclingService: LifecycleService() {
                     timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
                     lastSecondTimestamp += 1000L
                 }
-
                 delay(TRACKER_UPDATE_INTERVAL)
             }
-
             timeRun += lapTime
         }
     }
@@ -208,9 +196,7 @@ class CyclingService: LifecycleService() {
                 notificationManager.notify(CYCLING_NOTIFICATION_ID, notification.build())
             }
         })
-
         // TODO: Observe running
-
     }
 
     private fun pauseService() {
@@ -275,7 +261,6 @@ class CyclingService: LifecycleService() {
                 result.locations.let { locations ->
                     for (location in locations) {
                         addPathPoint(location)
-
                         Timber.d("New Location: ${location.latitude}, ${location.longitude}")
                     }
                 }

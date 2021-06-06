@@ -1,9 +1,8 @@
 package com.mysport.sportapp.ui.main.news
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mysport.sportapp.data.News
+import com.mysport.sportapp.domain.News
 
 class NewsViewModel: ViewModel() {
 

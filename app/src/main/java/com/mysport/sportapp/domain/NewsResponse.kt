@@ -1,4 +1,4 @@
-package com.mysport.sportapp.data
+package com.mysport.sportapp.domain
 
 import com.google.gson.annotations.SerializedName
 
